@@ -5,8 +5,11 @@ nav:
   - TDs:
     - ' TD1: Course Introduction and Programming Environment Setup ' : tds/td1.md
     - ' TD2: Audio Signal Processing Fundamentals ' : tds/td2.md
+    - ' TD3: Digital Audio Systems Architectures and Audio Callback ' : tds/td3.md
     
-theme: flatly
+theme: 
+  name: flatly
+  navigation_depth: 4
 
 site_dir: ../docs
 

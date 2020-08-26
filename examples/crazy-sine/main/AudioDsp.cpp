@@ -14,7 +14,8 @@ fBufferSize(BS),
 fNumOutputs(2),
 fHandle(nullptr),
 fRunning(false),
-echo(10000)
+sine(SR),
+echo(SR,10000)
 {
   // config i2s pin numbers
   i2s_pin_config_t pin_config;
@@ -47,8 +48,6 @@ echo(10000)
   REG_WRITE(PIN_CTRL, 0xFFFFFFF0);
   
   // setting up DSP objects
-  sine.init(SR);
-  echo.init(SR);
   echo.setDel(10000);
   echo.setFeedback(0.5);
 }

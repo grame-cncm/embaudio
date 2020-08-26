@@ -2,21 +2,29 @@
 
 #include "Sine.h"
 
+#define SINE_TABLE_SIZE 16384
 #define PI 3.141592653589
 
-Sine::Sine() : 
-angleDelta(0.0),
-currentAngle(0.0),
+Sine::Sine(int SR) : 
+phasorDelta(0.0),
+phasor(0.0),
 gain(1.0),
-samplingRate(0.0){}
-
-void Sine::init(int SR){
+samplingRate(0.0){
+  sineTable = new float[SINE_TABLE_SIZE];
+  for(int i=0; i<SINE_TABLE_SIZE; i++){
+    sineTable[i] = std::sin(i*2.0*PI/SINE_TABLE_SIZE);
+  }
   samplingRate = SR;
   setFrequency(440);
 }
 
+Sine::~Sine()
+{
+  delete[] sineTable;
+}
+
 void Sine::setFrequency(float f){
-  angleDelta = f/samplingRate;
+  phasorDelta = f/samplingRate;
 }
     
 void Sine::setGain(float g){
@@ -24,8 +32,9 @@ void Sine::setGain(float g){
 }
     
 float Sine::tick(){
-  float currentSample = std::sin(currentAngle*2.0*PI)*gain;
-  currentAngle += angleDelta;
-  currentAngle = currentAngle - std::floor(currentAngle);
+  int index = phasor*SINE_TABLE_SIZE;
+  float currentSample = sineTable[index]*gain;
+  phasor += phasorDelta;
+  phasor = phasor - std::floor(phasor);
   return currentSample;
 }

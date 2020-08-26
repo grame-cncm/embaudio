@@ -3,14 +3,15 @@
 
 class Sine{
 public:
-  Sine();
+  Sine(int SR);
+  ~Sine();
   
-  void init(int SR);
   void setFrequency(float f);
   void setGain(float g);
   float tick();
 private:
-  float angleDelta, currentAngle, gain, samplingRate;
+  float phasorDelta, phasor, gain, samplingRate;
+  float *sineTable;
 };
 
 #endif  // SINE_H_INCLUDED

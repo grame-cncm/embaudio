@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title> TD3: Digital Audio Systems Architectures and Audio Callback  - AUD @ INSA Lyon</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">AUD @ INSA Lyon</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Syllabus</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">TDs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../td1/" class="dropdown-item"> TD1: Course Introduction and Programming Environment Setup </a>
+</li>
+                                    
+<li>
+    <a href="../td2/" class="dropdown-item"> TD2: Audio Signal Processing Fundamentals </a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active"> TD3: Digital Audio Systems Architectures and Audio Callback </a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../td2/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#td3-digital-audio-systems-architectures-and-audio-callback" class="nav-link">TD3: Digital Audio Systems Architectures and Audio Callback</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#basic-architecture-of-a-digital-audio-system" class="nav-link">Basic Architecture of a Digital Audio System</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#architecture-of-embedded-audio-systems-such-as-the-lyrat" class="nav-link">Architecture of Embedded Audio Systems Such as the LyraT</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#concept-of-audio-blocks-buffers-audio-rate-and-control-rate" class="nav-link">Concept of Audio Blocks (Buffers), Audio Rate, and Control Rate</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#first-audio-program-on-the-lyrat-crazy-sine" class="nav-link">First Audio Program on the LyraT: crazy-sine</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#converting-floats-to-int16_t" class="nav-link">Converting Floats to int16_t</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#interlacing-output-samples" class="nav-link">Interlacing Output Samples</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#i2s-transmission" class="nav-link">i2s Transmission</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#c-sine-wave-oscillator" class="nav-link">C++ Sine Wave Oscillator</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#looping-through-a-small-tune" class="nav-link">Looping Through a Small Tune</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#basic-additive-synthesis" class="nav-link">Basic Additive Synthesis</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#stereo-echo" class="nav-link">Stereo Echo</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="td3-digital-audio-systems-architectures-and-audio-callback">TD3: Digital Audio Systems Architectures and Audio Callback</h1>
+<p>By the end of this lecture, you should be able to produce sound with your LyraT and have a basic understanding of the software and hardware architecture of embedded audio systems.</p>
+<h2 id="basic-architecture-of-a-digital-audio-system">Basic Architecture of a Digital Audio System</h2>
+<p>All digital audio systems have an architecture involving at least an ADC and/or a DAC. Audio samples are processed on a computer (i.e., CPU, microcontroller, DSP, etc.) typically in an audio callback and are transmitted to the DAC and/or received from the ADC:</p>
+<figure>
+<img src="img/audio-arch.jpg" class="mx-auto d-block" width="70%">
+</figure>
+
+<p>The format of audio samples depends on the hardware configuration of the system. </p>
+<h2 id="architecture-of-embedded-audio-systems-such-as-the-lyrat">Architecture of Embedded Audio Systems Such as the LyraT</h2>
+<p>Since the LyraT is and embedded system, the audio ADC and DAC are built-in in the board within a component called an audio codec. The audio codec can be seen as an audio interface providing audio inputs and outputs. It is directly connected to the ESP32 board though an i2s bus. Additional information on how this kind of system works will be provided in <a href="td4.md">TD4</a>. </p>
+<figure>
+<img src="img/lyrat-diagram.jpg" class="mx-auto d-block" width="70%">
+<figcaption><center>LyraT Overview Diagram From <a href="https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat.html">the ESP32 Website</a></center></figcaption>
+</figure>
+
+<h2 id="concept-of-audio-blocks-buffers-audio-rate-and-control-rate">Concept of Audio Blocks (Buffers), Audio Rate, and Control Rate</h2>
+<p>A large number of audio samples must be processed and transmitted every second. For example, if the sampling rate of the system is 48 kHz, 48000 samples will be processed in one second. Digital audio is extremely demanding and if one sample is missed, the result in the produced sound will be very audible. Most processors cannot process and transmit samples one by one which is why buffers need to be used. Hence, most digital audio systems will process audio as "blocks." The smallest size of a block will be determined by the performance of the system. On a modern computer running an operating system such as Windows, MacOS or Linux, the standard block size is usually 256 samples. In that case, the audio callback will process and then transmit to the DAC 256 samples all at once. </p>
+<p>An audio callback function will hence typically take the following form: </p>
+<pre><code>void audioCallback(float *inputs, float *outputs){
+  // control rate portion
+  int gain = mainVolume;
+  for(int i=0; i&lt;blockSize; i++){
+    // audio rate portion
+    outputs[i] = inputs[i]*gain;
+  }
+}
+</code></pre>
+
+<p><code>audioCallback</code> is called every time a new buffer is needed by the audio interface (ADC/DAC). For example, if the sampling rate is 48 kHz and the block size is 256 samples, <code>audioCallback</code> will be called 187.5 (48000/256) per seconds. Here, the <code>for</code> loop parses the input buffer and copy it to the output by modifying its gain. Note that <code>gain</code> is set outside of the <code>for</code> loop. That's a very common thing to do in the field of real-time audio processing: what happens outside of the <code>for</code> loop is called the <strong>control rate</strong> and what happens inside the <code>for</code> loop is called the <strong>audio rate</strong>. The parameters of an audio program are typically processed at control rate since user interface elements usually run at a much lower rate than audio.</p>
+<p>Block size is directly linked to the audio latency of the system by the following formula: <script type="math/tex">latency = BS/fs</script> where <script type="math/tex">latency</script> is in seconds. Hence, the greater the block size, the larger the latency. For example, a block size of 256 samples at a sampling rate of 48 kHz will induce a latency of approximately 5ms. If the system has an audio input, this value has to be doubled, of course. A latency of 10ms might not seem like a lot but if the system is used for music purposes, this might be perceived by the performer. </p>
+<p>Embedded systems such as the LyraT can achieve much lower latencies that regular computers because of their lightness. Hence, the block size of your LyraT can be as small as 16!</p>
+<h2 id="first-audio-program-on-the-lyrat-crazy-sine">First Audio Program on the LyraT: <code>crazy-sine</code></h2>
+<p>The <a href="https://github.com/grame-cncm/embaudio20">course repository</a> hosts an example containing a program synthesizing a sine wave on the LyraT board and controlling its frequency: <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-sine">crazy-sine</a>. This program contains all the building blocks of a real-time audio program including... the audio callback which can be found in <a href="https://github.com/grame-cncm/embaudio20/blob/master/examples/crazy-sine/main/AudioDsp.cpp"><code>AudioDsp.cpp</code></a>! The audio callback is implemented in this class in the <code>audioTask</code> method and take the following shape:</p>
+<pre><code>void AudioDsp::audioTask()
+{
+  // inifinite loop
+  while (fRunning) {
+    int16_t samples_data_out[fNumOutputs*fBufferSize];
+
+    // processing buffers
+    for (int i = 0; i &lt; fBufferSize; i++) {
+      // DSP
+      float currentSample = echo.tick(sine.tick())*0.5;
+
+      // copying to output buffer
+      samples_data_out[i*fNumOutputs] = currentSample*MULT_S16;
+      samples_data_out[i*fNumOutputs+1] = samples_data_out[i*fNumOutputs];
+    }
+    // transmitting output buffer
+    size_t bytes_written = 0;
+    i2s_write((i2s_port_t)0, &amp;samples_data_out, 
+      fNumOutputs*sizeof(int16_t)*fBufferSize, 
+      &amp;bytes_written, portMAX_DELAY);
+  }
+  // Task has to deleted itself beforee returning
+  vTaskDelete(nullptr);
+}
+</code></pre>
+
+<p>First, a <code>while</code> loop is implemented and is repeated every time a new buffer is needed, that's basically the "callback". <code>samples_data_out</code> is the output buffer whose size is the buffer size multiplied by the number of outputs of the system. For example, if the system has a stereo output and the buffer size is 256 samples, then the size of <code>samples_data_out</code> will be 512. Audio samples are coded here on 16 bits integers which is the data type accepted by the audio codec of the LyraT.</p>
+<p>Then, the audio rate <code>for</code> loop is implemented and samples are processed and stored in a <code>float</code> called <code>currentSample</code>. <code>echo</code> and <code>sine</code> are defined in the <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/lib"><code>lib</code> folder</a> and implement an echo and a sine wave oscillator, respectively.</p>
+<h3 id="converting-floats-to-int16_t">Converting Floats to <code>int16_t</code></h3>
+<p>Since the type of the output buffer is 16 bits signed integer, the float value of <code>currentSample</code> must be converted. For that, we just have to multiply <code>currentSample</code> by <script type="math/tex">2^{16}/2</script> (the range of <code>currentSample</code> is {-1;1}). As explained in <a href="../td2/">TD2</a>, <code>float</code> are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.</p>
+<h3 id="interlacing-output-samples">Interlacing Output Samples</h3>
+<p>The LyraT has a stereo output (2 channels). The way parallel channels are transmitted to the audio codec is by interlacing samples in the output buffer (the same is true for the input, of course). This is carried out with the following piece of code:</p>
+<pre><code>samples_data_out[i*fNumOutputs] = currentSample*MULT_S16;
+samples_data_out[i*fNumOutputs+1] = samples_data_out[i*fNumOutputs];
+</code></pre>
+
+<p>Hence, the left channel sample is first written into the buffer, then the right channel sample and so on, etc. Here, the left channel is copied into the right channel since the DSP algorithm only has a single output. Now you should understand why <code>samples_data_out</code> was declared as <code>int16_t samples_data_out[fNumOutputs*fBufferSize];</code>. </p>
+<h3 id="i2s-transmission">i2s Transmission</h3>
+<p>Once <code>samples_data_out</code> has been formatted, the buffer is transmitted to the audio codec using the i2s protocol (which will be detailed in TODO). The <code>i2s_write</code> uses a blocking mechanism to hold the thread (task) until a new buffer is needed. </p>
+<h2 id="c-sine-wave-oscillator">C++ Sine Wave Oscillator</h2>
+<p>Sine wave are at the basis of many algorithms in the field of audio. The sound of a sine wave is what we call a "pure tone" since it only has a single harmonic. One of the consequences of this is that all sounds can be synthesized using a combination of sine waves (<a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transform</a>).</p>
+<p>From a mathematical standpoint, a sine oscillator can be implemented with the following differential equation:</p>
+<p>
+<script type="math/tex; mode=display">x(t) = Asin(\omega t + \phi)</script>
+</p>
+<p>with:</p>
+<ul>
+<li>
+<script type="math/tex">A</script>: the peak amplitude</li>
+<li>
+<script type="math/tex">\omega = 2 \pi f</script>: the radian frequency (rad/sec)</li>
+<li>
+<script type="math/tex">f</script>: the frequency in Hz</li>
+<li>
+<script type="math/tex">t</script>: the time seconds</li>
+<li>
+<script type="math/tex">\phi</script>: the initial phase (radians)</li>
+</ul>
+<p>
+<script type="math/tex">x(t)</script> could be translated to C++ by writing something like (<script type="math/tex">\phi</script> is ignored here):</p>
+<pre><code>float currentSample = A*std::sin(2*PI*f*t);
+</code></pre>
+
+<p>however sine oscillators are rarely implemented as such since calling the <code>std::sin</code> function at every sample can be quite computationally expensive. For that reason, it is better to pre-compute the sine wave and store it in a wave table before computation starts. That kind of algorithm is then called a "wave table oscillator."</p>
+<p><a href="https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp">Sine.cpp</a> which is used in <code>crazy-sine</code> is a good example of that. A sine wave table is pre-computed in the constructor of the class:</p>
+<pre><code>sineTable = new float[SINE_TABLE_SIZE];
+for(int i=0; i&lt;SINE_TABLE_SIZE; i++){
+  sineTable[i] = std::sin(i*2.0*PI/SINE_TABLE_SIZE);
+}
+</code></pre>
+
+<p>The size of the table plays an important role on the quality of the generated sound. The greater the size, the more accurate/pure the sine wave. A low resolution sine wave will produce more distortion. In <code>Sine.cpp</code>, the sine wave table has a size of <script type="math/tex">2^{14}</script> which presents a good compromise between sound quality and memory.</p>
+<p>It is important to keep in mind that when working with embedded systems memory is also an important factor to take into account. </p>
+<p>The <code>tick</code> method of <code>Sine.cpp</code> is where the output samples of the sine wave are computed:</p>
+<pre><code>float Sine::tick(){
+  int index = phasor*SINE_TABLE_SIZE;
+  float currentSample = sineTable[index]*gain;
+  phasor += phasorDelta;
+  phasor = phasor - std::floor(phasor);
+  return currentSample;
+}
+</code></pre>
+
+<p><code>sineTable</code> is read at different speeds depending on the desired frequency. <code>index</code> is used to read the table and is computed based on <code>phasor</code> whose value is incremented by <script type="math/tex">f/fs</script> at every samples and then reset to zero when it's about to become greater or equal to 1.</p>
+<h2 id="exercises">Exercises</h2>
+<h3 id="looping-through-a-small-tune">Looping Through a Small Tune</h3>
+<p>In the world of music technology, musical notes are usually represented by <a href="https://djip.co/blog/logic-studio-9-midi-note-numbers">MIDI numbers</a>. In MIDI, each pitch of the chromatic scale has a number between 0 and 127 associated to it: <a href="https://djip.co/blog/logic-studio-9-midi-note-numbers">https://djip.co/blog/logic-studio-9-midi-note-numbers</a></p>
+<p>As you can see, middle C (Do) corresponds to number 72. MIDI note numbers can be converted to a frequency using the following formula:</p>
+<p>
+<script type="math/tex; mode=display">f=2^{(d-69)/12}.440</script>
+</p>
+<p>where <script type="math/tex">d</script> is the MIDI number.</p>
+<p>Write a small tune/song looping through at least 5 notes and play it with the <code>crazy-sine</code> program on your LyraT.</p>
+<p><strong>Hint:</strong> For that, you'll probably have to replace the <code>audioDsp.setFreq(rand()%(2000-50 + 1) + 50);</code> line of of <code>main.cpp</code> by something else.</p>
+<h3 id="basic-additive-synthesis">Basic Additive Synthesis</h3>
+<p>One of the most basic kind of sound synthesis is "additive synthesis." In consists of adding multiple sine wave oscillators together to "sculpt" the timbre of a sound. Both the frequency and the gain of each individual oscillator can then be used to change the properties of the synthesized sound. </p>
+<p>A simple additive synthesizer could be implemented from the <code>crazy-sine</code> example by declaring multiple instances of <code>sine</code>. E.g.:</p>
+<pre><code>float currentSample = echo.tick(sine0.tick()*gain0 + sine1.tick()*gain1);
+</code></pre>
+
+<p>but the problem with that option is that memory will be allocated twice for the <code>sineTable</code> array which is a terrible idea in the context of our embedded audio system with very little memory. Instead, the additive synthesizer should reuse the same instance of <code>sineTable</code> for each oscillator. In the <code>tick</code> method of <code>Sine.cpp</code>, try to call the <code>sineTable</code> a second time after <code>float currentSample = sineTable[index]*gain;</code> to add a second oscillator to the generated sample. The value of its index could be something like <code>index = (int) (index*1.5)%SINE_TABLE_SIZE;</code> so that the frequency of the second oscillator is one fifth above the main frequency. In other words, the differential equation of the synth should be:</p>
+<p>
+<script type="math/tex; mode=display">x(t) = sin(2 \pi f t) + sin(2 \pi (1.5f) t)</script>
+</p>
+<p><strong>Hint:</strong> Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. </p>
+<h3 id="stereo-echo">Stereo Echo</h3>
+<p>Create a second instance of <code>echo</code> (connected to the same instance of <code>sine</code>) with different parameters from the first one that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:</p>
+<pre><code>float sineSample = sine.tick();
+float currentSampleL = echo0.tick(sineSample)*0.5;
+float currentSampleR = echo1.tick(sineSample)*0.5;
+</code></pre>
+
+<p><strong>Hint:</strong> Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. </p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

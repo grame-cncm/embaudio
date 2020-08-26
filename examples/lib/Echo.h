@@ -3,10 +3,9 @@
 
 class Echo{
 public:
-  Echo(int maxDel);
+  Echo(int SR, int maxDel);
   ~Echo();
   
-  void init(int SR);
   void setFeedback(float f);
   void setDel(int d);
   float tick(float input);

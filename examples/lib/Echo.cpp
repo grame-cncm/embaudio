@@ -4,7 +4,7 @@
 
 #define PI 3.141592653589
 
-Echo::Echo(int maxDel) : 
+Echo::Echo(int SR, int maxDel) : 
 feedback(0.0),
 samplingRate(0.0),
 readIndex(1),
@@ -15,15 +15,12 @@ del(0)
   for(int i=0; i<maxDel; i++){
     delBuffer[i] = 0.0;
   }
+  samplingRate = SR;
 }
 
 Echo::~Echo()
 {
   delete[] delBuffer;
-}
-
-void Echo::init(int SR){
-  samplingRate = SR;
 }
 
 void Echo::setFeedback(float f){
