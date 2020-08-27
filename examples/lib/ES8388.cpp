@@ -9,35 +9,33 @@ uint8_t ES8388::init(void)
 {
   initI2C();
   
+  // GENERAL CONFIG
+  writeReg(ES8388_CONTROL1,18); // 0001 0010: chip control settings
   writeReg(ES8388_CONTROL2,80); // 0101 0000: chip control settings
   writeReg(ES8388_CHIPPOWER,0); // 0000 0000: chip power management
-  writeReg(ES8388_MASTERMODE,0); // 0000 0000: slave serial port mode
-  writeReg(ES8388_CONTROL1,18); // 0001 0010: chip control settings 
-  writeReg(ES8388_DACCONTROL2,2); // 0000 0010: DACFsRatio (Master mode DAC MCLK to sampling frequency ratio) is set to 256 
-  writeReg(ES8388_DACCONTROL16,0); // 0000 0000: no shelving filter (all coefs to 0)
-  writeReg(ES8388_DACCONTROL17,144); // 1001 0000: left DAC to left mixer enabled + LIN signal to left mixer gain is 0dB
-  writeReg(ES8388_DACCONTROL20,144); // 1001 0000: same config as above but for right mixer
-  writeReg(ES8388_DACCONTROL23,0); // 0000 0000: VREF to default
-  writeReg(ES8388_DACCONTROL5,0); // 0000 0000: Digital volume control attenuates the signal in 0.5 dB incremental from 0dB (right)
-  writeReg(ES8388_DACCONTROL4,0); // 0000 0000: same as above but for left
-  writeReg(ES8388_ADCCONTROL1,187); // 1011 1011: mic preamps gains
-  writeReg(ES8388_ADCCONTROL2,0); // 0000 0000: input selection: default
-  writeReg(ES8388_ADCCONTROL3,2); // 0000 0010: signal routing of ADC: default
+  writeReg(ES8388_ADCPOWER,0); // 0000 0000: Activating ADC
+  writeReg(ES8388_DACPOWER,60); // 0011 1100: Activating DAC
+  writeReg(ES8388_MASTERMODE,0); // 0000 0000: slave serial port mode 
+  
+  // ADC CONFIG
+  writeReg(ES8388_ADCCONTROL1,136); // 1000 1000: mic preamps gains
+  writeReg(ES8388_ADCCONTROL4,12); // 0000 1100: settings i2s config (16 bits)
   writeReg(ES8388_ADCCONTROL5,2); // 0000 0010: ADC MCLK at 256 fo ADC
   writeReg(ES8388_ADCCONTROL8,0); // 0000 0000: Digital volume control attenuates the signal in 0.5 dB incremental at 0dB for ADC L
   writeReg(ES8388_ADCCONTROL9,0); // 0000 0000: Digital volume control attenuates the signal in 0.5 dB incremental at 0dB for ADC R
-  writeReg(ES8388_ADCCONTROL10,12); // 0000 1100: 16 bits for ADC
-  writeReg(ES8388_ADCCONTROL4,12); // 0000 1100: settings i2s config
-  writeReg(ES8388_DACCONTROL1,24); // 0001 1000: already set again...
-  writeReg(ES8388_DACCONTROL24,23); // 0001 0111: DAC volume (L)
-  writeReg(ES8388_DACCONTROL25,23); // 0001 0111: DAC volume (R)
-  writeReg(ES8388_DACCONTROL26,0); // 0000 0000: LOUT volume set to 0
-  writeReg(ES8388_DACCONTROL27,0); // 0000 0000: LOUT volume set to 0
+  writeReg(ES8388_ADCCONTROL10,12); // 0000 1100: PGA gain
+  
+  // DAC CONFIG
+  writeReg(ES8388_DACCONTROL1,24); // 0001 1000: i2s config (16 bits)
+  writeReg(ES8388_DACCONTROL2,2); // 0000 0010: DACFsRatio (Master mode DAC MCLK to sampling frequency ratio) is set to 256 
+  writeReg(ES8388_DACCONTROL4,0); // 0000 0000: gain of output (L) is 0dB
+  writeReg(ES8388_DACCONTROL5,0); // 0000 0000: gain of output (R) is 0dB  
+  writeReg(ES8388_DACCONTROL17,144); // 1001 0000: left DAC to left mixer enabled + LIN signal to left mixer gain is 0dB
+  writeReg(ES8388_DACCONTROL20,144); // 1001 0000: same config as above but for right mixer
   writeReg(ES8388_DACCONTROL21,128); // 1000 0000: DACLRC and ADCLRC are same
-  writeReg(ES8388_ADCPOWER,0); // 0000 0000: Deactivating ADC
-  writeReg(ES8388_DACPOWER,60); // 0011 1100: enabling output
-  writeReg(ES8388_DACCONTROL3,0); // 0000 0000: muting analog out
-
+  writeReg(ES8388_DACCONTROL24,30); // 0001 1110: DAC volume is 0dB (L)
+  writeReg(ES8388_DACCONTROL25,30); // 0001 1110: DAC volume is 0dB (R)
+  
   return 0;
 }
 
