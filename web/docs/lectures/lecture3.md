@@ -1,4 +1,4 @@
-# TD3: Digital Audio Systems Architectures and Audio Callback
+# Lecture 3: Digital Audio Systems Architectures and Audio Callback
 
 By the end of this lecture, you should be able to produce sound with your LyraT and have a basic understanding of the software and hardware architecture of embedded audio systems.
 
@@ -14,7 +14,7 @@ The format of audio samples depends on the hardware configuration of the system.
 
 ## Architecture of Embedded Audio Systems Such as the LyraT
 
-Since the LyraT is and embedded system, the audio ADC and DAC are built-in in the board within a component called an audio codec. The audio codec can be seen as an audio interface providing audio inputs and outputs. It is directly connected to the ESP32 board though an i2s bus. Additional information on how this kind of system works will be provided in [TD4](td4.md). 
+Since the LyraT is and embedded system, the audio ADC and DAC are built-in in the board within a component called an audio codec. The audio codec can be seen as an audio interface providing audio inputs and outputs. It is directly connected to the ESP32 board though an i2s bus. Additional information on how this kind of system works will be provided in [Lecture 4](lecture4.md). 
 
 <figure>
 <img src="img/lyrat-diagram.jpg" class="mx-auto d-block" width="70%">
@@ -81,7 +81,7 @@ Then, the audio rate `for` loop is implemented and samples are processed and sto
 
 ### Converting Floats to `int16_t`
 
-Since the type of the output buffer is 16 bits signed integer, the float value of `currentSample` must be converted. For that, we just have to multiply `currentSample` by \(2^{16}/2\) (the range of `currentSample` is {-1;1}). As explained in [TD2](td2.md), `float` are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.
+Since the type of the output buffer is 16 bits signed integer, the float value of `currentSample` must be converted. For that, we just have to multiply `currentSample` by \(2^{16}/2\) (the range of `currentSample` is {-1;1}). As explained in [Lecture 2](lecture2.md), `float` are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.
 
 ### Interlacing Output Samples
 

@@ -1,4 +1,4 @@
-# TD2: Audio Signal Processing Fundamentals
+# Lecture 2: Audio Signal Processing Fundamentals
 
 The goal of this TD is to provide an overview of the basics of digital audio.
 

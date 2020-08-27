@@ -2,10 +2,10 @@ site_name: AUD @ INSA Lyon
 site_description: Cours 5TC -- INSA Lyon -- Systèmes embarqués pour le traitement du signal audio en temps-réel
 nav:
   - Syllabus: index.md
-  - TDs:
-    - ' TD1: Course Introduction and Programming Environment Setup ' : tds/td1.md
-    - ' TD2: Audio Signal Processing Fundamentals ' : tds/td2.md
-    - ' TD3: Digital Audio Systems Architectures and Audio Callback ' : tds/td3.md
+  - Lectures:
+    - ' 1: Course Introduction and Programming Environment Setup ' : lectures/lecture1.md
+    - ' 2: Audio Signal Processing Fundamentals ' : lectures/lecture2.md
+    - ' 3: Digital Audio Systems Architectures and Audio Callback ' : lectures/lecture3.md
     
 theme: 
   name: flatly

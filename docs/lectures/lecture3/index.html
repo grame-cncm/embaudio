@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title> TD3: Digital Audio Systems Architectures and Audio Callback  - AUD @ INSA Lyon</title>
+        <title> 3: Digital Audio Systems Architectures and Audio Callback  - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -37,19 +37,19 @@
                                 <a href="../.." class="nav-link">Syllabus</a>
                             </li>
                             <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">TDs <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../td1/" class="dropdown-item"> TD1: Course Introduction and Programming Environment Setup </a>
+    <a href="../lecture1/" class="dropdown-item"> 1: Course Introduction and Programming Environment Setup </a>
 </li>
                                     
 <li>
-    <a href="../td2/" class="dropdown-item"> TD2: Audio Signal Processing Fundamentals </a>
+    <a href="../lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active"> TD3: Digital Audio Systems Architectures and Audio Callback </a>
+    <a href="./" class="dropdown-item active"> 3: Digital Audio Systems Architectures and Audio Callback </a>
 </li>
                                 </ul>
                             </li>
@@ -62,7 +62,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../td2/" class="nav-link">
+                                <a rel="prev" href="../lecture2/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -89,7 +89,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#td3-digital-audio-systems-architectures-and-audio-callback" class="nav-link">TD3: Digital Audio Systems Architectures and Audio Callback</a>
+            <li class="nav-item" data-level="1"><a href="#lecture-3-digital-audio-systems-architectures-and-audio-callback" class="nav-link">Lecture 3: Digital Audio Systems Architectures and Audio Callback</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#basic-architecture-of-a-digital-audio-system" class="nav-link">Basic Architecture of a Digital Audio System</a>
               <ul class="nav flex-column">
@@ -146,7 +146,7 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="td3-digital-audio-systems-architectures-and-audio-callback">TD3: Digital Audio Systems Architectures and Audio Callback</h1>
+<h1 id="lecture-3-digital-audio-systems-architectures-and-audio-callback">Lecture 3: Digital Audio Systems Architectures and Audio Callback</h1>
 <p>By the end of this lecture, you should be able to produce sound with your LyraT and have a basic understanding of the software and hardware architecture of embedded audio systems.</p>
 <h2 id="basic-architecture-of-a-digital-audio-system">Basic Architecture of a Digital Audio System</h2>
 <p>All digital audio systems have an architecture involving at least an ADC and/or a DAC. Audio samples are processed on a computer (i.e., CPU, microcontroller, DSP, etc.) typically in an audio callback and are transmitted to the DAC and/or received from the ADC:</p>
@@ -156,7 +156,7 @@
 
 <p>The format of audio samples depends on the hardware configuration of the system. </p>
 <h2 id="architecture-of-embedded-audio-systems-such-as-the-lyrat">Architecture of Embedded Audio Systems Such as the LyraT</h2>
-<p>Since the LyraT is and embedded system, the audio ADC and DAC are built-in in the board within a component called an audio codec. The audio codec can be seen as an audio interface providing audio inputs and outputs. It is directly connected to the ESP32 board though an i2s bus. Additional information on how this kind of system works will be provided in <a href="td4.md">TD4</a>. </p>
+<p>Since the LyraT is and embedded system, the audio ADC and DAC are built-in in the board within a component called an audio codec. The audio codec can be seen as an audio interface providing audio inputs and outputs. It is directly connected to the ESP32 board though an i2s bus. Additional information on how this kind of system works will be provided in <a href="../lecture4/">Lecture 4</a>. </p>
 <figure>
 <img src="img/lyrat-diagram.jpg" class="mx-auto d-block" width="70%">
 <figcaption><center>LyraT Overview Diagram From <a href="https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat.html">the ESP32 Website</a></center></figcaption>
@@ -209,7 +209,7 @@
 <p>First, a <code>while</code> loop is implemented and is repeated every time a new buffer is needed, that's basically the "callback". <code>samples_data_out</code> is the output buffer whose size is the buffer size multiplied by the number of outputs of the system. For example, if the system has a stereo output and the buffer size is 256 samples, then the size of <code>samples_data_out</code> will be 512. Audio samples are coded here on 16 bits integers which is the data type accepted by the audio codec of the LyraT.</p>
 <p>Then, the audio rate <code>for</code> loop is implemented and samples are processed and stored in a <code>float</code> called <code>currentSample</code>. <code>echo</code> and <code>sine</code> are defined in the <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/lib"><code>lib</code> folder</a> and implement an echo and a sine wave oscillator, respectively.</p>
 <h3 id="converting-floats-to-int16_t">Converting Floats to <code>int16_t</code></h3>
-<p>Since the type of the output buffer is 16 bits signed integer, the float value of <code>currentSample</code> must be converted. For that, we just have to multiply <code>currentSample</code> by <script type="math/tex">2^{16}/2</script> (the range of <code>currentSample</code> is {-1;1}). As explained in <a href="../td2/">TD2</a>, <code>float</code> are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.</p>
+<p>Since the type of the output buffer is 16 bits signed integer, the float value of <code>currentSample</code> must be converted. For that, we just have to multiply <code>currentSample</code> by <script type="math/tex">2^{16}/2</script> (the range of <code>currentSample</code> is {-1;1}). As explained in <a href="../lecture2/">Lecture 2</a>, <code>float</code> are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.</p>
 <h3 id="interlacing-output-samples">Interlacing Output Samples</h3>
 <p>The LyraT has a stereo output (2 channels). The way parallel channels are transmitted to the audio codec is by interlacing samples in the output buffer (the same is true for the input, of course). This is carried out with the following piece of code:</p>
 <pre><code>samples_data_out[i*fNumOutputs] = currentSample*MULT_S16;
