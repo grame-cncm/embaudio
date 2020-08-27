@@ -16,8 +16,8 @@ fNumInputs(2),
 fNumOutputs(2),
 fHandle(nullptr),
 fRunning(false),
-echoL(10000),
-echoR(10000)
+echoL(SR,10000),
+echoR(SR,10000)
 {
   // config i2s pin numbers
   i2s_pin_config_t pin_config;
@@ -50,10 +50,8 @@ echoR(10000)
   REG_WRITE(PIN_CTRL, 0xFFFFFFF0);
   
   // setting up DSP objects
-  echoL.init(SR);
   echoL.setDel(10000);
   echoL.setFeedback(0.5);
-  echoR.init(SR);
   echoR.setDel(10000);
   echoR.setFeedback(0.5);
 }
