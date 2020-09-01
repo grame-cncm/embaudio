@@ -1,6 +1,9 @@
 #ifndef SINE_H_INCLUDED
 #define SINE_H_INCLUDED
 
+#include "SineTable.h"
+#include "Phasor.h"
+
 class Sine{
 public:
   Sine(int SR);
@@ -10,8 +13,10 @@ public:
   void setGain(float g);
   float tick();
 private:
-  float phasorDelta, phasor, gain, samplingRate;
-  float *sineTable;
+  SineTable sineTable;
+  Phasor phasor;
+  float gain;
+  int samplingRate;
 };
 
 #endif  // SINE_H_INCLUDED
