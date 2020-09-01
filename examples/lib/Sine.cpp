@@ -20,5 +20,5 @@ void Sine::setGain(float g){
     
 float Sine::tick(){
   int index = phasor.tick()*SINE_TABLE_SIZE;
-  return sineTable.tick(index);
+  return sineTable.tick(index)*gain;
 }
