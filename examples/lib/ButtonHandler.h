@@ -10,7 +10,7 @@ public:
   void tick();
 private:
   int n, p, param, value;
-  bool paramChange, valueChange;
+  bool paramChange, valueChange, holdMode;
 };
 
 #endif  // BUTTON_HANDLER_H_INCLUDED

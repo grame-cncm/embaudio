@@ -8,6 +8,7 @@ public:
   float tick(int index);
 private:
   float *table;
+  int tableSize;
 };
 
 #endif  // SINE_TABLE_H_INCLUDED

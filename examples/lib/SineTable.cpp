@@ -4,7 +4,8 @@
 
 #define PI 3.141592653589
 
-SineTable::SineTable(int size)
+SineTable::SineTable(int size) :
+tableSize(size)
 {
   table = new float[size];
   for(int i=0; i<size; i++){
@@ -18,5 +19,5 @@ SineTable::~SineTable()
 }
     
 float SineTable::tick(int index){
-  return table[index];
+  return table[index%tableSize];
 }
