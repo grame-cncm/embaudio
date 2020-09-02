@@ -7,7 +7,6 @@
 class Sine{
 public:
   Sine(int SR);
-  ~Sine();
   
   void setFrequency(float f);
   void setGain(float g);

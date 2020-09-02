@@ -4,7 +4,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#include "../../lib/Echo.h"
+#include "../../lib/Distortion.h"
 
 class AudioDsp
 {
@@ -20,7 +20,7 @@ private:
   TaskHandle_t fHandle;
   bool fRunning;
   
-  Echo echoL, echoR;
+  Distortion distortionL, distortionR;
 };
 
 #endif

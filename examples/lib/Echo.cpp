@@ -6,7 +6,7 @@
 
 Echo::Echo(int SR, int maxDel) : 
 feedback(0.0),
-samplingRate(0.0),
+samplingRate(SR),
 readIndex(1),
 writeIndex(0),
 del(0)
@@ -15,7 +15,6 @@ del(0)
   for(int i=0; i<maxDel; i++){
     delBuffer[i] = 0.0;
   }
-  samplingRate = SR;
 }
 
 Echo::~Echo()

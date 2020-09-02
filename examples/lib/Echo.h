@@ -15,4 +15,4 @@ private:
   int readIndex, writeIndex, del;
 };
 
-#endif  // SINE_H_INCLUDED
+#endif  // ECHO_H_INCLUDED
