@@ -38,7 +38,7 @@ void ButtonHandler::tick()
     paramChange = true;
   }
   if((gpio_get_level(GPIO_NUM_39) == 0) && valueChange){
-    value = (value + 1)%p;
+    value = (value + 1)%(p + 1);
     valueChange = false;
   }
   else if(gpio_get_level(GPIO_NUM_39) == 1){
