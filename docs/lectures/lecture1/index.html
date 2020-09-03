@@ -51,6 +51,14 @@
 <li>
     <a href="../lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
 </li>
+                                    
+<li>
+    <a href="../lecture4/" class="dropdown-item"> 4: Audio Codec Configuration </a>
+</li>
+                                    
+<li>
+    <a href="../lecture5/" class="dropdown-item"> 5: Sound Syntehsis Basics </a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -89,8 +97,51 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lecture-1-course-introduction-and-programming-environment-setup" class="nav-link">Lecture 1: Course Introduction and Programming Environment Setup</a>
+            <li class="nav-item" data-level="1"><a href="#td1-course-introduction-and-programming-environment-setup" class="nav-link">TD1: Course Introduction and Programming Environment Setup</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#course-outline" class="nav-link">Course outline</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="4"><a href="#part-1-board-introduction-and-audio-signal-processing-basics" class="nav-link">Part 1 : Board introduction and Audio Signal Processing Basics </a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="4"><a href="#part-2-embedded-audio-system-architecture" class="nav-link">Part 2: Embedded Audio System Architecture</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="4"><a href="#part-3-lyrat-programming" class="nav-link">Part 3: LyraT programming</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#introduction-to-aud2020-and-esp3" class="nav-link">Introduction to AUD2020 and ESP3</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#esp32-and-lyrat" class="nav-link">ESP32 and LyraT</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#esp32-developpement-framework-esp32-idf" class="nav-link">ESP32 developpement framework: ESP32 IDF</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#installing-esp32-idf-on-your-computer" class="nav-link">Installing ESP32 IDF on your computer</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#connecting-lyrat-and-running-an-example-project" class="nav-link">Connecting LyraT and Running an example project</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#different-compilation-tools-used" class="nav-link">Different compilation tools used</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -98,8 +149,112 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lecture-1-course-introduction-and-programming-environment-setup">Lecture 1: Course Introduction and Programming Environment Setup</h1>
-<p>TODO</p></div>
+<h1 id="td1-course-introduction-and-programming-environment-setup">TD1: Course Introduction and Programming Environment Setup</h1>
+<p>This lecture is devoted to the software suite install so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.</p>
+<h2 id="course-outline">Course outline</h2>
+<p>All Lecture (2h on a computer) are labs on the LyraT board</p>
+<h4 id="part-1-board-introduction-and-audio-signal-processing-basics">Part 1 : Board introduction and Audio Signal Processing Basics </b></h4>
+<ul>
+<li>Lecture 1 (2h): Course Introduction, programming env setup</li>
+<li>Lecture 2: Basic signal processing,</li>
+<li>Lecture 3: Audio systems architecture, audio callback</li>
+<li>Lecture 4: Hardware Audio codec configuration</li>
+<li>Lecture 5 &amp; 6: Audio signal processing basics synthesis</li>
+<li>Lecture : Faust Language tutorial <a href="https://faust.grame.fr/">https://faust.grame.fr/</a></li>
+</ul>
+<h4 id="part-2-embedded-audio-system-architecture">Part 2: Embedded Audio System Architecture</h4>
+<ul>
+<li>Lecture 8: Embedded System Peripherals</li>
+<li>Lecture 9: embedded OS, free-RTOS, embedded Audio linux devices</li>
+<li>Lecture 10: RTone comference on embedded systems in industry <a href="https://rtone.fr/">https://rtone.fr/</a></li>
+</ul>
+<h4 id="part-3-lyrat-programming">Part 3: LyraT programming</h4>
+<ul>
+<li>Lecture 11-14: mini project</li>
+<li>Lecture 15-16: demonstrations</li>
+</ul>
+<h1 id="introduction-to-aud2020-and-esp3">Introduction to AUD2020 and ESP3</h1>
+<p><figure>
+<p>
+<img src="img/esp32-small.jpg"  width="30%"> 
+<img src="img/esp32-functional-bock.png"  width="30%"> 
+<img src="img/esp32-pin-layout.png"  width="30%"> 
+</p><figcaption><center>ESP32 die shot, taken from <a href="https://zeptobars.com/en/read/Espressif-ESP32-Wi-Fi-Bluetooth-2.4Ghz-ISM">zeptobars</a>,  its functional block and its pin layout, taken from esp32 datasheet </center></figcaption>
+</figure></p>
+<p>The development in AUD are performed on <a href="https://www.espressif.com/en/products/hardware/development-boards">LyraT</a> which is developed by the espressif company.
+The programming environment used is <b>esp-idf</b> and <b>esp-adf</b> (esp-adf is a wrapper around esp-idf so as to enable easy audio configuration).</p>
+<p><a href="https://www.espressif.com/">Espressif Systems</a> is a fabless IC design company, founded in 2008 in Shanghai, China (~200 employees in 2018). Espressif is  designing and manufacturing low power wireless sensor chips.</p>
+<p>Their main product today is the ESP32 microcontroler, based on an old Xtensa processor architecture, that is sold for less the 5€ and that is strongly oriented toward Internet of Things (IoT).  Before that was ESP8089 and ESP8266 wifi chip</p>
+<h1 id="esp32-and-lyrat">ESP32 and LyraT</h1>
+<p>The <a href="https://fr.wikipedia.org/wiki/ESP32">ESP32</a> is a Single 2.4 GHz Wi-Fi and Bluetooth combo chip (i.e. radio basebands and processor integrated into the same chip). The processor is  and Xtensa Single or Dual-core 32-bit LX6
+microprocessor that can reach 600 MIPS. It comes with a ROM of 448 KB, and a SRAM of 520KB and, as any micro-controller, with a bunch of peripherals (ADC, DAC, Touch pad, SPI, I2S, I2C, PWM, SDIO, Ethernet, UART, etc.), see its <a href="img/esp32-functional-bock.png">functionnal blocks</a>.</p>
+<p>The two CPUs are named “PRO_CPU” and
+“APP_CPU” (for “protocol” and “application”), however, for most
+purposes the two CPUs are interchangeable.</p>
+<p>Espressif proposes three  documentations for the ESP32:
+<ul>
+<li> <a href="img/esp32_datasheet_en.pdf">esp32_datasheet_en.pdf</a>: brief presentation (30 pages) of the whole ESP32 architecture, including the  {\em Memory Map} and {\em Peripheral Pin Configurations}.
+<li>   <a href="img/esp32_technical_reference_manual_en.pdf">esp32_technical_reference_manual_en.pdf</a>: Complete reference guide of the chip, 600 pages, useful to understand the configuration of a particular component such as a peripheral for instance.
+<li> <a href="img/esp32_hardware_design_guidelines_en.pdf">esp32_hardware_design_guidelines_en.pdf</a> which presents in details the interface to ESP32 chip and is  mostly useful to integrate ESP32 in a new board. 
+</ul></p>
+<p>We use ESP32-LyraT v4.3 evaluation board, all available documentation is present on  <a href="https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat.html#">espressif web site</a>. You will need to access to the <a href="https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/board-esp32-lyrat-v4.3.html">hardware reference</a> and the <a href="https://dl.espressif.com/dl/schematics/esp32-lyrat-v4.3-schematic.pdf">schematics of the board</a>.</p>
+<figure>
+<center>
+<img  src="img/lyrat-diag1.png" width="40%">
+<img  src="img/lyrat-photo2.png" width="40%">
+</center>
+<center>
+<caption> LyraT simple diagram and board layout (from  espressive webite)</caption>
+</center>
+</figure>
+
+<p>The ESP32-LyraT v3.4 is a hardware platform designed for the dual-core ESP32 audio applications, e.g., Wi-Fi or Bluetooth audio speakers, speech-based remote controllers, connected smart-home appliances with one or more audio functionality, etc.</p>
+<p>The components are quite clearly shown on Figure above,  here are some precision:
+<ul>
+<li> Output socket to connect headphones use  a 3.5 mm stereo jack. The socket may be used with mobile phone headsets and is compatible with OMPT standard headsets only. It does not work with CTIA headsets.
+<li> <b> When programming (i.e. flashing) the board </b>, the following actions must be performed: hold down the Boot button and simultaneously momentarily press the Reset button. This  initiates the firmware upload mode. Then user can upload firmware through the serial port (using the flash program on the host computer).
+<li> <b>once the board is  programmed (i.e. flashed)</b>, pressing the Reset button is necessary for the new program to start.
+<li> The audio chip used is the <a href="img/ES8388-EverestSemiconductor.pdf"><code>ES8388</code> from Everest</a>. It is quite important because performance and properties of audio codec vary a lot from one to another. It is connected to I2C and I2S busses of the ESP32.
+<li> The <b>USB-UART</b> port is used to have a serial communication between the ESP32 and the host computer as well as for flashing/programming the ESP32 with JTAG protocol using  <code>openocd</code> tool.
+<li> The Green 'Standby/Charging' LED indicates that the board is powered from USB. The red 'Power On' LED indicates that the board is on (there is a switch to cut it off). The 'Green' LED can be used by the user program.
+</ul></p>
+<h1 id="esp32-developpement-framework-esp32-idf">ESP32 developpement framework: ESP32 IDF</h1>
+<p>IDF stands for  IOT Development Framework, it is relatively straightforward to install it on your computer. 
+It has been installed on TC dept machines, in <code>/opt/esp-adf/esp-idf</code>. In order to use it, you have to run the file <code>export.sh</code> located in the directory where you have installed IDF.</p>
+<h3 id="installing-esp32-idf-on-your-computer">Installing ESP32 IDF on your computer</h3>
+<p>Note that IDF installation uses more than 3GB of disk space. 
+Note also you will need to have Python3 (and not Python2.7), you can handle different version of Python on Linux using <a href="https://linuxconfig.org/how-to-change-from-default-to-alternative-python-version-on-debian-linux">update-alternatives</a></p>
+<p>Follow the instruction on the <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/">espressive IDF getting started page</a> and install IDF on your computer (The installation is quite long 10-20 minutes depending on the quality of your connection).</p>
+<p>Although it is not mandatory, it is recommended to add the <code>IDF_PATH</code> (which is the location where you installed ESP32-IDF) in your environment. 
+When you have install ESP32-IDF in directory ''ESP32-IDF'', you have to source the <code>export.sh</code> file before building a project:</p>
+<p><code>source  ESP32-IDF/export.sh</code></p>
+<p>it is not recommended to perform the source of ''export.sh'' in the profile script because it might invalidate other tool using python. Instead you can define a command for performing the source:</p>
+<p><code>alias get_idf='. $HOME/esp/esp-idf/export.sh'</code></p>
+<h3 id="connecting-lyrat-and-running-an-example-project">Connecting LyraT and Running an example project</h3>
+<p>Follow <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/">espressive tutorial (final steps)</a> to run the <code>get-started/hello_world/</code> example.</p>
+<p>You should be able to have a LED blinking and to interact with the UART connection.</p>
+<h3 id="different-compilation-tools-used">Different compilation tools used</h3>
+<p>ESP32-IDF projects supports several build/compilation tools:
+<ul>
+<li> <code>make</code>, using a generic and quite complex <code>ID_PATH/make/project.mk</code> Makefile for all existing project. This was the original only tool used IDF, however it is being progressively replaced by the <code>cmake</code> compilation tools. 
+<li> <code>cmake</code> which is the recommended toolchain as <code>make</code> might not be supported anymore in further version. Here is an example of project compilation with <code>cmake</code>:</p>
+<pre><code>mkdir build;
+cd build;
+cmake ../
+make 
+make flash 
+make monitor
+</code></pre>
+
+<li> ``idf.py``  is a top-level python config/build command line tool for ESP-IDF provided by espressive build. Here is an example of project compilation with ``idf.py``:
+
+<pre><code>idf.py all
+idf.py flash 
+idf.py monitor
+</code></pre>
+
+<li> we recommend the use of ``cmake`` tool.
+</ul></div>
             </div>
         </div>
 
@@ -129,7 +284,7 @@
                 </p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
