@@ -41,7 +41,7 @@ Their main product today is the ESP32 microcontroler, based on an old Xtensa pro
 
 #ESP32 and LyraT
 The [ESP32](https://fr.wikipedia.org/wiki/ESP32) is a Single 2.4 GHz Wi-Fi and Bluetooth combo chip (i.e. radio basebands and processor integrated into the same chip). The processor is  and Xtensa Single or Dual-core 32-bit LX6
-microprocessor that can reach 600 MIPS. It comes with a ROM of 448 KB, and a SRAM of 520KB and, as any micro-controller, with a bunch of peripherals (ADC, DAC, Touch pad, SPI, I2S, I2C, PWM, SDIO, Ethernet, UART, etc.), see its [functionnal blocks](img/esp32-functional-bock.png).
+microprocessor that can reach 600 MIPS. It comes with a ROM of 448 KB, and a SRAM of 520KB and, as any micro-controller, with a bunch of peripherals (ADC, DAC, Touch pad, SPI, I2S, I2C, PWM, SDIO, Ethernet, UART, etc.), see its [functionnal blocks](lecture1/img/esp32-functional-bock.png).
 
 The two CPUs are named “PRO\_CPU” and
 “APP\_CPU” (for “protocol” and “application”), however, for most
@@ -49,9 +49,9 @@ purposes the two CPUs are interchangeable.
 
 Espressif proposes three  documentations for the ESP32:
 <ul>
-<li> [esp32_datasheet_en.pdf](img/esp32_datasheet_en.pdf): brief presentation (30 pages) of the whole ESP32 architecture, including the  {\em Memory Map} and {\em Peripheral Pin Configurations}.
-<li>   [esp32_technical_reference_manual_en.pdf](img/esp32_technical_reference_manual_en.pdf): Complete reference guide of the chip, 600 pages, useful to understand the configuration of a particular component such as a peripheral for instance.
-<li> [esp32_hardware_design_guidelines_en.pdf](img/esp32_hardware_design_guidelines_en.pdf) which presents in details the interface to ESP32 chip and is  mostly useful to integrate ESP32 in a new board. 
+<li> [esp32_datasheet_en.pdf](lecture1/img/esp32_datasheet_en.pdf): brief presentation (30 pages) of the whole ESP32 architecture, including the  {\em Memory Map} and {\em Peripheral Pin Configurations}.
+<li>   [esp32_technical_reference_manual_en.pdf](lecture1/img/esp32_technical_reference_manual_en.pdf): Complete reference guide of the chip, 600 pages, useful to understand the configuration of a particular component such as a peripheral for instance.
+<li> [esp32_hardware_design_guidelines_en.pdf](lecture1/img/esp32_hardware_design_guidelines_en.pdf) which presents in details the interface to ESP32 chip and is  mostly useful to integrate ESP32 in a new board. 
 </ul>
 
 We use ESP32-LyraT v4.3 evaluation board, all available documentation is present on  [espressif web site](https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat.html#). You will need to access to the [hardware reference](https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/board-esp32-lyrat-v4.3.html) and the [schematics of the board](https://dl.espressif.com/dl/schematics/esp32-lyrat-v4.3-schematic.pdf).
@@ -74,7 +74,7 @@ The components are quite clearly shown on Figure above,  here are some precision
 <li> Output socket to connect headphones use  a 3.5 mm stereo jack. The socket may be used with mobile phone headsets and is compatible with OMPT standard headsets only. It does not work with CTIA headsets.
 <li> <b> When programming (i.e. flashing) the board </b>, the following actions must be performed: hold down the Boot button and simultaneously momentarily press the Reset button. This  initiates the firmware upload mode. Then user can upload firmware through the serial port (using the flash program on the host computer).
 <li> <b>once the board is  programmed (i.e. flashed)</b>, pressing the Reset button is necessary for the new program to start.
-<li> The audio chip used is the [``ES8388`` from Everest](img/ES8388-EverestSemiconductor.pdf). It is quite important because performance and properties of audio codec vary a lot from one to another. It is connected to I2C and I2S busses of the ESP32.
+<li> The audio chip used is the [``ES8388`` from Everest](lecture1/img/ES8388-EverestSemiconductor.pdf). It is quite important because performance and properties of audio codec vary a lot from one to another. It is connected to I2C and I2S busses of the ESP32.
 <li> The <b>USB-UART</b> port is used to have a serial communication between the ESP32 and the host computer as well as for flashing/programming the ESP32 with JTAG protocol using  ``openocd`` tool.
 <li> The Green 'Standby/Charging' LED indicates that the board is powered from USB. The red 'Power On' LED indicates that the board is on (there is a switch to cut it off). The 'Green' LED can be used by the user program.
 </ul>
