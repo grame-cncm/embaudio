@@ -2,8 +2,6 @@
 
 #include "Echo.h"
 
-#define PI 3.141592653589
-
 Echo::Echo(int SR, int maxDel) : 
 feedback(0.0),
 samplingRate(SR),

@@ -13,5 +13,5 @@ void OneZero::setB1(float b){
 float OneZero::tick(float input){
   float output = input + del*b1;
   del = input;
-  return output;
+  return output*0.5;
 }
