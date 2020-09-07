@@ -1,4 +1,4 @@
-# TD1: Course Introduction and Programming Environment Setup
+# Lecture 1: Course Introduction and Programming Environment Setup
 
 This lecture is devoted to the software suite install so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.
 

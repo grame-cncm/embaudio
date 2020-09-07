@@ -287,6 +287,9 @@ From an acoustical standpoint, a feedback comb filter will introduce resonances 
 
 The [`comb`](https://github.com/grame-cncm/embaudio20/tree/master/examples/comb)) example program for the LyraT demonstrates the use of `Echo.cpp` as a comb filter. The "Mode" button can be used to change the value of the delay. 
 
+<!--
 ## Flanger
 
+Flanger could be a bonus if we manage to fix it...
 
+-->
