@@ -89,12 +89,10 @@ void AudioDsp::stop()
   }
 }
 
-// set sine wave frequency
 void AudioDsp::setFreq(float freq){
   fUI->setParamValue("freq",freq);
 }
 
-// set sine wave frequency
 void AudioDsp::setCutoff(float freq){
   fUI->setParamValue("cutoff",freq);
 }
@@ -106,7 +104,6 @@ void AudioDsp::audioTask()
     int16_t samples_data_out[fNumOutputs*fBufferSize];
     
     fDSP->compute(fBufferSize,NULL,outputs);
-    //printf("%f\n",outputs[0][0]);
     
     // processing buffers
     for (int channel = 0; channel < 2; ++channel){
