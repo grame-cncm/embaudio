@@ -137,3 +137,15 @@ float OneZero::tick(float input){
 Note that we multiply the output by 0.5 to normalize the output gain.
 
 The [`filtered-noise`](https://github.com/grame-cncm/embaudio20/tree/master/examples/filtered-noise)) example program for the LyraT demonstrates the use of `OneZero.cpp` by feeding [white noise](#white-noise) in it. The value of \(b_1\) can be changed by pressing the "Mode" button on the board, give it a try!
+
+## Exercises
+
+### LFO: Low Frequency Oscillator
+
+An LFO is an oscillator whose frequency is below the human hearing range (20 Hz). LFOs are typically used to create vibrato. In that case, the frequency of the LFO is usually set to 6 Hz. 
+
+Modify the [crazy-saw example](https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-saw) so that notes are played slower (1 per second) and that some vibrato is added to the generated sound. 
+
+### Towards the DX7
+
+The DX7 carried out frequency modulation over a total of six oscillators that could be patched in [different ways](https://forum.sequential.com/index.php?topic=1114.20). So FM is not limited to two oscillators... Try to implement an FM synthesizer involving 3 oscillators instead of one. They should be connected in series: 3 -> 2 -> 1. 

@@ -153,3 +153,15 @@ Waveguide physical modeling has been extensively used in modern synthesizers to 
 Flanger could be a bonus if we manage to fix it...
 
 -->
+
+## Exercise
+
+### Smoothing
+
+In most cases, DSP parameters are executed at control rate. Moreover, the resolution of the value used to configure parameters is much lower than that of audio samples since it might come from a Graphical User Interface (GUI), a low resolution sensor ADC (e.g., arduino), etc. For all these reasons, changing the value of a DSP parameter will often result in a "click"/discontinuity. A common way to prevent this from happening is to interpolate between the values of the parameter using a "leaky integrator." In signal processing, this can be easily implemented using a normalized one pole lowpass filter: 
+
+\[y(n) = (1-s)x(n) + sy(n-1)\]
+
+where \(s\) is the value of the pole and is typically set to 0.999 for optimal results.
+
+Modify the [crazy-saw](https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-saw) example by "smoothing" the value of the frequency parameter by implementing the filter above with \(s=0.999\). Then slow down the rate at which frequency is being changed so that only two  new value is generated per second. The result should sound quite funny :).  
