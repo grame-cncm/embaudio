@@ -38,7 +38,7 @@ The [`crazy-saw`](https://github.com/grame-cncm/embaudio20/tree/master/examples/
 float currentSample = sawtooth.tick()*2 - 1;
 ``` 
 
-Feel free to try the crazy-saw example at this point.
+Feel free to try the `crazy-saw` example at this point.
 
 ## Amplitude Modulation (AM) Synthesis
 
@@ -49,7 +49,7 @@ Amplitude modulation synthesis consists of modulating the amplitude of a signal 
 <figcaption><center>Amplitude Modulation (Source: <a href="https://en.wikipedia.org/wiki/Amplitude_modulation#/media/File:Illustration_of_Amplitude_Modulation.png">Wikipedia</a>)</center></figcaption>
 </figure>
 
-When the frequency of the modulator is low (bellow 20Hz), our ear is able to distinguish each independent "beat", creating a tremolo effect. However, above 20Hz two side bands (if sine waves are used) start appearing following this rule:
+When the frequency of the modulator is low (bellow 20Hz), our ear is able to distinguish each independent "beat," creating a tremolo effect. However, above 20Hz two side bands (if sine waves are used) start appearing following this rule:
 
 <figure>
 <img src="img/am-spectrum.svg" class="mx-auto d-block" width="80%">
@@ -79,7 +79,7 @@ The [`am` example](https://github.com/grame-cncm/embaudio20/tree/master/examples
 
 ## Frequency Modulation (FM) Synthesis
 
-Frequency modulation synthesis consists in modulating the frequency of an oscillator with another one:
+Frequency modulation synthesis consists of modulating the frequency of an oscillator with another one:
 
 <figure>
 <img src="img/fm.svg" class="mx-auto d-block" width="90%">
@@ -114,7 +114,7 @@ FM synthesis was discovered in the late 1960s by John Chowning at Stanford Unive
 
 ## Simple Filter: One Zero
 
-Filters are heavily used in the field of audio processing. In fact, designing filters is a whole field by itself. They are at the basis of many audio effects such as Wah guitar pedals, etc. From an algorithmic standpoint, the most basic filter is what we called a "one zero" filter which means that its transfer function only has numerators and no denominators. The differential equation of a one zero filter can be expressed as:
+Filters are heavily used in the field of audio processing. In fact, designing filters is a whole field by itself. They are at the basis of many audio effects such as Wah guitar pedals, etc. From an algorithmic standpoint, the most basic filter is what we call a "one zero" filter which means that its transfer function only has numerators and no denominators. The differential equation of a one zero filter can be expressed as:
 
 \[y(n) = b_0x(n) + b_1x(n-1)\]
 
@@ -136,7 +136,7 @@ float OneZero::tick(float input){
 
 Note that we multiply the output by 0.5 to normalize the output gain.
 
-The [`filtered-noise`](https://github.com/grame-cncm/embaudio20/tree/master/examples/filtered-noise)) example program for the LyraT demonstrates the use of `OneZero.cpp` by feeding [white noise](#white-noise) in it. The value of \(b_1\) can be changed by pressing the "Mode" button on the board, give it a try!
+The [`filtered-noise`](https://github.com/grame-cncm/embaudio20/tree/master/examples/filtered-noise) example program for the LyraT demonstrates the use of `OneZero.cpp` by feeding [white noise](#white-noise) in it. The value of \(b_1\) can be changed by pressing the "Mode" button on the board, give it a try!
 
 ## Exercises
 

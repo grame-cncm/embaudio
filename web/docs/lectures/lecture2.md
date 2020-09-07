@@ -1,6 +1,6 @@
 # Lecture 2: Audio Signal Processing Fundamentals
 
-The goal of this TD is to provide an overview of the basics of digital audio.
+The goal of this lecture is to provide an overview of the basics of digital audio.
 
 ## Analog Audio Signals
 
@@ -10,7 +10,7 @@ Before the advent of digital audio, most audio systems/technologies were analog.
 <img src="img/analog.jpg" class="mx-auto d-block" width="100%">
 </figure>
 
-In nature, sounds almost always originate from a mechanical source. However, in the 20th century, many musicians, composers and engineers experimented with the production of sound from an electrical source. One of the pioneer in this field was Karlheinz Stockhausen. This lead to analog and modular synthesizers which are very popular among Croix-Roussian hipsters these days.
+In nature, sounds almost always originate from a mechanical source. However, in the 20th century, many musicians, composers and engineers experimented with the production of sound from an electrical source. One of the pioneer in this field was [Karlheinz Stockhausen](https://en.wikipedia.org/wiki/Karlheinz_Stockhausen). This lead to analog and modular synthesizers which are very popular among Croix-Roussian hipsters these days.
 
 <figure>
 <img src="img/modular.jpg" class="mx-auto d-block" width="80%">
@@ -21,7 +21,7 @@ In nature, sounds almost always originate from a mechanical source. However, in 
 
 Sampling theory dates back from the beginning of the 20th century with initial work by [Harry Nyquist](https://en.wikipedia.org/wiki/Harry_Nyquist) and was theorized in the 1930s by [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon) to become the Nyquist-Shannon sampling theorem.
 
-Carrying sampling in the field of audio is relatively simple: voltage measurements are carried out at regular intervals of time on an analog electrical signal. Each individual acquired value is called a "sample" and can be stored on a computer. Hence, while an analog electric audio signal is just a variation of tension in time in a electric cable, a digital audio signal is just series of samples (values) in time as well. 
+Carrying sampling in the field of audio is relatively simple: voltage measurements are carried out at regular intervals of time on an analog electrical signal. Each individual acquired value is called a "sample" and can be stored on a computer. Hence, while an analog electric audio signal is just a variation of tension in time in an electric cable, a digital audio signal is just series of samples (values) in time as well. 
 
 <figure>
 <img src="img/sampling.png" class="mx-auto d-block" width="80%">

@@ -23,9 +23,9 @@ Since the LyraT is and embedded system, the audio ADC and DAC are built-in in th
 
 ## Concept of Audio Blocks (Buffers), Audio Rate, and Control Rate
 
-A large number of audio samples must be processed and transmitted every second. For example, if the sampling rate of the system is 48 kHz, 48000 samples will be processed in one second. Digital audio is extremely demanding and if one sample is missed, the result in the produced sound will be very audible. Most processors cannot process and transmit samples one by one which is why buffers need to be used. Hence, most digital audio systems will process audio as "blocks." The smallest size of a block will be determined by the performance of the system. On a modern computer running an operating system such as Windows, MacOS or Linux, the standard block size is usually 256 samples. In that case, the audio callback will process and then transmit to the DAC 256 samples all at once. 
+A large number of audio samples must be processed and transmitted every second. For example, if the sampling rate of the system is 48 kHz, 48000 samples will be processed in one second. Digital audio is extremely demanding and if one sample is missed, the result on the produced sound will be very audible. Most processors cannot process and transmit samples one by one which is why buffers need to be used. Hence, most digital audio systems will process audio as "blocks." The smallest size of a block will be determined by the performance of the system. On a modern computer running an operating system such as Windows, MacOS or Linux, the standard block size is usually 256 samples. In that case, the audio callback will process and then transmit to the DAC 256 samples all at once. 
 
-An audio callback function will hence typically take the following form: 
+An audio callback function typically takes the following form: 
 
 ```
 void audioCallback(float *inputs, float *outputs){
@@ -79,6 +79,8 @@ First, a `while` loop is implemented and is repeated every time a new buffer is 
 
 Then, the audio rate `for` loop is implemented and samples are processed and stored in a `float` called `currentSample`. `echo` and `sine` are defined in the [`lib` folder](https://github.com/grame-cncm/embaudio20/tree/master/examples/lib) and implement an echo and a sine wave oscillator, respectively.
 
+Note that `currentSample` is multiplied by 0.5 to control the output gain of the system here. 
+
 ### Converting Floats to `int16_t`
 
 Since the type of the output buffer is 16 bits signed integer, the float value of `currentSample` must be converted. For that, we just have to multiply `currentSample` by \(2^{16}/2\) (the range of `currentSample` is {-1;1}). As explained in [Lecture 2](lecture2.md), `float` are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.
@@ -92,11 +94,11 @@ samples_data_out[i*fNumOutputs] = currentSample*MULT_S16;
 samples_data_out[i*fNumOutputs+1] = samples_data_out[i*fNumOutputs];
 ```
 
-Hence, the left channel sample is first written into the buffer, then the right channel sample and so on, etc. Here, the left channel is copied into the right channel since the DSP algorithm only has a single output. Now you should understand why `samples_data_out` was declared as `int16_t samples_data_out[fNumOutputs*fBufferSize];`. 
+Hence, the left channel sample is first written into the buffer, then the right channel sample and so on, etc. Here, the left channel is copied into the right channel since the DSP algorithm only has a single output. Now you should understand why `samples_data_out` was declared as `int16_t samples_data_out[fNumOutputs*fBufferSize];` ;). 
 
 ### i2s Transmission
 
-Once `samples_data_out` has been formatted, the buffer is transmitted to the audio codec using the i2s protocol (which will be detailed in TODO). The `i2s_write` uses a blocking mechanism to hold the thread (task) until a new buffer is needed. 
+Once `samples_data_out` has been formatted, the buffer is transmitted to the audio codec using the i2s protocol. The `i2s_write` uses a blocking mechanism to hold the thread (task) until a new buffer is needed. 
 
 ## C++ Sine Wave Oscillator
 
@@ -122,12 +124,20 @@ float currentSample = A*std::sin(2*PI*f*t);
 
 however sine oscillators are rarely implemented as such since calling the `std::sin` function at every sample can be quite computationally expensive. For that reason, it is better to pre-compute the sine wave and store it in a wave table before computation starts. That kind of algorithm is then called a "wave table oscillator."
 
-[Sine.cpp](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp) which is used in `crazy-sine` is a good example of that. A sine wave table is pre-computed in the constructor of the class:
+[Sine.cpp](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp), which is used in `crazy-sine` is a good example of that. It uses [SineTable.cpp](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp) which pre-computes a sine table:
 
 ```
-sineTable = new float[SINE_TABLE_SIZE];
-for(int i=0; i<SINE_TABLE_SIZE; i++){
-  sineTable[i] = std::sin(i*2.0*PI/SINE_TABLE_SIZE);
+table = new float[size];
+for(int i=0; i<size; i++){
+  table[i] = std::sin(i*2.0*PI/size);
+}
+```
+
+and then makes it accessible through the `tick` (compute) method:
+
+```
+float SineTable::tick(int index){
+  return table[index%tableSize];
 }
 ```
 
@@ -135,19 +145,25 @@ The size of the table plays an important role on the quality of the generated so
 
 It is important to keep in mind that when working with embedded systems memory is also an important factor to take into account. 
 
-The `tick` method of `Sine.cpp` is where the output samples of the sine wave are computed:
+The sine table is then read with a "phasor." A phasor produces a ramp signal which is reset at a certain frequency. It can also be seen as a sawtooth wave. [Phasor.cpp](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp) is used for that purpose and its `tick` method is defined as:
 
 ```
-float Sine::tick(){
-  int index = phasor*SINE_TABLE_SIZE;
-  float currentSample = sineTable[index]*gain;
+float Phasor::tick(){
+  float currentSample = phasor;
   phasor += phasorDelta;
   phasor = phasor - std::floor(phasor);
   return currentSample;
 }
 ```
 
-`sineTable` is read at different speeds depending on the desired frequency. `index` is used to read the table and is computed based on `phasor` whose value is incremented by \(f/fs\) at every samples and then reset to zero when it's about to become greater or equal to 1.
+It hence ramps from 0 to 1 at a given frequency. The `phasor` object in `Sine.cpp` is used to read the sine table by adjusting the range of its output:
+
+```
+float Sine::tick(){
+  int index = phasor.tick()*SINE_TABLE_SIZE;
+  return sineTable.tick(index)*gain;
+}
+```
 
 ## Exercises
 
@@ -183,7 +199,7 @@ but the problem with that option is that memory will be allocated twice for the 
 
 ### Stereo Echo
 
-Create a second instance of `echo` (connected to the same instance of `sine`) with different parameters from the first one that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:
+Resuing the result of the previous exercise, create a second instance of `echo` (connected to the same instance of `sine`) *with different parameters from the first one* that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:
 
 ```
 float sineSample = sine.tick();

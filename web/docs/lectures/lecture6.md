@@ -32,7 +32,7 @@ The range of `drive` is {0;1} which means that the value of `input` can be multi
 
 Distortion is created here by clipping the signal using the `fmin` and `fmax` functions. Finally, the cubic polynomial is used to round the edges of the waveform of the signal as explained above. 
 
-The [`distortion`](https://github.com/grame-cncm/embaudio20/tree/master/examples/distortion)) example program for the LyraT demonstrates the use of `Distortion.cpp`.
+The [`distortion`](https://github.com/grame-cncm/embaudio20/tree/master/examples/distortion) example program for the LyraT demonstrates the use of `Distortion.cpp`.
 
 Distortion is a very trendy field of research in audio technology these days especially using "virtual analog" algorithms which consists of modeling the electronic circuit of distortion on a computer.
 
@@ -60,21 +60,21 @@ float Echo::tick(float input){
 
 Here, `delBuffer` is used as a "ring buffer": incoming samples are stored and the read and write indices loop around to buffer to write incoming samples and read previous ones. Note that memory is allocated in the constructor of the class for `delBuffer` based on the value of `maxDel`, the maximum size of the delay.
 
-The [`echo`](https://github.com/grame-cncm/embaudio20/tree/master/examples/echo)) example program for the LyraT demonstrates the use of `Echo.cpp`. 
+The [`echo`](https://github.com/grame-cncm/embaudio20/tree/master/examples/echo) example program for the LyraT demonstrates the use of `Echo.cpp`. 
 
 ## Comb
 
-A comb filter is a filter whose frequency response looks like a "comb". Comb filters can be implemented with feed-forward filters (Finite Impulse Response -- FIR) or feedback filters (Infinite Impulse Response -- IIR). In fact, the [Echo](#echo) algorithm can be used as a comb filter if the delay is very short:
+A comb filter is a filter whose frequency response looks like a "comb." Comb filters can be implemented with feed-forward filters (Finite Impulse Response -- FIR) or feedback filters (Infinite Impulse Response -- IIR). In fact, the [Echo](#echo) algorithm can be used as a comb filter if the delay is very short:
 
-\[y(n) = x(n)-gy(n-M)\]
+\[y(n) = x(n)-g.y(n-M)\]
 
 where \(M\) is the length of the delay and \(g\) feedback coefficient. 
 
-[Julius Smith's website](https://ccrma.stanford.edu/~jos/pasp/Feedback_Comb_Filter_Amplitude.html) presents the frequency response of such filter and the mathematical rational behind it. 
+[Julius Smith's website](https://ccrma.stanford.edu/~jos/pasp/Feedback_Comb_Filter_Amplitude.html) presents the frequency response of such filter and the mathematical rationals behind it. 
 
 From an acoustical standpoint, a feedback comb filter will introduce resonances at specific point in the spectrum of the sound. The position and the spacing of these resonances is determined by the value of \(M\). \(g\), on the other hand, will determine the amplitude and sharpness of these resonances. 
 
-The [`comb`](https://github.com/grame-cncm/embaudio20/tree/master/examples/comb)) example program for the LyraT demonstrates the use of `Echo.cpp` as a comb filter. The "Mode" button can be used to change the value of the delay. 
+The [`comb`](https://github.com/grame-cncm/embaudio20/tree/master/examples/comb) example program for the LyraT demonstrates the use of `Echo.cpp` as a comb filter. The "Mode" button can be used to change the value of the delay. 
 
 ## Physical Modeling: the Simple Case of the Karplus Strong
 
@@ -86,7 +86,7 @@ Physical modeling is one of the most advanced sound synthesis technique and a ve
 
 While MI and FDS model the vibrational behavior of a system (i.e., using partial differential equation in the case of FDS), signal models model an object as a combination of signal processors. In this section, we will only look at this type of model the other ones being out of the scope of this class.
 
-A extremely primitive string model can be implemented using a delay line and a loop. The delay line models the time it takes for vibration in the string to go from one extremity to the other, and the loop models the reflections at the boundaries of the string. In other words, we can literally just reuse [the echo algorithm](TODO) for this. This primitive string model is called the "Karplus-Strong" algorithm:
+An extremely primitive string model can be implemented using a delay line and a loop. The delay line models the time it takes for vibration in the string to go from one extremity to the other, and the loop models the reflections at the boundaries of the string. In other words, we can literally just reuse [the echo algorithm](TODO) for this. This primitive string model is called the "Karplus-Strong" algorithm:
 
 <figure>
 <img src="img/karplus.svg" class="mx-auto d-block" width="60%">
@@ -141,7 +141,7 @@ float KS::oneZero(float x){
 
 The examples folder of the course repository hosts [a simple LyraT program](https://github.com/grame-cncm/embaudio20/tree/master/examples/ks) illustrating the use of `KS.cpp`.
 
-Note that this algorithm could be improved in many ways. In particular, the fact that the delay length is currently expressed as an integer can result in frequency mismatches at high frequencies. In other words, our current string is out of tune. This could be fixed by using [fractional delay](https://ccrma.stanford.edu/~jos/Interpolation/Welcome.html).
+Note that this algorithm could be improved in many ways. In particular, the fact that the delay length is currently expressed as an integer can result in frequency mismatches at high frequencies. In other words, our current string is out of tune. This could be fixed using [fractional delay](https://ccrma.stanford.edu/~jos/Interpolation/Welcome.html).
 
 In practice, the Karplus-Strong algorithm is not a physical model per se and is just a simplification of the [ideal string wave equation](https://ccrma.stanford.edu/~jos/pasp/Digital_Waveguide_Models.html). More advanced signal models can be implemented using waveguides.
 
@@ -164,4 +164,4 @@ In most cases, DSP parameters are executed at control rate. Moreover, the resolu
 
 where \(s\) is the value of the pole and is typically set to 0.999 for optimal results.
 
-Modify the [crazy-saw](https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-saw) example by "smoothing" the value of the frequency parameter by implementing the filter above with \(s=0.999\). Then slow down the rate at which frequency is being changed so that only two  new value is generated per second. The result should sound quite funny :).  
+Modify the [crazy-saw](https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-saw) example by "smoothing" the value of the frequency parameter by implementing the filter above with \(s=0.999\). Then slow down the rate at which frequency is being changed so that only two new values are generated per second. The result should sound quite funny :).  

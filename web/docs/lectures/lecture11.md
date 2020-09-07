@@ -42,7 +42,7 @@ Faust comes with a system of C++ wrapper (called architectures in the Faust ecos
 // END-FAUSTDSP
 ```
 
-For instance, MapUI allows us to access the parameters of a Faust DSP object using the `setParamValue` method, etc.
+For instance, `MapUI` allows us to access the parameters of a Faust DSP object using the `setParamValue` method, etc.
 
 To generate a C++ file using this architecture, you can run:
 
@@ -119,7 +119,7 @@ Implementing MIDI USB on the LyraT should be relatively straight forward but it 
 
 ### OSC
 
-[Open Sound Control (OSC)](https://en.wikipedia.org/wiki/Open_Sound_Control) is a more modern communication standard used in the field of music technology. It is based UDP which means that information can be transmitted via Ethernet or Wi-Fi. OSC uses a system of address/values to access the different parameters of a system. An OSC message can therefore look like:
+[Open Sound Control (OSC)](https://en.wikipedia.org/wiki/Open_Sound_Control) is a more modern communication standard used in the field of music technology. It is based on UDP which means that information can be transmitted via Ethernet or Wi-Fi. OSC uses a system of address/values to access the different parameters of a system. An OSC message can therefore look like:
 
 ```
 /synth/freq 440

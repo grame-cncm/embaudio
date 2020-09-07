@@ -13,7 +13,7 @@ Audio codecs usually use two different communication channels to connect to the 
 
 i2c (pronounced I-squared-C) is a serial communication protocol heavily used in the field of microelectronics. Most digital elements in an electronic circuit communicate using i2c. 
 
-i2s (pronounced I-squared-S) is also a serial communication protocol but targeting specifically audio applications. We'll see that they're very close to each others in practice later in this class (see TODO).
+i2s (pronounced I-squared-S) is also a serial communication protocol but targeting specifically audio applications. We'll see that they're very close to each others in practice later in this class.
 
 The LyraT hosts an audio codec (an Everest ES8388) which is connected to the ESP32 using the following model: 
 
