@@ -57,7 +57,15 @@
 </li>
                                     
 <li>
-    <a href="../lecture5/" class="dropdown-item"> 5: Sound Syntehsis Basics </a>
+    <a href="../lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
+</li>
+                                    
+<li>
+    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
+</li>
+                                    
+<li>
+    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the LyraT and Advanced Control </a>
 </li>
                                 </ul>
                             </li>
@@ -143,14 +151,14 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="lecture-2-audio-signal-processing-fundamentals">Lecture 2: Audio Signal Processing Fundamentals</h1>
-<p>The goal of this TD is to provide an overview of the basics of digital audio.</p>
+<p>The goal of this lecture is to provide an overview of the basics of digital audio.</p>
 <h2 id="analog-audio-signals">Analog Audio Signals</h2>
 <p>Before the advent of digital audio, most audio systems/technologies were analog. An analog audio signal can take different forms: it can be <strong>electric</strong> (e.g., transmitted through an electric wire and stored on a magnetic tape) or <strong>mechanical</strong> (e.g., transmitted through the air as standing waves and stored on a vinyl disc). Acoustical mechanical waves can be converted into an electric signal using a microphone. Conversely, an electric audio signal can be converted into mechanical acoustical waves using a speaker. </p>
 <figure>
 <img src="img/analog.jpg" class="mx-auto d-block" width="100%">
 </figure>
 
-<p>In nature, sounds almost always originate from a mechanical source. However, in the 20th century, many musicians, composers and engineers experimented with the production of sound from an electrical source. One of the pioneer in this field was Karlheinz Stockhausen. This lead to analog and modular synthesizers which are very popular among Croix-Roussian hipsters these days.</p>
+<p>In nature, sounds almost always originate from a mechanical source. However, in the 20th century, many musicians, composers and engineers experimented with the production of sound from an electrical source. One of the pioneer in this field was <a href="https://en.wikipedia.org/wiki/Karlheinz_Stockhausen">Karlheinz Stockhausen</a>. This lead to analog and modular synthesizers which are very popular among Croix-Roussian hipsters these days.</p>
 <figure>
 <img src="img/modular.jpg" class="mx-auto d-block" width="80%">
 <figcaption><center>A modular analog synthesizer</center></figcaption>
@@ -158,7 +166,7 @@
 
 <h2 id="the-discovery-of-digital-audio">The Discovery of Digital Audio</h2>
 <p>Sampling theory dates back from the beginning of the 20th century with initial work by <a href="https://en.wikipedia.org/wiki/Harry_Nyquist">Harry Nyquist</a> and was theorized in the 1930s by <a href="https://en.wikipedia.org/wiki/Claude_Shannon">Claude Shannon</a> to become the Nyquist-Shannon sampling theorem.</p>
-<p>Carrying sampling in the field of audio is relatively simple: voltage measurements are carried out at regular intervals of time on an analog electrical signal. Each individual acquired value is called a "sample" and can be stored on a computer. Hence, while an analog electric audio signal is just a variation of tension in time in a electric cable, a digital audio signal is just series of samples (values) in time as well. </p>
+<p>Carrying sampling in the field of audio is relatively simple: voltage measurements are carried out at regular intervals of time on an analog electrical signal. Each individual acquired value is called a "sample" and can be stored on a computer. Hence, while an analog electric audio signal is just a variation of tension in time in an electric cable, a digital audio signal is just series of samples (values) in time as well. </p>
 <figure>
 <img src="img/sampling.png" class="mx-auto d-block" width="80%">
 <figcaption><center>Signal sampling representation. The continuous signal is represented with a green colored line while the discrete samples are indicated by the blue vertical lines. (source: <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)">Wikipedia</a>)</center></figcaption>

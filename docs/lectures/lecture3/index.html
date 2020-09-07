@@ -57,7 +57,15 @@
 </li>
                                     
 <li>
-    <a href="../lecture5/" class="dropdown-item"> 5: Sound Syntehsis Basics </a>
+    <a href="../lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
+</li>
+                                    
+<li>
+    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
+</li>
+                                    
+<li>
+    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the LyraT and Advanced Control </a>
 </li>
                                 </ul>
                             </li>
@@ -171,8 +179,8 @@
 </figure>
 
 <h2 id="concept-of-audio-blocks-buffers-audio-rate-and-control-rate">Concept of Audio Blocks (Buffers), Audio Rate, and Control Rate</h2>
-<p>A large number of audio samples must be processed and transmitted every second. For example, if the sampling rate of the system is 48 kHz, 48000 samples will be processed in one second. Digital audio is extremely demanding and if one sample is missed, the result in the produced sound will be very audible. Most processors cannot process and transmit samples one by one which is why buffers need to be used. Hence, most digital audio systems will process audio as "blocks." The smallest size of a block will be determined by the performance of the system. On a modern computer running an operating system such as Windows, MacOS or Linux, the standard block size is usually 256 samples. In that case, the audio callback will process and then transmit to the DAC 256 samples all at once. </p>
-<p>An audio callback function will hence typically take the following form: </p>
+<p>A large number of audio samples must be processed and transmitted every second. For example, if the sampling rate of the system is 48 kHz, 48000 samples will be processed in one second. Digital audio is extremely demanding and if one sample is missed, the result on the produced sound will be very audible. Most processors cannot process and transmit samples one by one which is why buffers need to be used. Hence, most digital audio systems will process audio as "blocks." The smallest size of a block will be determined by the performance of the system. On a modern computer running an operating system such as Windows, MacOS or Linux, the standard block size is usually 256 samples. In that case, the audio callback will process and then transmit to the DAC 256 samples all at once. </p>
+<p>An audio callback function typically takes the following form: </p>
 <pre><code>void audioCallback(float *inputs, float *outputs){
   // control rate portion
   int gain = mainVolume;
@@ -216,6 +224,7 @@
 
 <p>First, a <code>while</code> loop is implemented and is repeated every time a new buffer is needed, that's basically the "callback". <code>samples_data_out</code> is the output buffer whose size is the buffer size multiplied by the number of outputs of the system. For example, if the system has a stereo output and the buffer size is 256 samples, then the size of <code>samples_data_out</code> will be 512. Audio samples are coded here on 16 bits integers which is the data type accepted by the audio codec of the LyraT.</p>
 <p>Then, the audio rate <code>for</code> loop is implemented and samples are processed and stored in a <code>float</code> called <code>currentSample</code>. <code>echo</code> and <code>sine</code> are defined in the <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/lib"><code>lib</code> folder</a> and implement an echo and a sine wave oscillator, respectively.</p>
+<p>Note that <code>currentSample</code> is multiplied by 0.5 to control the output gain of the system here. </p>
 <h3 id="converting-floats-to-int16_t">Converting Floats to <code>int16_t</code></h3>
 <p>Since the type of the output buffer is 16 bits signed integer, the float value of <code>currentSample</code> must be converted. For that, we just have to multiply <code>currentSample</code> by <script type="math/tex">2^{16}/2</script> (the range of <code>currentSample</code> is {-1;1}). As explained in <a href="../lecture2/">Lecture 2</a>, <code>float</code> are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.</p>
 <h3 id="interlacing-output-samples">Interlacing Output Samples</h3>
@@ -224,9 +233,9 @@
 samples_data_out[i*fNumOutputs+1] = samples_data_out[i*fNumOutputs];
 </code></pre>
 
-<p>Hence, the left channel sample is first written into the buffer, then the right channel sample and so on, etc. Here, the left channel is copied into the right channel since the DSP algorithm only has a single output. Now you should understand why <code>samples_data_out</code> was declared as <code>int16_t samples_data_out[fNumOutputs*fBufferSize];</code>. </p>
+<p>Hence, the left channel sample is first written into the buffer, then the right channel sample and so on, etc. Here, the left channel is copied into the right channel since the DSP algorithm only has a single output. Now you should understand why <code>samples_data_out</code> was declared as <code>int16_t samples_data_out[fNumOutputs*fBufferSize];</code> ;). </p>
 <h3 id="i2s-transmission">i2s Transmission</h3>
-<p>Once <code>samples_data_out</code> has been formatted, the buffer is transmitted to the audio codec using the i2s protocol (which will be detailed in TODO). The <code>i2s_write</code> uses a blocking mechanism to hold the thread (task) until a new buffer is needed. </p>
+<p>Once <code>samples_data_out</code> has been formatted, the buffer is transmitted to the audio codec using the i2s protocol. The <code>i2s_write</code> uses a blocking mechanism to hold the thread (task) until a new buffer is needed. </p>
 <h2 id="c-sine-wave-oscillator">C++ Sine Wave Oscillator</h2>
 <p>Sine wave are at the basis of many algorithms in the field of audio. The sound of a sine wave is what we call a "pure tone" since it only has a single harmonic. One of the consequences of this is that all sounds can be synthesized using a combination of sine waves (<a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transform</a>).</p>
 <p>From a mathematical standpoint, a sine oscillator can be implemented with the following differential equation:</p>
@@ -252,26 +261,37 @@ samples_data_out[i*fNumOutputs+1] = samples_data_out[i*fNumOutputs];
 </code></pre>
 
 <p>however sine oscillators are rarely implemented as such since calling the <code>std::sin</code> function at every sample can be quite computationally expensive. For that reason, it is better to pre-compute the sine wave and store it in a wave table before computation starts. That kind of algorithm is then called a "wave table oscillator."</p>
-<p><a href="https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp">Sine.cpp</a> which is used in <code>crazy-sine</code> is a good example of that. A sine wave table is pre-computed in the constructor of the class:</p>
-<pre><code>sineTable = new float[SINE_TABLE_SIZE];
-for(int i=0; i&lt;SINE_TABLE_SIZE; i++){
-  sineTable[i] = std::sin(i*2.0*PI/SINE_TABLE_SIZE);
+<p><a href="https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp">Sine.cpp</a>, which is used in <code>crazy-sine</code> is a good example of that. It uses <a href="https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp">SineTable.cpp</a> which pre-computes a sine table:</p>
+<pre><code>table = new float[size];
+for(int i=0; i&lt;size; i++){
+  table[i] = std::sin(i*2.0*PI/size);
+}
+</code></pre>
+
+<p>and then makes it accessible through the <code>tick</code> (compute) method:</p>
+<pre><code>float SineTable::tick(int index){
+  return table[index%tableSize];
 }
 </code></pre>
 
 <p>The size of the table plays an important role on the quality of the generated sound. The greater the size, the more accurate/pure the sine wave. A low resolution sine wave will produce more distortion. In <code>Sine.cpp</code>, the sine wave table has a size of <script type="math/tex">2^{14}</script> which presents a good compromise between sound quality and memory.</p>
 <p>It is important to keep in mind that when working with embedded systems memory is also an important factor to take into account. </p>
-<p>The <code>tick</code> method of <code>Sine.cpp</code> is where the output samples of the sine wave are computed:</p>
-<pre><code>float Sine::tick(){
-  int index = phasor*SINE_TABLE_SIZE;
-  float currentSample = sineTable[index]*gain;
+<p>The sine table is then read with a "phasor." A phasor produces a ramp signal which is reset at a certain frequency. It can also be seen as a sawtooth wave. <a href="https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp">Phasor.cpp</a> is used for that purpose and its <code>tick</code> method is defined as:</p>
+<pre><code>float Phasor::tick(){
+  float currentSample = phasor;
   phasor += phasorDelta;
   phasor = phasor - std::floor(phasor);
   return currentSample;
 }
 </code></pre>
 
-<p><code>sineTable</code> is read at different speeds depending on the desired frequency. <code>index</code> is used to read the table and is computed based on <code>phasor</code> whose value is incremented by <script type="math/tex">f/fs</script> at every samples and then reset to zero when it's about to become greater or equal to 1.</p>
+<p>It hence ramps from 0 to 1 at a given frequency. The <code>phasor</code> object in <code>Sine.cpp</code> is used to read the sine table by adjusting the range of its output:</p>
+<pre><code>float Sine::tick(){
+  int index = phasor.tick()*SINE_TABLE_SIZE;
+  return sineTable.tick(index)*gain;
+}
+</code></pre>
+
 <h2 id="exercises">Exercises</h2>
 <h3 id="looping-through-a-small-tune">Looping Through a Small Tune</h3>
 <p>In the world of music technology, musical notes are usually represented by <a href="https://djip.co/blog/logic-studio-9-midi-note-numbers">MIDI numbers</a>. In MIDI, each pitch of the chromatic scale has a number between 0 and 127 associated to it: <a href="https://djip.co/blog/logic-studio-9-midi-note-numbers">https://djip.co/blog/logic-studio-9-midi-note-numbers</a></p>
@@ -294,7 +314,7 @@ for(int i=0; i&lt;SINE_TABLE_SIZE; i++){
 </p>
 <p><strong>Hint:</strong> Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. </p>
 <h3 id="stereo-echo">Stereo Echo</h3>
-<p>Create a second instance of <code>echo</code> (connected to the same instance of <code>sine</code>) with different parameters from the first one that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:</p>
+<p>Resuing the result of the previous exercise, create a second instance of <code>echo</code> (connected to the same instance of <code>sine</code>) <em>with different parameters from the first one</em> that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:</p>
 <pre><code>float sineSample = sine.tick();
 float currentSampleL = echo0.tick(sineSample)*0.5;
 float currentSampleR = echo1.tick(sineSample)*0.5;
