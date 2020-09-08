@@ -9,6 +9,9 @@ nav:
     - ' 4: Audio Codec Configuration ' : lectures/lecture4.md
     - ' 5: Audio Processing Basics I ' : lectures/lecture5.md
     - ' 6: Audio Processing Basics II ' : lectures/lecture6.md
+    - ' 7:  Faust Tutorial ' : lectures/lecture7.md
+    - ' 8:  Embedded System Peripherals ' : lectures/lecture8.md
+    - ' 9:   Embedded OS, freeRTOS ' : lectures/lecture9.md
     - ' 11: Faust on the LyraT and Advanced Control ' : lectures/lecture11.md
     
 theme: 
