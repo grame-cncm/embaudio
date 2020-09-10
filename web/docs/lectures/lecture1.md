@@ -12,12 +12,12 @@ All Lecture (2h on a computer) are labs on the LyraT board
 - Lecture 3: Audio systems architecture, audio callback
 - Lecture 4: Hardware Audio codec configuration
 - Lecture 5 & 6: Audio signal processing basics synthesis
-- Lecture : Faust Language tutorial [https://faust.grame.fr/](https://faust.grame.fr/)
+- Lecture 8: Faust Language tutorial [https://faust.grame.fr/](https://faust.grame.fr/)
 
 #### Part 2: Embedded Audio System Architecture
-- Lecture 8: Embedded System Peripherals
-- Lecture 9: embedded OS, free-RTOS, embedded Audio linux devices
-- Lecture 10: RTone comference on embedded systems in industry [https://rtone.fr/](https://rtone.fr/)
+- Lecture 7: RTone comference on embedded systems in industry [https://rtone.fr/](https://rtone.fr/)
+- Lecture 9: Embedded System Peripherals
+- Lecture 10: embedded OS, free-RTOS, embedded Audio linux devices
 
 #### Part 3: LyraT programming
 - Lecture 11-14: mini project
