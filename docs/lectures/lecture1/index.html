@@ -69,11 +69,15 @@
 </li>
                                     
 <li>
-    <a href="../lecture8/" class="dropdown-item"> 8:  Embedded System Peripherals </a>
+    <a href="../lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
 </li>
                                     
 <li>
-    <a href="../lecture9/" class="dropdown-item"> 9:   Embedded OS, freeRTOS </a>
+    <a href="../lecture9/" class="dropdown-item"> 9:  Embedded System Peripherals </a>
+</li>
+                                    
+<li>
+    <a href="../lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
 </li>
                                     
 <li>
@@ -154,11 +158,33 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="3"><a href="#connecting-lyrat-and-running-an-example-project" class="nav-link">Connecting LyraT and Running an example project</a>
+            <li class="nav-item" data-level="3"><a href="#different-compilation-tools-used" class="nav-link">Different compilation tools used</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="3"><a href="#different-compilation-tools-used" class="nav-link">Different compilation tools used</a>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#getting-started-on-tc-machines" class="nav-link">Getting Started on TC Machines</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#launching-the-compilation-flow-on-tc-machines" class="nav-link">Launching the Compilation Flow on TC Machines</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#flashing-the-led" class="nav-link">Flashing the LED.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#known-problems" class="nav-link">Known Problems</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#requirements-are-not-satisfied-gdbgui01320" class="nav-link">Requirements are not satisfied: gdbgui&gt;=0.13.2.0</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#usb-driver-on-mac-platforms" class="nav-link">USB driver on MAC platforms</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -180,13 +206,13 @@
 <li>Lecture 3: Audio systems architecture, audio callback</li>
 <li>Lecture 4: Hardware Audio codec configuration</li>
 <li>Lecture 5 &amp; 6: Audio signal processing basics synthesis</li>
-<li>Lecture : Faust Language tutorial <a href="https://faust.grame.fr/">https://faust.grame.fr/</a></li>
+<li>Lecture 7: Faust Language tutorial <a href="https://faust.grame.fr/">https://faust.grame.fr/</a></li>
 </ul>
 <h4 id="part-2-embedded-audio-system-architecture">Part 2: Embedded Audio System Architecture</h4>
 <ul>
-<li>Lecture 8: Embedded System Peripherals</li>
-<li>Lecture 9: embedded OS, free-RTOS, embedded Audio linux devices</li>
-<li>Lecture 10: RTone comference on embedded systems in industry <a href="https://rtone.fr/">https://rtone.fr/</a></li>
+<li>Lecture 8: RTone comference on embedded systems in industry <a href="https://rtone.fr/">https://rtone.fr/</a></li>
+<li>Lecture 9: Embedded System Peripherals</li>
+<li>Lecture 10: embedded OS, free-RTOS, embedded Audio linux devices</li>
 </ul>
 <h4 id="part-3-lyrat-programming">Part 3: LyraT programming</h4>
 <ul>
@@ -250,13 +276,16 @@ When you have install ESP32-IDF in directory ''ESP32-IDF'', you have to source t
 <p><code>source  ESP32-IDF/export.sh</code></p>
 <p>it is not recommended to perform the source of ''export.sh'' in the profile script because it might invalidate other tool using python. Instead you can define a command for performing the source:</p>
 <p><code>alias get_idf='. $HOME/esp/esp-idf/export.sh'</code></p>
-<h3 id="connecting-lyrat-and-running-an-example-project">Connecting LyraT and Running an example project</h3>
-<p>Follow <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/">espressive tutorial (final steps)</a> to run the <code>get-started/hello_world/</code> example.</p>
-<p>You should be able to have a LED blinking and to interact with the UART connection.</p>
+<!-- ###Connecting LyraT and Running an example project
+Follow [espressive tutorial (final steps)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/) to run the `` get-started/hello_world/`` example.
+
+You should be able to have a LED blinking and to interact with the UART connection.
+-->
+
 <h3 id="different-compilation-tools-used">Different compilation tools used</h3>
-<p>ESP32-IDF projects supports several build/compilation tools:
+<p>ESP32-IDF projects supports several build/compilation tools: <code>make</code>, <code>cmake</code> and <code>idf.py</code> (we recommend the use of <code>idf.py</code> tool)
 <ul>
-<li> <code>make</code>, using a generic and quite complex <code>ID_PATH/make/project.mk</code> Makefile for all existing project. This was the original only tool used IDF, however it is being progressively replaced by the <code>cmake</code> compilation tools. 
+<li> <code>make</code>, using a generic and quite complex <code>ID_PATH/make/project.mk</code> Makefile for all existing project. This was the original only tool used IDF, however it is being progressively replaced by the <code>cmake</code> compilation tools. </li>
 <li> <code>cmake</code> which is the recommended toolchain as <code>make</code> might not be supported anymore in further version. Here is an example of project compilation with <code>cmake</code>:</p>
 <pre><code>mkdir build;
 cd build;
@@ -266,15 +295,62 @@ make flash
 make monitor
 </code></pre>
 
-<li> ``idf.py``  is a top-level python config/build command line tool for ESP-IDF provided by espressive build. Here is an example of project compilation with ``idf.py``:
-
+<p></li>
+<li> <code>idf.py</code>  is a top-level python config/build command line tool for ESP-IDF provided by espressive build. Here is an example of project compilation with <code>idf.py</code>:</p>
 <pre><code>idf.py all
 idf.py flash 
 idf.py monitor
 </code></pre>
 
-<li> we recommend the use of ``cmake`` tool.
-</ul></div>
+<p></li>
+</ul></p>
+<h1 id="getting-started-on-tc-machines">Getting Started on TC Machines</h1>
+<h3 id="launching-the-compilation-flow-on-tc-machines">Launching the Compilation Flow on TC Machines</h3>
+<p>The <code>idf</code> tool chain is installed on TC machine in <code>/opt/esp-idf/</code>. In order to use this tool chain, do the following commands:</p>
+<pre><code>export IDF_TOOLS_PATH=/opt/idf_tools
+source /opt/esp-idf/export.sh
+</code></pre>
+
+<p>You should get the following message (if you do not, it do not go further):</p>
+<pre><code>[...]
+Go to the project directory and run:
+
+  idf.py build
+</code></pre>
+
+<p>then copy de <code>/opt/esp-idf/examples/get-started/</code> to your home directory:</p>
+<pre><code>cp /opt/esp-idf/examples/get-started/ ~/my-esp/
+</code></pre>
+
+<p>Go in the ``get-started/hello_world and build the project</p>
+<pre><code>cd ~/my-esp/hello_world/
+idf.py build
+</code></pre>
+
+<p>Once the binary program built, connect the lyraT board with the usb cables, <b>make sure that the central switch is in position 'on'</b>.</p>
+<p>Load the program: execute the following command and <b>do the 'flash' manipulation</b>: push continuously on the <code>boot</code> button, press (shortly, but not too shortly) on the <code>reset</code> button, release the <code>boot</code> button:</p>
+<pre><code>idf.py flash
+</code></pre>
+
+<p>you should see the load executing..</p>
+<p>Open the serial port on <code>/dev/ttyUSB0</code> using IDF monitor facility:</p>
+<pre><code>idf.py monitor
+</code></pre>
+
+<p>Do not forget to <b>reset the board once again</b>  (push on the reset button) after each flash operation otherwise your program is not started. Then you should see the board booting every 10 second. Kill the serial monitor by using the command:</p>
+<p><code>Ctrl-alt gr-]</code></p>
+<h3 id="flashing-the-led">Flashing the LED.</h3>
+<p>Go in the <code>get-started/blink</code> directory</p>
+<p>this program blink the LED, but the port in not configured correctly as it is an information that depends on the experimental board in which the ESP32 is used. launche the <code>menuconfig</code> interface, select <code>example configuration</code> and choose 22 for <code>Blink_GPIO_number</code></p>
+<h1 id="known-problems">Known Problems</h1>
+<h3 id="requirements-are-not-satisfied-gdbgui01320">Requirements are not satisfied: gdbgui&gt;=0.13.2.0</h3>
+<p>On ubuntu, this message sometimes occurs when sourcing <code>export.sh</code>. We did not completely understood the problem but two solutions seemed to work:
+<ol>
+<li> Remove explicitely the faulty dependance in <code>${IDF}/requirement.txt</code>. The faulty dependance is not <code>gdbgui</code> but <code>pugdbmi</code>: comment the line mentionning <code>pugdbmi</code></li>
+<li> Use the reddit solution: <a href="https://www.reddit.com/r/esp32/comments/ifgfy9/why_am_i_getting_this_gdbgui01320_error/">https://www.reddit.com/r/esp32/comments/ifgfy9/why_am_i_getting_this_gdbgui01320_error/</a> </li>
+</ol></p>
+<h3 id="usb-driver-on-mac-platforms">USB driver on MAC platforms</h3>
+<p>It occurs on some MAC computers that the USB driver are not installed, you have to install it expicitely, it is explained here for instance: <a href="https://www.amstramgrame.fr/gramophone/loader/">https://www.amstramgrame.fr/gramophone/loader/</a></p></div>
             </div>
         </div>
 
@@ -304,7 +380,7 @@ idf.py monitor
                 </p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>

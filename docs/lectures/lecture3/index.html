@@ -69,11 +69,15 @@
 </li>
                                     
 <li>
-    <a href="../lecture8/" class="dropdown-item"> 8:  Embedded System Peripherals </a>
+    <a href="../lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
 </li>
                                     
 <li>
-    <a href="../lecture9/" class="dropdown-item"> 9:   Embedded OS, freeRTOS </a>
+    <a href="../lecture9/" class="dropdown-item"> 9:  Embedded System Peripherals </a>
+</li>
+                                    
+<li>
+    <a href="../lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
 </li>
                                     
 <li>
@@ -314,6 +318,45 @@ for(int i=0; i&lt;size; i++){
 <p>where <script type="math/tex">d</script> is the MIDI number.</p>
 <p>Write a small tune/song looping through at least 5 notes and play it with the <code>crazy-sine</code> program on your LyraT.</p>
 <p><strong>Hint:</strong> For that, you'll probably have to replace the <code>audioDsp.setFreq(rand()%(2000-50 + 1) + 50);</code> line of of <code>main.cpp</code> by something else.</p>
+<!--
+**Solution:**
+
+In `main.cpp`:
+
+
+<pre><code>extern &quot;C&quot; {
+  void app_main(void);
+}
+
+float mtof(float note){
+  return pow(2.0,(note-69.0)/12.0)*440.0;
+}
+
+void app_main(void)
+{
+  // initialize Audio Codec
+  ES8388 es8388;
+  es8388.init();
+
+  // start audio DSP
+  AudioDsp audioDsp(48000,16);
+  audioDsp.start();
+
+  int tune[] = {62,78,65,67,69};
+  int cnt = 0;
+
+  // infinite loop
+  while(1) {
+    // changing frequency randomly every 100ms
+    audioDsp.setFreq(mtof(tune[cnt]));
+    cnt = (cnt+1)%5;
+    vTaskDelay(500 / portTICK_PERIOD_MS);
+  }
+}
+</code></pre>
+
+-->
+
 <h3 id="basic-additive-synthesis">Basic Additive Synthesis</h3>
 <p>One of the most basic kind of sound synthesis is "additive synthesis." In consists of adding multiple sine wave oscillators together to "sculpt" the timbre of a sound. Both the frequency and the gain of each individual oscillator can then be used to change the properties of the synthesized sound. </p>
 <p>A simple additive synthesizer could be implemented from the <code>crazy-sine</code> example by declaring multiple instances of <code>sine</code>. E.g.:</p>
@@ -325,14 +368,79 @@ for(int i=0; i&lt;size; i++){
 <script type="math/tex; mode=display">x(t) = sin(2 \pi f t) + sin(2 \pi (1.5f) t)</script>
 </p>
 <p><strong>Hint:</strong> Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. </p>
+<!--
+**Solution:**
+
+In `Sine.cpp`:
+
+
+<pre><code>float Sine::tick(){
+  int index = phasor.tick()*SINE_TABLE_SIZE;
+  int index2 = phasor.tick()*1.5*SINE_TABLE_SIZE;
+  return (sineTable.tick(index)+sineTable.tick(index2))*gain*0.5;
+}
+</code></pre>
+
+-->
+
 <h3 id="stereo-echo">Stereo Echo</h3>
-<p>Resuing the result of the previous exercise, create a second instance of <code>echo</code> (connected to the same instance of <code>sine</code>) <em>with different parameters from the first one</em> that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:</p>
+<p>Reusing the result of the previous exercise, create a second instance of <code>echo</code> (connected to the same instance of <code>sine</code>) <em>with different parameters from the first one</em> that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:</p>
 <pre><code>float sineSample = sine.tick();
 float currentSampleL = echo0.tick(sineSample)*0.5;
 float currentSampleR = echo1.tick(sineSample)*0.5;
 </code></pre>
 
-<p><strong>Hint:</strong> Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. </p></div>
+<p><strong>Hint:</strong> Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. </p>
+<!--
+**Solution:**
+
+In `AudioDsp.h`:
+
+
+<pre><code>  Sine sine;
+  Echo echo0, echo1;
+};
+</code></pre>
+
+
+In `AudioDsp.cpp`:
+
+
+<pre><code>AudioDsp::AudioDsp(int SR, int BS) : 
+fSampleRate(SR),
+fBufferSize(BS),
+fNumOutputs(2),
+fHandle(nullptr),
+fRunning(false),
+sine(SR),
+echo0(SR,10000),
+echo1(SR,7000)
+{
+
+...
+
+// setting up DSP objects
+echo0.setDel(10000);
+echo0.setFeedback(0.5);
+echo1.setDel(7000);
+echo1.setFeedback(0.4);
+
+...
+
+// processing buffers
+for (int i = 0; i &lt; fBufferSize; i++) {
+  // DSP
+  float sineSample = sine.tick();
+  float currentSampleL = echo0.tick(sineSample)*0.5;
+  float currentSampleR = echo1.tick(sineSample)*0.5;
+
+  // copying to output buffer
+  samples_data_out[i*fNumOutputs] = currentSampleL*MULT_S16;
+  samples_data_out[i*fNumOutputs+1] = currentSampleR*MULT_S16;
+}
+</code></pre>
+
+--></div>
             </div>
         </div>
 
@@ -362,7 +470,7 @@ float currentSampleR = echo1.tick(sineSample)*0.5;
                 </p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>

@@ -30,8 +30,13 @@ uint8_t ES8388::init(void)
   writeReg(ES8388_DACCONTROL2,2); // 0000 0010: DACFsRatio (Master mode DAC MCLK to sampling frequency ratio) is set to 256 
   writeReg(ES8388_DACCONTROL4,0); // 0000 0000: gain of output (L) is 0dB
   writeReg(ES8388_DACCONTROL5,0); // 0000 0000: gain of output (R) is 0dB  
-  writeReg(ES8388_DACCONTROL17,144); // 1001 0000: left DAC to left mixer enabled + LIN signal to left mixer gain is 0dB
-  writeReg(ES8388_DACCONTROL20,144); // 1001 0000: same config as above but for right mixer
+  //TANG
+  writeReg(ES8388_DACCONTROL16,9); //000001001: select LIN2 and RIN2
+  writeReg(ES8388_DACCONTROL17,120); // 0101 0000: LIN to left mixer enabled + LIN signal to left mixer gain is 0dB
+  //END TANG
+  // writeReg(ES8388_DACCONTROL17,144); // 1001 0000: left DAC to left mixer enabled + LIN signal to left mixer gain is 0dB
+   writeReg(ES8388_DACCONTROL20,120); // 0101 0000: same config as above but for right mixer
+  // writeReg(ES8388_DACCONTROL20,144); // 1001 0000: same config as above but for right mixer
   writeReg(ES8388_DACCONTROL21,128); // 1000 0000: DACLRC and ADCLRC are same
   writeReg(ES8388_DACCONTROL24,30); // 0001 1110: DAC volume is 0dB (L)
   writeReg(ES8388_DACCONTROL25,30); // 0001 1110: DAC volume is 0dB (R)
