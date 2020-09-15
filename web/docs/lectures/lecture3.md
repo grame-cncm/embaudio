@@ -181,6 +181,44 @@ Write a small tune/song looping through at least 5 notes and play it with the `c
 
 **Hint:** For that, you'll probably have to replace the `audioDsp.setFreq(rand()%(2000-50 + 1) + 50);` line of of `main.cpp` by something else.
 
+<!--
+**Solution:**
+
+In `main.cpp`:
+
+```
+extern "C" {
+  void app_main(void);
+}
+
+float mtof(float note){
+  return pow(2.0,(note-69.0)/12.0)*440.0;
+}
+
+void app_main(void)
+{
+  // initialize Audio Codec
+  ES8388 es8388;
+  es8388.init();
+  
+  // start audio DSP
+  AudioDsp audioDsp(48000,16);
+  audioDsp.start();
+  
+  int tune[] = {62,78,65,67,69};
+  int cnt = 0;
+  
+  // infinite loop
+  while(1) {
+    // changing frequency randomly every 100ms
+    audioDsp.setFreq(mtof(tune[cnt]));
+    cnt = (cnt+1)%5;
+    vTaskDelay(500 / portTICK_PERIOD_MS);
+  }
+}
+```
+-->
+
 ### Basic Additive Synthesis
 
 One of the most basic kind of sound synthesis is "additive synthesis." In consists of adding multiple sine wave oscillators together to "sculpt" the timbre of a sound. Both the frequency and the gain of each individual oscillator can then be used to change the properties of the synthesized sound. 
@@ -197,9 +235,23 @@ but the problem with that option is that memory will be allocated twice for the 
 
 **Hint:** Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. 
 
+<!--
+**Solution:**
+
+In `Sine.cpp`:
+
+```
+float Sine::tick(){
+  int index = phasor.tick()*SINE_TABLE_SIZE;
+  int index2 = phasor.tick()*1.5*SINE_TABLE_SIZE;
+  return (sineTable.tick(index)+sineTable.tick(index2))*gain*0.5;
+}
+```
+-->
+
 ### Stereo Echo
 
-Resuing the result of the previous exercise, create a second instance of `echo` (connected to the same instance of `sine`) *with different parameters from the first one* that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:
+Reusing the result of the previous exercise, create a second instance of `echo` (connected to the same instance of `sine`) *with different parameters from the first one* that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:
 
 ```
 float sineSample = sine.tick();
@@ -208,3 +260,52 @@ float currentSampleR = echo1.tick(sineSample)*0.5;
 ```
 
 **Hint:** Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. 
+
+<!--
+**Solution:**
+
+In `AudioDsp.h`:
+
+```
+  Sine sine;
+  Echo echo0, echo1;
+};
+```
+
+In `AudioDsp.cpp`:
+
+```
+AudioDsp::AudioDsp(int SR, int BS) : 
+fSampleRate(SR),
+fBufferSize(BS),
+fNumOutputs(2),
+fHandle(nullptr),
+fRunning(false),
+sine(SR),
+echo0(SR,10000),
+echo1(SR,7000)
+{
+  
+...
+
+// setting up DSP objects
+echo0.setDel(10000);
+echo0.setFeedback(0.5);
+echo1.setDel(7000);
+echo1.setFeedback(0.4);
+
+...
+
+// processing buffers
+for (int i = 0; i < fBufferSize; i++) {
+  // DSP
+  float sineSample = sine.tick();
+  float currentSampleL = echo0.tick(sineSample)*0.5;
+  float currentSampleR = echo1.tick(sineSample)*0.5;
+  
+  // copying to output buffer
+  samples_data_out[i*fNumOutputs] = currentSampleL*MULT_S16;
+  samples_data_out[i*fNumOutputs+1] = currentSampleR*MULT_S16;
+}
+```
+-->
