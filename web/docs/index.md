@@ -35,10 +35,10 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 * **Lecture 4: [Audio Codec Configuration](lectures/lecture4.md)** -- *18/09/2020 16h00-18h00 5TC-G2*
 * **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *21/09/2020 08h00-10h00 5TC-G2*
 * **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *21/09/2020 10h00-12h00 5TC-G2*
-* **Lecture 7: Faust Tutorial** -- *21/09/2020 14h00-16h00 5TC-G2*
-* **Lecture 8: Embedded System Peripherals** -- *21/09/2020 16h00-18h00 5TC-G2*
-* **Lecture 9: Embedded OS, FreeRTOS, Embedded Linux Devices** -- *22/09/2020 08h00-10h00 5TC-G2*
-* **Lecture 10: RTone Talk** -- *22/09/2020 10h00-12h00 5TC-G2*
+* **Lecture 7:  RTone Talk** -- *21/09/2020 14h00-16h00 5TC-G2*
+* **Lecture 8: Faust Tutorial** -- *21/09/2020 16h00-18h00 5TC-G2*
+* **Lecture 9: Embedded System Peripherals** -- *22/09/2020 08h00-10h00 5TC-G2*
+* **Lecture 10:Embedded OS, FreeRTOS, Embedded Linux Devices** -- *22/09/2020 10h00-12h00 5TC-G2*
 * **Lecture 11: [Faust on the LyraT and Advanced Control](lectures/lecture11.md)** -- *22/09/2020 10h00-12h00 5TC-G2*
 * **Sessions 12-14: Mini-project**
     * *22/09/2020 16h00-18h00 5TC-G2*

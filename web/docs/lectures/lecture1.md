@@ -99,16 +99,17 @@ it is not recommended to perform the source of ''export.sh'' in the profile scri
 
 ```alias get_idf='. $HOME/esp/esp-idf/export.sh'```
 
-###Connecting LyraT and Running an example project
+<!-- ###Connecting LyraT and Running an example project
 Follow [espressive tutorial (final steps)](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/) to run the `` get-started/hello_world/`` example.
 
 You should be able to have a LED blinking and to interact with the UART connection.
+-->
 
 ### Different compilation tools used
 
-ESP32-IDF projects supports several build/compilation tools:
+ESP32-IDF projects supports several build/compilation tools: ``make``, ``cmake`` and ``idf.py`` (we recommend the use of ``idf.py`` tool)
 <ul>
-<li> ``make``, using a generic and quite complex ``ID_PATH/make/project.mk`` Makefile for all existing project. This was the original only tool used IDF, however it is being progressively replaced by the ``cmake`` compilation tools. 
+<li> ``make``, using a generic and quite complex ``ID_PATH/make/project.mk`` Makefile for all existing project. This was the original only tool used IDF, however it is being progressively replaced by the ``cmake`` compilation tools. </li>
 <li> ``cmake`` which is the recommended toolchain as ``make`` might not be supported anymore in further version. Here is an example of project compilation with ``cmake``:
 
 ```
@@ -119,16 +120,72 @@ make
 make flash 
 make monitor
 ```
-
+</li>
 <li> ``idf.py``  is a top-level python config/build command line tool for ESP-IDF provided by espressive build. Here is an example of project compilation with ``idf.py``:
 ```
 idf.py all
 idf.py flash 
 idf.py monitor
 ```
-<li> we recommend the use of ``cmake`` tool.
+</li>
 </ul>
 
 
+#Getting Started on TC Machines
 
+### Launching the Compilation Flow on TC Machines
+
+The ``idf`` tool chain is installed on TC machine in ``/opt/esp-idf/``. In order to use this tool chain, do the following commands:
+```
+export IDF_TOOLS_PATH=/opt/idf_tools
+source /opt/esp-idf/export.sh
+```
+You should get the following message (if you do not, it do not go further):
+```
+[...]
+Go to the project directory and run:
+
+  idf.py build
+```
+then copy de ``/opt/esp-idf/examples/get-started/`` to your home directory:
+```
+cp /opt/esp-idf/examples/get-started/ ~/my-esp/
+```
+Go in the ``get-started/hello_world and build the project
+```
+cd ~/my-esp/hello_world/
+idf.py build
+```
+Once the binary program built, connect the lyraT board with the usb cables, <b>make sure that the central switch is in position 'on'</b>.
+
+Load the program: execute the following command and <b>do the 'flash' manipulation</b>: push continuously on the ``boot`` button, press (shortly, but not too shortly) on the ``reset`` button, release the ``boot`` button:
+```
+idf.py flash
+```
+you should see the load executing..
+
+Open the serial port on ``/dev/ttyUSB0`` using IDF monitor facility:
+```
+idf.py monitor
+```
+Do not forget to <b>reset the board once again</b>  (push on the reset button) after each flash operation otherwise your program is not started. Then you should see the board booting every 10 second. Kill the serial monitor by using the command:
+
+```Ctrl-alt gr-]```
+
+### Flashing the LED.
+Go in the ``get-started/blink`` directory
+
+this program blink the LED, but the port in not configured correctly as it is an information that depends on the experimental board in which the ESP32 is used. launche the ``menuconfig`` interface, select ``example configuration`` and choose 22 for ```Blink_GPIO_number```
+
+
+# Known Problems
+### Requirements are not satisfied: gdbgui>=0.13.2.0
+On ubuntu, this message sometimes occurs when sourcing ``export.sh``. We did not completely understood the problem but two solutions seemed to work:
+<ol>
+<li> Remove explicitely the faulty dependance in ``${IDF}/requirement.txt``. The faulty dependance is not ``gdbgui`` but ``pugdbmi``: comment the line mentionning ``pugdbmi``</li>
+<li> Use the reddit solution: [https://www.reddit.com/r/esp32/comments/ifgfy9/why_am_i_getting_this_gdbgui01320_error/](https://www.reddit.com/r/esp32/comments/ifgfy9/why_am_i_getting_this_gdbgui01320_error/) </li>
+</ol>
+
+### USB driver on MAC platforms
+It occurs on some MAC computers that the USB driver are not installed, you have to install it expicitely, it is explained here for instance: [https://www.amstramgrame.fr/gramophone/loader/](https://www.amstramgrame.fr/gramophone/loader/)
 
