@@ -146,6 +146,81 @@ An LFO is an oscillator whose frequency is below the human hearing range (20 Hz)
 
 Modify the [crazy-saw example](https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-saw) so that notes are played slower (1 per second) and that some vibrato is added to the generated sound. 
 
+<!--
+**Solution:**
+
+In `AudioDsp.h`:
+
+```
+#include "../../lib/Sine.h"
+
+...
+
+  void setFreq(float f);
+private:
+  void audioTask();
+  static void audioTaskHandler(void* arg);
+  
+  int fSampleRate, fBufferSize, fNumOutputs;
+  float freq;
+  TaskHandle_t fHandle;
+  bool fRunning;
+  
+  Phasor sawtooth;
+  Echo echo;
+  Sine LFO;
+};
+```
+
+In `AudioDsp.cpp`:
+
+```
+AudioDsp::AudioDsp(int SR, int BS) : 
+fSampleRate(SR),
+fBufferSize(BS),
+fNumOutputs(2),
+freq(440),
+fHandle(nullptr),
+fRunning(false),
+sawtooth(SR),
+echo(SR,10000),
+LFO(SR)
+{
+  
+...
+
+  // setting up DSP objects
+  echo.setDel(10000);
+  echo.setFeedback(0.5);
+  LFO.setFrequency(6);
+}
+
+...
+
+// set sine wave frequency
+void AudioDsp::setFreq(float f){
+  freq = f;
+}
+
+...
+
+for (int i = 0; i < fBufferSize; i++) {
+  // DSP
+  sawtooth.setFrequency(freq*(1 + LFO.tick()*0.1));
+  float currentSample = echo.tick(sawtooth.tick()*2 - 1)*0.5;
+```
+
+In `main.cpp`:
+
+```
+while(1) {
+  // changing frequency randomly every 100ms
+  audioDsp.setFreq(rand()%(2000-50 + 1) + 50);
+  vTaskDelay(500 / portTICK_PERIOD_MS);
+}
+```
+-->
+
 ### Towards the DX7
 
 The DX7 carried out frequency modulation over a total of six oscillators that could be patched in [different ways](https://forum.sequential.com/index.php?topic=1114.20). So FM is not limited to two oscillators... Try to implement an FM synthesizer involving 3 oscillators instead of one. They should be connected in series: 3 -> 2 -> 1. 
