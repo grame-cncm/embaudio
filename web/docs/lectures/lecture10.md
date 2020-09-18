@@ -1,9 +1,9 @@
-# Lecture 9: Embedded OS, freeRTOS
+# Lecture 10: Embedded OS, freeRTOS
 
 This course will present the important notions of embedded operating systems and  explain in more details the FreeRtos operating system used on ESP32.
 ## Slides
 
-It is (temporarily) available through sildes [here](lecture9/img/cours2-os.pdf)
+It is (temporarily) available through sildes [here](lecture10/img/cours2-os.pdf)
 
 ##Exercices
 ### Creating tasks

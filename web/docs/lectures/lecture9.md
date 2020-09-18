@@ -1,10 +1,10 @@
-# Lecture 8: Embedded System Peripherals
+# Lecture 9: Embedded System Peripherals
 
 This course will explain in more details the principles of embedded programming,  peripheral programming, an interrupt handling.
 
 # Slides
 
-It is (temporarily) available through sildes [here](lecture8/img/cours1-embedded.pdf)
+It is (temporarily) available through sildes [here](lecture9/img/cours1-embedded.pdf)
 
 #Exercice: use of timers
 ## Read the doc...
