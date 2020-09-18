@@ -121,7 +121,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lecture-8-embedded-system-peripherals" class="nav-link">Lecture 8: Embedded System Peripherals</a>
+            <li class="nav-item" data-level="1"><a href="#lecture-9-embedded-system-peripherals" class="nav-link">Lecture 9: Embedded System Peripherals</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -131,8 +131,20 @@
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#exercices" class="nav-link">Exercices</a>
+            <li class="nav-item" data-level="1"><a href="#exercice-use-of-timers" class="nav-link">Exercice: use of timers</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#read-the-doc" class="nav-link">Read the doc...</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#run-a-timer-simple-app" class="nav-link">Run a timer simple app</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#raw-programming-of-timer-register" class="nav-link">Raw Programming of timer register</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -140,12 +152,39 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lecture-8-embedded-system-peripherals">Lecture 8: Embedded System Peripherals</h1>
+<h1 id="lecture-9-embedded-system-peripherals">Lecture 9: Embedded System Peripherals</h1>
 <p>This course will explain in more details the principles of embedded programming,  peripheral programming, an interrupt handling.</p>
 <h1 id="slides">Slides</h1>
-<p>It is (temporarily) available through sildes <a href="lecture8/img/cours1-embedded.pdf">here</a></p>
-<h1 id="exercices">Exercices</h1>
-<p>TBD</p></div>
+<p>It is (temporarily) available through sildes <a href="img/cours1-embedded.pdf">here</a></p>
+<h1 id="exercice-use-of-timers">Exercice: use of timers</h1>
+<h2 id="read-the-doc">Read the doc...</h2>
+<p>Have 10 minutes looking at chapter 19 (p498) of <a href="../lecture1/img/esp32_datasheet_en.pdf">esp32_datasheet_en.pdf</a>: the chapter dedicated to timers.
+<ol>
+<li> How many timers do we have ?</li>
+<!-- 4 timers: two group of timers 0 and 1 with two timers 0 and 1 -->
+<li> Where are presented the registers configuring timee 0 (group 0)?</li>
+<!-- p499 is the list, the details are in section 19.4: register 19.1 -> 19.9, some. The interrupt register (from reg 19.19, p 506) are important two -->
+<li> More difficult: Where are defined the macros to access these register in IDF suite?  </li>
+<!-- Plou difficile: il faut y aller a coup de grep, c'est dans  esp-idf/components/soc/esp32/include/soc/timer_group_reg.h -->
+</ol></p>
+<h2 id="run-a-timer-simple-app">Run a timer simple app</h2>
+<p>go in the <code>example/blink-timer</code> directory of the course github, run the example and look at the code.
+<ol>
+<li> Identify the timer ISR </li>
+<li> Identify the timer initialisation </li>
+<li> change the blink rythm is some way </li>
+<li> Print the address and the value of TIMG_T0CONFIG_REG(0) </li>
+</ol></p>
+<h2 id="raw-programming-of-timer-register">Raw Programming of timer register</h2>
+<p>Here again, the API proposed by IDF is quite complex. In embedded programming, simple is beautiful, we can program all the timer register directly.
+<ol>
+<li> Comment the line that starts the timer: <code>timer_start(TIMER_GROUP_0, 0);</code>, does it work now ?
+<li> Replace this command by a direct activation of the timer: setting the bit <code>TIMG_T0_EN</code> in register <code>TIMG_T0CONFIG_REG(0)</code> (See documentation page 501: register <code>TIMGn_TxCONFIG_REG</code>).
+<!--
+    int config_reg=read_reg(TIMG_T0CONFIG_REG(0));
+    config_reg |= 1<<31 ;<br />    printf("config_reg 0x%x\n", config_reg);
+    write_reg(TIMG_T0CONFIG_REG(0),config_reg);
+--></p></div>
             </div>
         </div>
 
