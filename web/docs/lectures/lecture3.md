@@ -181,7 +181,6 @@ Write a small tune/song looping through at least 5 notes and play it with the `c
 
 **Hint:** For that, you'll probably have to replace the `audioDsp.setFreq(rand()%(2000-50 + 1) + 50);` line of of `main.cpp` by something else.
 
-<!--
 **Solution:**
 
 In `main.cpp`:
@@ -217,7 +216,6 @@ void app_main(void)
   }
 }
 ```
--->
 
 ### Basic Additive Synthesis
 
@@ -235,7 +233,6 @@ but the problem with that option is that memory will be allocated twice for the 
 
 **Hint:** Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. 
 
-<!--
 **Solution:**
 
 In `Sine.cpp`:
@@ -247,7 +244,6 @@ float Sine::tick(){
   return (sineTable.tick(index)+sineTable.tick(index2))*gain*0.5;
 }
 ```
--->
 
 ### Stereo Echo
 
@@ -261,7 +257,6 @@ float currentSampleR = echo1.tick(sineSample)*0.5;
 
 **Hint:** Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. 
 
-<!--
 **Solution:**
 
 In `AudioDsp.h`:
@@ -308,4 +303,3 @@ for (int i = 0; i < fBufferSize; i++) {
   samples_data_out[i*fNumOutputs+1] = currentSampleR*MULT_S16;
 }
 ```
--->

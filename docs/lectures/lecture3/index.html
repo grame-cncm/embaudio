@@ -318,12 +318,8 @@ for(int i=0; i&lt;size; i++){
 <p>where <script type="math/tex">d</script> is the MIDI number.</p>
 <p>Write a small tune/song looping through at least 5 notes and play it with the <code>crazy-sine</code> program on your LyraT.</p>
 <p><strong>Hint:</strong> For that, you'll probably have to replace the <code>audioDsp.setFreq(rand()%(2000-50 + 1) + 50);</code> line of of <code>main.cpp</code> by something else.</p>
-<!--
-**Solution:**
-
-In `main.cpp`:
-
-
+<p><strong>Solution:</strong></p>
+<p>In <code>main.cpp</code>:</p>
 <pre><code>extern &quot;C&quot; {
   void app_main(void);
 }
@@ -355,8 +351,6 @@ void app_main(void)
 }
 </code></pre>
 
--->
-
 <h3 id="basic-additive-synthesis">Basic Additive Synthesis</h3>
 <p>One of the most basic kind of sound synthesis is "additive synthesis." In consists of adding multiple sine wave oscillators together to "sculpt" the timbre of a sound. Both the frequency and the gain of each individual oscillator can then be used to change the properties of the synthesized sound. </p>
 <p>A simple additive synthesizer could be implemented from the <code>crazy-sine</code> example by declaring multiple instances of <code>sine</code>. E.g.:</p>
@@ -368,20 +362,14 @@ void app_main(void)
 <script type="math/tex; mode=display">x(t) = sin(2 \pi f t) + sin(2 \pi (1.5f) t)</script>
 </p>
 <p><strong>Hint:</strong> Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. </p>
-<!--
-**Solution:**
-
-In `Sine.cpp`:
-
-
+<p><strong>Solution:</strong></p>
+<p>In <code>Sine.cpp</code>:</p>
 <pre><code>float Sine::tick(){
   int index = phasor.tick()*SINE_TABLE_SIZE;
   int index2 = phasor.tick()*1.5*SINE_TABLE_SIZE;
   return (sineTable.tick(index)+sineTable.tick(index2))*gain*0.5;
 }
 </code></pre>
-
--->
 
 <h3 id="stereo-echo">Stereo Echo</h3>
 <p>Reusing the result of the previous exercise, create a second instance of <code>echo</code> (connected to the same instance of <code>sine</code>) <em>with different parameters from the first one</em> that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:</p>
@@ -391,21 +379,14 @@ float currentSampleR = echo1.tick(sineSample)*0.5;
 </code></pre>
 
 <p><strong>Hint:</strong> Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. </p>
-<!--
-**Solution:**
-
-In `AudioDsp.h`:
-
-
+<p><strong>Solution:</strong></p>
+<p>In <code>AudioDsp.h</code>:</p>
 <pre><code>  Sine sine;
   Echo echo0, echo1;
 };
 </code></pre>
 
-
-In `AudioDsp.cpp`:
-
-
+<p>In <code>AudioDsp.cpp</code>:</p>
 <pre><code>AudioDsp::AudioDsp(int SR, int BS) : 
 fSampleRate(SR),
 fBufferSize(BS),
@@ -438,9 +419,7 @@ for (int i = 0; i &lt; fBufferSize; i++) {
   samples_data_out[i*fNumOutputs] = currentSampleL*MULT_S16;
   samples_data_out[i*fNumOutputs+1] = currentSampleR*MULT_S16;
 }
-</code></pre>
-
---></div>
+</code></pre></div>
             </div>
         </div>
 
@@ -470,7 +449,7 @@ for (int i = 0; i &lt; fBufferSize; i++) {
                 </p>
                 <form>
                     <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>
