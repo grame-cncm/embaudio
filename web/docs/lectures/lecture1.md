@@ -189,3 +189,5 @@ On ubuntu, this message sometimes occurs when sourcing ``export.sh``. We did not
 ### USB driver on MAC platforms
 It occurs on some MAC computers that the USB driver are not installed, you have to install it expicitely, it is explained here for instance: [https://www.amstramgrame.fr/gramophone/loader/](https://www.amstramgrame.fr/gramophone/loader/)
 
+###Pyhton (build) problem on MAC platforms
+Not solved yet
