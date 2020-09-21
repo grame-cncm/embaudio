@@ -15,7 +15,7 @@ void Phasor::setFrequency(float f){
     
 float Phasor::tick(){
   float currentSample = phasor;
-  phasor += phasorDelta;
+  phasor += smooth.tick(phasorDelta);
   phasor = phasor - std::floor(phasor);
   return currentSample;
 }

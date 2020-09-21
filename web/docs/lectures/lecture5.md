@@ -224,3 +224,22 @@ while(1) {
 ### Towards the DX7
 
 The DX7 carried out frequency modulation over a total of six oscillators that could be patched in [different ways](https://forum.sequential.com/index.php?topic=1114.20). So FM is not limited to two oscillators... Try to implement an FM synthesizer involving 3 oscillators instead of one. They should be connected in series: 3 -> 2 -> 1. 
+
+**Solution:**
+
+(non-exhaustive)
+
+In `Fm.cpp`:
+
+```
+float Fm::tick(){
+  int m0Index = m0Phasor.tick()*SINE_TABLE_SIZE;
+  float modulator0 = sineTable.tick(m0Index);
+  modulator1.setFrequency(m1Freq + modulator0*mod0Index);
+  int m1Index = m1Phasor.tick()*SINE_TABLE_SIZE;
+  float modulator1 = sineTable.tick(m1Index);
+  cPhasor.setFrequency(cFreq + modulator1*mod1Index);
+  int cIndex = cPhasor.tick()*SINE_TABLE_SIZE;
+  return sineTable.tick(cIndex)*gain;
+}
+```

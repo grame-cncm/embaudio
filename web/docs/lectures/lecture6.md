@@ -165,3 +165,26 @@ In most cases, DSP parameters are executed at control rate. Moreover, the resolu
 where \(s\) is the value of the pole and is typically set to 0.999 for optimal results.
 
 Modify the [crazy-saw](https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-saw) example by "smoothing" the value of the frequency parameter by implementing the filter above with \(s=0.999\). Then slow down the rate at which frequency is being changed so that only two new values are generated per second. The result should sound quite funny :).  
+
+<!--
+**Solution:**
+
+In addition to `Smooth.cpp` and `Smooth.h`, in `Phasor.h`:
+
+```
+  int samplingRate;
+  Smooth smooth;
+};
+```
+
+and `Phasor.cpp`:
+
+```
+float Phasor::tick(){
+  float currentSample = phasor;
+  phasor += smooth.tick(phasorDelta);
+  phasor = phasor - std::floor(phasor);
+  return currentSample;
+}
+```
+-->
