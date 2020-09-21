@@ -89,25 +89,21 @@ and corresponds to 16 bits. 24 in binary format is: 0001 1000. If you don't know
 
 In the current configuration, both the ADC and the DAC are turned on. However, the `crazy-sine` example only uses the DAC. Hence, it might be smart to turn off the ADC to save some power. Turn off of the ADC by setting the right register. You'll have to look at the ES8388 data sheet for that, of course.
 
-<!--
 **Solution:**
 
 ```
 writeReg(ES8388_ADCPOWER,255);
 ```
--->
 
 ### Changing the Gain of the Mic Preamp
 
 Set the gain of the left microphone preamp to 21 dB and to 12 dB for the right microphone preamp.
 
-<!--
 **Solution:**
 
 ```
 writeReg(ES8388_ADCCONTROL1,116);
 ```
--->
 
 ### Use Line In Instead of Mic
 
@@ -115,13 +111,11 @@ In the current configuration, the two microphones of the LyraT are used as the i
 
 **Hint:** You might have to look at the [LyraT schematics](https://github.com/grame-cncm/embaudio20/raw/master/pdfs/esp32-lyrat-v4.3-schematic.pdf) for that.
 
-<!--
 **Solution:**
 
 ```
 writeReg(ES8388_ADCCONTROL2,80); 
 ```
--->
 
 ### Changing the Gain of the Output
 
@@ -129,20 +123,17 @@ Set the output level of the right channel to -96 dB.
 
 **Hint:** There might be multiple answers to this question. Pick up the one you prefer.
 
-<!--
 **Solution:**
 
 ```
 writeReg(ES8388_DACCONTROL5,0); or 
 writeReg(ES8388_DACCONTROL25,0); (-30dB in that case)
 ```
--->
 
 ### Changing the Sampling Rate
 
 That one is slightly harder ;), change the sampling rate of the `crazy-sine` example to 32kHz.
 
-<!--
 **Solution:**
 
 ```
@@ -150,4 +141,3 @@ writeReg(ES8388_ADCCONTROL5,3);
 writeReg(ES8388_DACCONTROL2,3);
 AudioDsp audioDsp(32000,16);
 ```
--->
