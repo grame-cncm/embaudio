@@ -14,6 +14,7 @@ nav:
     - ' 9:  Embedded System Peripherals ' : lectures/lecture9.md
     - ' 10:   Embedded OS, freeRTOS ' : lectures/lecture10.md
     - ' 11: Faust on the LyraT and Advanced Control ' : lectures/lecture11.md
+    - ' 12: personnal project ' : lectures/project.md
     
 theme: 
   name: flatly
