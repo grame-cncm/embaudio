@@ -8,7 +8,7 @@ You are encouraged to proposed your own project, here are some idea of topics th
 
 * Explore Digital Synthesis or effect on the web (e.g., <https://en.wikipedia.org/wiki/Category:Sound_synthesis_types>, <https://www.dafx.de/>, <https://en.wikipedia.org/wiki/Sound_effect#techniques>, <https://ccrma.stanford.edu/~jos/>, etc.), and implement a particular algorithm
 * Provide an OSC control via  udp connection with Wifi
-* Provide a BlueTooth/midi controler such as the one implemented here (link to come)
+* Provide a BlueTooth/midi controler such as the one implemented here (<https://github.com/midibox/esp32-idf-blemidi/tree/master/components/blemidi>)
 * Provide a USB/midi controler with an external midi/uSB device
 * Think of a funny application using wireless communications between several LyraT
 * Provide an HTTP server that can be used via wifi to control the LyraT program
