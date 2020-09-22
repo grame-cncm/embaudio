@@ -180,11 +180,14 @@
 <ol>
 <li> Comment the line that starts the timer: <code>timer_start(TIMER_GROUP_0, 0);</code>, does it work now ?
 <li> Replace this command by a direct activation of the timer: setting the bit <code>TIMG_T0_EN</code> in register <code>TIMG_T0CONFIG_REG(0)</code> (See documentation page 501: register <code>TIMGn_TxCONFIG_REG</code>).
-<!--
-    int config_reg=read_reg(TIMG_T0CONFIG_REG(0));
-    config_reg |= 1<<31 ;<br />    printf("config_reg 0x%x\n", config_reg);
+&lt;--</p>
+<pre><code>int config_reg=read_reg(TIMG_T0CONFIG_REG(0));
+    config_reg |= 1&lt;&lt;31 ;  
+    printf(&quot;config_reg 0x%x\n&quot;, config_reg);
     write_reg(TIMG_T0CONFIG_REG(0),config_reg);
---></p></div>
+</code></pre>
+
+<p>--&gt;</p></div>
             </div>
         </div>
 
@@ -214,7 +217,7 @@
                 </p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
                 <div id="mkdocs-search-results"></div>

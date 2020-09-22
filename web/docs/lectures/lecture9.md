@@ -30,9 +30,11 @@ Here again, the API proposed by IDF is quite complex. In embedded programming, s
 <ol>
 <li> Comment the line that starts the timer: ``timer_start(TIMER_GROUP_0, 0);``, does it work now ?
 <li> Replace this command by a direct activation of the timer: setting the bit ``TIMG_T0_EN`` in register `` TIMG_T0CONFIG_REG(0)`` (See documentation page 501: register ``TIMGn_TxCONFIG_REG``).
-<!--
-	int config_reg=read_reg(TIMG_T0CONFIG_REG(0));
+<--
+```
+int config_reg=read_reg(TIMG_T0CONFIG_REG(0));
     config_reg |= 1<<31 ;  
     printf("config_reg 0x%x\n", config_reg);
     write_reg(TIMG_T0CONFIG_REG(0),config_reg);
+```
 -->
