@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        
+        <link rel="canonical" href="https://embaudio.grame.fr/lectures/lecture4/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title> 4: Audio Codec Configuration  - AUD @ INSA Lyon</title>
+        <title>Lecture 4: Audio Codec Configuration - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -24,72 +24,9 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="../..">AUD @ INSA Lyon</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="../.." class="nav-link">Syllabus</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../lecture1/" class="dropdown-item"> 1: Course Introduction and Programming Environment Setup </a>
-</li>
-                                    
-<li>
-    <a href="../lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active"> 4: Audio Codec Configuration </a>
-</li>
-                                    
-<li>
-    <a href="../lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
-</li>
-                                    
-<li>
-    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
-</li>
-                                    
-<li>
-    <a href="../lecture7/" class="dropdown-item"> 7:  Faust Tutorial </a>
-</li>
-                                    
-<li>
-    <a href="../lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
-</li>
-                                    
-<li>
-    <a href="../lecture9/" class="dropdown-item"> 9:  Embedded System Peripherals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
-</li>
-                                    
-<li>
-    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the LyraT and Advanced Control </a>
-</li>
-                                    
-<li>
-    <a href="../project/" class="dropdown-item"> Personnal Project </a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -97,16 +34,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../lecture3/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../lecture5/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -219,16 +146,13 @@
 <pre><code>ES8388 es8388;
 es8388.init();
 </code></pre>
-
 <p>in <code>main.cpp</code> will be sufficient to get the audio codec going and send it i2s data. Have a look at the <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-sine"><code>crazy-sine</code></a> example to get an idea of how this works.</p>
 <p>Once <code>es8388.init();</code> has been called, <code>es8388.writeReg</code> can be called to override existing register values or set new ones. For example, the bit depth of the DAC could be set to 24 bits (instead of 16 now) by running:</p>
 <pre><code>writeReg(ES8388_DACCONTROL1,0);
 </code></pre>
-
 <p>which corresponds to 0000 0000 in binary format (see the documentation of register 23 on page 22 of the codec data sheet). The value of <code>ES8388_DACCONTROL1</code> in <code>init</code> is:</p>
 <pre><code>writeReg(ES8388_DACCONTROL1,24);
 </code></pre>
-
 <p>and corresponds to 16 bits. 24 in binary format is: 0001 1000. If you don't know how to convert decimal numbers to binary and vice versa, <a href="https://www.binary-code.org/binary/6bit/011110/">have a look at this page</a>. </p>
 <h2 id="exercises">Exercises</h2>
 <h3 id="deactivating-power-on-the-adc">Deactivating Power on the ADC</h3>
@@ -236,20 +160,17 @@ es8388.init();
 <p><strong>Solution:</strong></p>
 <pre><code>writeReg(ES8388_ADCPOWER,255);
 </code></pre>
-
 <h3 id="changing-the-gain-of-the-mic-preamp">Changing the Gain of the Mic Preamp</h3>
 <p>Set the gain of the left microphone preamp to 21 dB and to 12 dB for the right microphone preamp.</p>
 <p><strong>Solution:</strong></p>
 <pre><code>writeReg(ES8388_ADCCONTROL1,116);
 </code></pre>
-
 <h3 id="use-line-in-instead-of-mic">Use Line In Instead of Mic</h3>
 <p>In the current configuration, the two microphones of the LyraT are used as the inputs to the codec. In some cases, we might want to use the line in instead (e.g., to implement a guitar pedal effect). Switch the input of the ADC to the line input.</p>
 <p><strong>Hint:</strong> You might have to look at the <a href="https://github.com/grame-cncm/embaudio20/raw/master/pdfs/esp32-lyrat-v4.3-schematic.pdf">LyraT schematics</a> for that.</p>
 <p><strong>Solution:</strong></p>
 <pre><code>writeReg(ES8388_ADCCONTROL2,80); 
 </code></pre>
-
 <h3 id="changing-the-gain-of-the-output">Changing the Gain of the Output</h3>
 <p>Set the output level of the right channel to -96 dB. </p>
 <p><strong>Hint:</strong> There might be multiple answers to this question. Pick up the one you prefer.</p>
@@ -257,7 +178,6 @@ es8388.init();
 <pre><code>writeReg(ES8388_DACCONTROL5,0); or 
 writeReg(ES8388_DACCONTROL25,0); (-30dB in that case)
 </code></pre>
-
 <h3 id="changing-the-sampling-rate">Changing the Sampling Rate</h3>
 <p>That one is slightly harder ;), change the sampling rate of the <code>crazy-sine</code> example to 32kHz.</p>
 <p><strong>Solution:</strong></p>
@@ -288,16 +208,13 @@ AudioDsp audioDsp(32000,16);
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>

@@ -1,6 +1,6 @@
 # Embedded Audio Signal Processing
 
-This course is a collaboration between [Insa-Lyon](https://www.insa-lyon.fr/en/) (TC-Dept, [Citi Lab](http://www.citi-lab.fr/)) and [GRAME-CNCM](http://www.grame.fr). The objective is to foster the development of emerging embedded audio devices and to take advantage of the forthcoming new Citi team Emeraude (Embedded Programmable Audio Systems).
+This course is a collaboration between [Insa-Lyon](https://www.insa-lyon.fr/en/) (TC-Dept, [Citi Lab](http://www.citi-lab.fr/)), [INRIA](https://www.inria.fr/fr), and [GRAME-CNCM](http://www.grame.fr). The objective is to foster the development of emerging embedded audio devices and to take advantage of the resources of the CITI/INRIA Emeraude Team (Embedded Programmable Audio Systems) in this domain.
 
 In this course, students will learn about:
 
@@ -14,7 +14,7 @@ In this course, students will learn about:
 
 ## Instructors
 
-* [Romain Michon](https://ccrma.stanford.edu/~rmichon) (GRAME-CNCM)
+* [Romain Michon](https://ccrma.stanford.edu/~rmichon) (INRIA)
 * [Tanguy Risset](http://perso.citi.insa-lyon.fr/trisset/) (Citi Lab)
 * Yann Orlarey
 
@@ -27,6 +27,7 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 * 8x2h TP
 * Evaluation on TPs
 
+<!--
 ## Course Overview
 
 * **Lecture 1: [Course Introduction and Programming Environment Setup](lectures/lecture1.md)** -- *15/09/2020 08h00-10h00 5TC-G2*
@@ -44,3 +45,4 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
     * *22/09/2020 16h00-18h00 5TC-G2*
     * *30/09/2020 10h00-12h00 5TC-G2*
     * *07/10/2020 10h00-12h00 5TC-G2*
+-->

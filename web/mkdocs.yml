@@ -2,25 +2,13 @@ site_name: AUD @ INSA Lyon
 site_description: Cours 5TC -- INSA Lyon -- Systèmes embarqués pour le traitement du signal audio en temps-réel
 nav:
   - Syllabus: index.md
-  - Lectures:
-    - ' 1: Course Introduction and Programming Environment Setup ' : lectures/lecture1.md
-    - ' 2: Audio Signal Processing Fundamentals ' : lectures/lecture2.md
-    - ' 3: Digital Audio Systems Architectures and Audio Callback ' : lectures/lecture3.md
-    - ' 4: Audio Codec Configuration ' : lectures/lecture4.md
-    - ' 5: Audio Processing Basics I ' : lectures/lecture5.md
-    - ' 6: Audio Processing Basics II ' : lectures/lecture6.md
-    - ' 7:  Faust Tutorial ' : lectures/lecture7.md
-    - ' 8:   Rtone conference ' : lectures/lecture8.md
-    - ' 9:  Embedded System Peripherals ' : lectures/lecture9.md
-    - ' 10:   Embedded OS, freeRTOS ' : lectures/lecture10.md
-    - ' 11: Faust on the LyraT and Advanced Control ' : lectures/lecture11.md
-    - ' Personnal Project ' : lectures/project.md
     
 theme: 
   name: flatly
   navigation_depth: 4
 
 site_dir: ../docs
+site_url: https://embaudio.grame.fr
 
 extra:
     social:

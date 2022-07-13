@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        
+        <link rel="canonical" href="https://embaudio.grame.fr/lectures/lecture6/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title> 6: Audio Processing Basics II  - AUD @ INSA Lyon</title>
+        <title>Lecture 6: Audio Processing Basics II - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -24,72 +24,9 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="../..">AUD @ INSA Lyon</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="../.." class="nav-link">Syllabus</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../lecture1/" class="dropdown-item"> 1: Course Introduction and Programming Environment Setup </a>
-</li>
-                                    
-<li>
-    <a href="../lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
-</li>
-                                    
-<li>
-    <a href="../lecture4/" class="dropdown-item"> 4: Audio Codec Configuration </a>
-</li>
-                                    
-<li>
-    <a href="../lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active"> 6: Audio Processing Basics II </a>
-</li>
-                                    
-<li>
-    <a href="../lecture7/" class="dropdown-item"> 7:  Faust Tutorial </a>
-</li>
-                                    
-<li>
-    <a href="../lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
-</li>
-                                    
-<li>
-    <a href="../lecture9/" class="dropdown-item"> 9:  Embedded System Peripherals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
-</li>
-                                    
-<li>
-    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the LyraT and Advanced Control </a>
-</li>
-                                    
-<li>
-    <a href="../project/" class="dropdown-item"> Personnal Project </a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -97,16 +34,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../lecture5/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../lecture7/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -183,7 +110,6 @@ float Distortion::tick(float input){
   return output*gain;
 }
 </code></pre>
-
 <p>The range of <code>drive</code> is {0;1} which means that the value of <code>input</code> can be multiplied by a number as great as 100 here. <code>offset</code> is a common parameter which just adds a positive or negative DC offset to the signal. If this parameter is used, it is recommended to add a DC blocking filter after the distortion. </p>
 <p>Distortion is created here by clipping the signal using the <code>fmin</code> and <code>fmax</code> functions. Finally, the cubic polynomial is used to round the edges of the waveform of the signal as explained above. </p>
 <p>The <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/distortion"><code>distortion</code></a> example program for the LyraT demonstrates the use of <code>Distortion.cpp</code>.</p>
@@ -204,7 +130,6 @@ float Distortion::tick(float input){
   return output;
 }
 </code></pre>
-
 <p>Here, <code>delBuffer</code> is used as a "ring buffer": incoming samples are stored and the read and write indices loop around to buffer to write incoming samples and read previous ones. Note that memory is allocated in the constructor of the class for <code>delBuffer</code> based on the value of <code>maxDel</code>, the maximum size of the delay.</p>
 <p>The <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/echo"><code>echo</code></a> example program for the LyraT demonstrates the use of <code>Echo.cpp</code>. </p>
 <h2 id="comb">Comb</h2>
@@ -264,7 +189,6 @@ float Distortion::tick(float input){
   return output;
 }
 </code></pre>
-
 <p>with:</p>
 <pre><code>float KS::oneZero(float x){
   float output = (x + zeroDel)*0.5; 
@@ -272,7 +196,6 @@ float Distortion::tick(float input){
   return output;
 }
 </code></pre>
-
 <p>The examples folder of the course repository hosts <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/ks">a simple LyraT program</a> illustrating the use of <code>KS.cpp</code>.</p>
 <p>Note that this algorithm could be improved in many ways. In particular, the fact that the delay length is currently expressed as an integer can result in frequency mismatches at high frequencies. In other words, our current string is out of tune. This could be fixed using <a href="https://ccrma.stanford.edu/~jos/Interpolation/Welcome.html">fractional delay</a>.</p>
 <p>In practice, the Karplus-Strong algorithm is not a physical model per se and is just a simplification of the <a href="https://ccrma.stanford.edu/~jos/pasp/Digital_Waveguide_Models.html">ideal string wave equation</a>. More advanced signal models can be implemented using waveguides.</p>
@@ -339,16 +262,13 @@ and `Phasor.cpp`:
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>

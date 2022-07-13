@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        
+        <link rel="canonical" href="https://embaudio.grame.fr/lectures/lecture1/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title> 1: Course Introduction and Programming Environment Setup  - AUD @ INSA Lyon</title>
+        <title>Lecture 1: Course Introduction and Programming Environment Setup - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -24,72 +24,9 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="../..">AUD @ INSA Lyon</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="../.." class="nav-link">Syllabus</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="./" class="dropdown-item active"> 1: Course Introduction and Programming Environment Setup </a>
-</li>
-                                    
-<li>
-    <a href="../lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
-</li>
-                                    
-<li>
-    <a href="../lecture4/" class="dropdown-item"> 4: Audio Codec Configuration </a>
-</li>
-                                    
-<li>
-    <a href="../lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
-</li>
-                                    
-<li>
-    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
-</li>
-                                    
-<li>
-    <a href="../lecture7/" class="dropdown-item"> 7:  Faust Tutorial </a>
-</li>
-                                    
-<li>
-    <a href="../lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
-</li>
-                                    
-<li>
-    <a href="../lecture9/" class="dropdown-item"> 9:  Embedded System Peripherals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
-</li>
-                                    
-<li>
-    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the LyraT and Advanced Control </a>
-</li>
-                                    
-<li>
-    <a href="../project/" class="dropdown-item"> Personnal Project </a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -97,16 +34,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../.." class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../lecture2/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -228,13 +155,14 @@
 <li>Lecture 15-16: demonstrations</li>
 </ul>
 <h1 id="introduction-to-aud2020-and-esp3">Introduction to AUD2020 and ESP3</h1>
-<p><figure>
+<figure>
 <p>
 <img src="img/esp32-small.jpg"  width="30%"> 
 <img src="img/esp32-functional-bock.png"  width="30%"> 
 <img src="img/esp32-pin-layout.png"  width="30%"> 
-</p><figcaption><center>ESP32 die shot, taken from <a href="https://zeptobars.com/en/read/Espressif-ESP32-Wi-Fi-Bluetooth-2.4Ghz-ISM">zeptobars</a>,  its functional block and its pin layout, taken from esp32 datasheet </center></figcaption>
-</figure></p>
+</p><figcaption><center>ESP32 die shot, taken from [zeptobars](https://zeptobars.com/en/read/Espressif-ESP32-Wi-Fi-Bluetooth-2.4Ghz-ISM),  its functional block and its pin layout, taken from esp32 datasheet </center></figcaption>
+</figure>
+
 <p>The development in AUD are performed on <a href="https://www.espressif.com/en/products/hardware/development-boards">LyraT</a> which is developed by the espressif company.
 The programming environment used is <b>esp-idf</b> and <b>esp-adf</b> (esp-adf is a wrapper around esp-idf so as to enable easy audio configuration).</p>
 <p><a href="https://www.espressif.com/">Espressif Systems</a> is a fabless IC design company, founded in 2008 in Shanghai, China (~200 employees in 2018). Espressif is  designing and manufacturing low power wireless sensor chips.</p>
@@ -245,12 +173,13 @@ microprocessor that can reach 600 MIPS. It comes with a ROM of 448 KB, and a SRA
 <p>The two CPUs are named “PRO_CPU” and
 “APP_CPU” (for “protocol” and “application”), however, for most
 purposes the two CPUs are interchangeable.</p>
-<p>Espressif proposes three  documentations for the ESP32:
+<p>Espressif proposes three  documentations for the ESP32:</p>
 <ul>
-<li> <a href="img/esp32_datasheet_en.pdf">: brief presentation (30 pages) of the whole ESP32 architecture, including the  {\em Memory Map} and {\em Peripheral Pin Configurations}.
-<li>   <a href="img/esp32_technical_reference_manual_en.pdf">esp32_technical_reference_manual_en.pdf</a>: Complete reference guide of the chip, 600 pages, useful to understand the configuration of a particular component such as a peripheral for instance.
-<li> <a href="img/esp32_hardware_design_guidelines_en.pdf">esp32_hardware_design_guidelines_en.pdf</a> which presents in details the interface to ESP32 chip and is  mostly useful to integrate ESP32 in a new board. 
-</ul></p>
+<li> : brief presentation (30 pages) of the whole ESP32 architecture, including the  {\em Memory Map} and {\em Peripheral Pin Configurations}.
+<li>   [esp32_technical_reference_manual_en.pdf](lecture1/img/esp32_technical_reference_manual_en.pdf): Complete reference guide of the chip, 600 pages, useful to understand the configuration of a particular component such as a peripheral for instance.
+<li> [esp32_hardware_design_guidelines_en.pdf](lecture1/img/esp32_hardware_design_guidelines_en.pdf) which presents in details the interface to ESP32 chip and is  mostly useful to integrate ESP32 in a new board. 
+</ul>
+
 <p>We use ESP32-LyraT v4.3 evaluation board, all available documentation is present on  <a href="https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat.html#">espressif web site</a>. You will need to access to the <a href="https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/board-esp32-lyrat-v4.3.html">hardware reference</a> and the <a href="https://dl.espressif.com/dl/schematics/esp32-lyrat-v4.3-schematic.pdf">schematics of the board</a>.</p>
 <figure>
 <center>
@@ -263,15 +192,16 @@ purposes the two CPUs are interchangeable.</p>
 </figure>
 
 <p>The ESP32-LyraT v3.4 is a hardware platform designed for the dual-core ESP32 audio applications, e.g., Wi-Fi or Bluetooth audio speakers, speech-based remote controllers, connected smart-home appliances with one or more audio functionality, etc.</p>
-<p>The components are quite clearly shown on Figure above,  here are some precision:
+<p>The components are quite clearly shown on Figure above,  here are some precision:</p>
 <ul>
 <li> Output socket to connect headphones use  a 3.5 mm stereo jack. The socket may be used with mobile phone headsets and is compatible with OMPT standard headsets only. It does not work with CTIA headsets.
 <li> <b> When programming (i.e. flashing) the board </b>, the following actions must be performed: hold down the Boot button and simultaneously momentarily press the Reset button. This  initiates the firmware upload mode. Then user can upload firmware through the serial port (using the flash program on the host computer).
 <li> <b>once the board is  programmed (i.e. flashed)</b>, pressing the Reset button is necessary for the new program to start.
-<li> The audio chip used is the <a href="img/ES8388-EverestSemiconductor.pdf"><code>ES8388</code> from Everest</a>. It is quite important because performance and properties of audio codec vary a lot from one to another. It is connected to I2C and I2S busses of the ESP32.
-<li> The <b>USB-UART</b> port is used to have a serial communication between the ESP32 and the host computer as well as for flashing/programming the ESP32 with JTAG protocol using  <code>openocd</code> tool.
+<li> The audio chip used is the [``ES8388`` from Everest](lecture1/img/ES8388-EverestSemiconductor.pdf). It is quite important because performance and properties of audio codec vary a lot from one to another. It is connected to I2C and I2S busses of the ESP32.
+<li> The <b>USB-UART</b> port is used to have a serial communication between the ESP32 and the host computer as well as for flashing/programming the ESP32 with JTAG protocol using  ``openocd`` tool.
 <li> The Green 'Standby/Charging' LED indicates that the board is powered from USB. The red 'Power On' LED indicates that the board is on (there is a switch to cut it off). The 'Green' LED can be used by the user program.
-</ul></p>
+</ul>
+
 <h1 id="esp32-developpement-framework-esp32-idf">ESP32 developpement framework: ESP32 IDF</h1>
 <p>IDF stands for  IOT Development Framework, it is relatively straightforward to install it on your computer. 
 It has been installed on TC dept machines, in <code>/opt/esp-adf/esp-idf</code>. In order to use it, you have to run the file <code>export.sh</code> located in the directory where you have installed IDF.</p>
@@ -291,10 +221,12 @@ You should be able to have a LED blinking and to interact with the UART connecti
 -->
 
 <h3 id="different-compilation-tools-used">Different compilation tools used</h3>
-<p>ESP32-IDF projects supports several build/compilation tools: <code>make</code>, <code>cmake</code> and <code>idf.py</code> (we recommend the use of <code>idf.py</code> tool)
+<p>ESP32-IDF projects supports several build/compilation tools: <code>make</code>, <code>cmake</code> and <code>idf.py</code> (we recommend the use of <code>idf.py</code> tool)</p>
 <ul>
-<li> <code>make</code>, using a generic and quite complex <code>ID_PATH/make/project.mk</code> Makefile for all existing project. This was the original only tool used IDF, however it is being progressively replaced by the <code>cmake</code> compilation tools. </li>
-<li> <code>cmake</code> which is the recommended toolchain as <code>make</code> might not be supported anymore in further version. Here is an example of project compilation with <code>cmake</code>:</p>
+<li> ``make``, using a generic and quite complex ``ID_PATH/make/project.mk`` Makefile for all existing project. This was the original only tool used IDF, however it is being progressively replaced by the ``cmake`` compilation tools. </li>
+<li> ``cmake`` which is the recommended toolchain as ``make`` might not be supported anymore in further version. Here is an example of project compilation with ``cmake``:
+
+
 <pre><code>mkdir build;
 cd build;
 cmake ../
@@ -303,48 +235,44 @@ make flash
 make monitor
 </code></pre>
 
-<p></li>
-<li> <code>idf.py</code>  is a top-level python config/build command line tool for ESP-IDF provided by espressive build. Here is an example of project compilation with <code>idf.py</code>:</p>
+</li>
+<li> ``idf.py``  is a top-level python config/build command line tool for ESP-IDF provided by espressive build. Here is an example of project compilation with ``idf.py``:
+
 <pre><code>idf.py all
 idf.py flash 
 idf.py monitor
 </code></pre>
 
-<p></li>
-</ul></p>
+</li>
+</ul>
+
 <h1 id="getting-started-on-tc-machines">Getting Started on TC Machines</h1>
 <h3 id="launching-the-compilation-flow-on-tc-machines">Launching the Compilation Flow on TC Machines</h3>
 <p>The <code>idf</code> tool chain is installed on TC machine in <code>/opt/esp-idf/</code>. In order to use this tool chain, do the following commands:</p>
 <pre><code>export IDF_TOOLS_PATH=/opt/idf_tools
 source /opt/esp-idf/export.sh
 </code></pre>
-
 <p>You should get the following message (if you do not, it do not go further):</p>
 <pre><code>[...]
 Go to the project directory and run:
 
   idf.py build
 </code></pre>
-
 <p>then copy de <code>/opt/esp-idf/examples/get-started/</code> to your home directory:</p>
 <pre><code>cp /opt/esp-idf/examples/get-started/ ~/my-esp/
 </code></pre>
-
 <p>Go in the ``get-started/hello_world and build the project</p>
 <pre><code>cd ~/my-esp/hello_world/
 idf.py build
 </code></pre>
-
 <p>Once the binary program built, connect the lyraT board with the usb cables, <b>make sure that the central switch is in position 'on'</b>.</p>
 <p>Load the program: execute the following command and <b>do the 'flash' manipulation</b>: push continuously on the <code>boot</code> button, press (shortly, but not too shortly) on the <code>reset</code> button, release the <code>boot</code> button:</p>
 <pre><code>idf.py flash
 </code></pre>
-
 <p>you should see the load executing..</p>
 <p>Open the serial port on <code>/dev/ttyUSB0</code> using IDF monitor facility:</p>
 <pre><code>idf.py monitor
 </code></pre>
-
 <p>Do not forget to <b>reset the board once again</b>  (push on the reset button) after each flash operation otherwise your program is not started. Then you should see the board booting every 10 second. Kill the serial monitor by using the command:</p>
 <p><code>Ctrl-alt gr-]</code></p>
 <h3 id="flashing-the-led">Flashing the LED.</h3>
@@ -352,11 +280,12 @@ idf.py build
 <p>this program blink the LED, but the port in not configured correctly as it is an information that depends on the experimental board in which the ESP32 is used. launche the <code>menuconfig</code> interface, select <code>example configuration</code> and choose 22 for <code>Blink_GPIO_number</code></p>
 <h1 id="known-problems">Known Problems</h1>
 <h3 id="requirements-are-not-satisfied-gdbgui01320">Requirements are not satisfied: gdbgui&gt;=0.13.2.0</h3>
-<p>On ubuntu, this message sometimes occurs when sourcing <code>export.sh</code>. We did not completely understood the problem but two solutions seemed to work:
+<p>On ubuntu, this message sometimes occurs when sourcing <code>export.sh</code>. We did not completely understood the problem but two solutions seemed to work:</p>
 <ol>
-<li> Remove explicitely the faulty dependance in <code>${IDF}/requirement.txt</code>. The faulty dependance is not <code>gdbgui</code> but <code>pugdbmi</code>: comment the line mentionning <code>pugdbmi</code></li>
-<li> Use the reddit solution: <a href="https://www.reddit.com/r/esp32/comments/ifgfy9/why_am_i_getting_this_gdbgui01320_error/">https://www.reddit.com/r/esp32/comments/ifgfy9/why_am_i_getting_this_gdbgui01320_error/</a> </li>
-</ol></p>
+<li> Remove explicitely the faulty dependance in ``${IDF}/requirement.txt``. The faulty dependance is not ``gdbgui`` but ``pugdbmi``: comment the line mentionning ``pugdbmi``</li>
+<li> Use the reddit solution: [https://www.reddit.com/r/esp32/comments/ifgfy9/why_am_i_getting_this_gdbgui01320_error/](https://www.reddit.com/r/esp32/comments/ifgfy9/why_am_i_getting_this_gdbgui01320_error/) </li>
+</ol>
+
 <h3 id="usb-driver-on-mac-platforms">USB driver on MAC platforms</h3>
 <p>It occurs on some MAC computers that the USB driver are not installed, you have to install it expicitely, it is explained here for instance: <a href="https://www.amstramgrame.fr/gramophone/loader/">https://www.amstramgrame.fr/gramophone/loader/</a></p>
 <h3 id="pyhton-build-problem-on-mac-platforms">Pyhton (build) problem on MAC platforms</h3>
@@ -384,16 +313,13 @@ idf.py build
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>

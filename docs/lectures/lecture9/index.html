@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        
+        <link rel="canonical" href="https://embaudio.grame.fr/lectures/lecture9/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title> 9:  Embedded System Peripherals  - AUD @ INSA Lyon</title>
+        <title>Lecture 9: Embedded System Peripherals - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -24,72 +24,9 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="../..">AUD @ INSA Lyon</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="../.." class="nav-link">Syllabus</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../lecture1/" class="dropdown-item"> 1: Course Introduction and Programming Environment Setup </a>
-</li>
-                                    
-<li>
-    <a href="../lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
-</li>
-                                    
-<li>
-    <a href="../lecture4/" class="dropdown-item"> 4: Audio Codec Configuration </a>
-</li>
-                                    
-<li>
-    <a href="../lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
-</li>
-                                    
-<li>
-    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
-</li>
-                                    
-<li>
-    <a href="../lecture7/" class="dropdown-item"> 7:  Faust Tutorial </a>
-</li>
-                                    
-<li>
-    <a href="../lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active"> 9:  Embedded System Peripherals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
-</li>
-                                    
-<li>
-    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the LyraT and Advanced Control </a>
-</li>
-                                    
-<li>
-    <a href="../project/" class="dropdown-item"> Personnal Project </a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -97,16 +34,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../lecture8/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../lecture10/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -162,7 +89,7 @@
 <p>It is (temporarily) available through sildes <a href="img/cours1-embedded.pdf">here</a></p>
 <h1 id="exercice-use-of-timers">Exercice: use of timers</h1>
 <h2 id="read-the-doc">Read the doc...</h2>
-<p>Have 10 minutes looking at chapter 19 (p498) of <a href="../lecture1/img/esp32_datasheet_en.pdf">esp32_datasheet_en.pdf</a>: the chapter dedicated to timers.
+<p>Have 10 minutes looking at chapter 19 (p498) of <a href="../lecture1/img/esp32_datasheet_en.pdf">esp32_datasheet_en.pdf</a>: the chapter dedicated to timers.</p>
 <ol>
 <li> How many timers do we have ?</li>
 <!-- 4 timers: two group of timers 0 and 1 with two timers 0 and 1 -->
@@ -170,28 +97,29 @@
 <!-- p499 is the list, the details are in section 19.4: register 19.1 -> 19.9, some. The interrupt register (from reg 19.19, p 506) are important two -->
 <li> More difficult: Where are defined the macros to access these register in IDF suite?  </li>
 <!-- Plou difficile: il faut y aller a coup de grep, c'est dans  esp-idf/components/soc/esp32/include/soc/timer_group_reg.h -->
-</ol></p>
+</ol>
 <h2 id="run-a-timer-simple-app">Run a timer simple app</h2>
-<p>go in the <code>example/blink-timer</code> directory of the course github, run the example and look at the code.
+<p>go in the <code>example/blink-timer</code> directory of the course github, run the example and look at the code.</p>
 <ol>
 <li> Identify the timer ISR </li>
 <li> Identify the timer initialisation </li>
 <li> change the blink rythm is some way </li>
 <li> Print the address and the value of TIMG_T0CONFIG_REG(0) </li>
-</ol></p>
+</ol>
 <h2 id="raw-programming-of-timer-register">Raw Programming of timer register</h2>
-<p>Here again, the API proposed by IDF is quite complex. In embedded programming, simple is beautiful, we can program all the timer register directly.
+<p>Here again, the API proposed by IDF is quite complex. In embedded programming, simple is beautiful, we can program all the timer register directly.</p>
 <ol>
-<li> Comment the line that starts the timer: <code>timer_start(TIMER_GROUP_0, 0);</code>, does it work now ?
-<li> Replace this command by a direct activation of the timer: setting the bit <code>TIMG_T0_EN</code> in register <code>TIMG_T0CONFIG_REG(0)</code> (See documentation page 501: register <code>TIMGn_TxCONFIG_REG</code>).
-&lt;--</p>
+<li> Comment the line that starts the timer: ``timer_start(TIMER_GROUP_0, 0);``, does it work now ?
+<li> Replace this command by a direct activation of the timer: setting the bit ``TIMG_T0_EN`` in register `` TIMG_T0CONFIG_REG(0)`` (See documentation page 501: register ``TIMGn_TxCONFIG_REG``).
+<--
+
 <pre><code>int config_reg=read_reg(TIMG_T0CONFIG_REG(0));
     config_reg |= 1&lt;&lt;31 ;  
     printf(&quot;config_reg 0x%x\n&quot;, config_reg);
     write_reg(TIMG_T0CONFIG_REG(0),config_reg);
 </code></pre>
 
-<p>--&gt;</p></div>
+--></div>
             </div>
         </div>
 
@@ -215,16 +143,13 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>

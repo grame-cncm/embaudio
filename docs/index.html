@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Cours 5TC -- INSA Lyon -- Systèmes embarqués pour le traitement du signal audio en temps-réel">
         
-        
+        <link rel="canonical" href="https://embaudio.grame.fr/">
         <link rel="shortcut icon" href="img/favicon.ico">
         <title>AUD @ INSA Lyon</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="js/jquery-1.10.2.min.js" defer></script>
         <script src="js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -24,72 +24,9 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href=".">AUD @ INSA Lyon</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem active">
-                                <a href="." class="nav-link">Syllabus</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="lectures/lecture1/" class="dropdown-item"> 1: Course Introduction and Programming Environment Setup </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture4/" class="dropdown-item"> 4: Audio Codec Configuration </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture7/" class="dropdown-item"> 7:  Faust Tutorial </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture9/" class="dropdown-item"> 9:  Embedded System Peripherals </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
-</li>
-                                    
-<li>
-    <a href="lectures/lecture11/" class="dropdown-item"> 11: Faust on the LyraT and Advanced Control </a>
-</li>
-                                    
-<li>
-    <a href="lectures/project/" class="dropdown-item"> Personnal Project </a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -97,16 +34,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" class="nav-link disabled">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="lectures/lecture1/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -135,10 +62,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#course-overview" class="nav-link">Course Overview</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -147,7 +70,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="embedded-audio-signal-processing">Embedded Audio Signal Processing</h1>
-<p>This course is a collaboration between <a href="https://www.insa-lyon.fr/en/">Insa-Lyon</a> (TC-Dept, <a href="http://www.citi-lab.fr/">Citi Lab</a>) and <a href="http://www.grame.fr">GRAME-CNCM</a>. The objective is to foster the development of emerging embedded audio devices and to take advantage of the forthcoming new Citi team Emeraude (Embedded Programmable Audio Systems).</p>
+<p>This course is a collaboration between <a href="https://www.insa-lyon.fr/en/">Insa-Lyon</a> (TC-Dept, <a href="http://www.citi-lab.fr/">Citi Lab</a>), <a href="https://www.inria.fr/fr">INRIA</a>, and <a href="http://www.grame.fr">GRAME-CNCM</a>. The objective is to foster the development of emerging embedded audio devices and to take advantage of the resources of the CITI/INRIA Emeraude Team (Embedded Programmable Audio Systems) in this domain.</p>
 <p>In this course, students will learn about:</p>
 <ul>
 <li>Low-level embedded systems for real-time audio signal processing</li>
@@ -160,7 +83,7 @@
 </ul>
 <h2 id="instructors">Instructors</h2>
 <ul>
-<li><a href="https://ccrma.stanford.edu/~rmichon">Romain Michon</a> (GRAME-CNCM)</li>
+<li><a href="https://ccrma.stanford.edu/~rmichon">Romain Michon</a> (INRIA)</li>
 <li><a href="http://perso.citi.insa-lyon.fr/trisset/">Tanguy Risset</a> (Citi Lab)</li>
 <li>Yann Orlarey</li>
 </ul>
@@ -172,26 +95,25 @@
 <li>8x2h TP</li>
 <li>Evaluation on TPs</li>
 </ul>
-<h2 id="course-overview">Course Overview</h2>
-<ul>
-<li><strong>Lecture 1: <a href="lectures/lecture1/">Course Introduction and Programming Environment Setup</a></strong> -- <em>15/09/2020 08h00-10h00 5TC-G2</em></li>
-<li><strong>Lecture 2: <a href="lectures/lecture2/">Audio Signal Processing Fundamentals</a></strong> -- <em>15/09/2020 10h00-12h00 5TC-G2</em></li>
-<li><strong>Lecture 3: <a href="lectures/lecture3/">Digital Audio Systems Architectures and Audio Callback</a></strong> -- <em>18/09/2020 14h00-16h00 5TC-G2</em></li>
-<li><strong>Lecture 4: <a href="lectures/lecture4/">Audio Codec Configuration</a></strong> -- <em>18/09/2020 16h00-18h00 5TC-G2</em></li>
-<li><strong>Lecture 5: <a href="lectures/lecture5/">Audio Processing Basics I</a></strong> -- <em>21/09/2020 08h00-10h00 5TC-G2</em></li>
-<li><strong>Lecture 6: <a href="lectures/lecture6/">Audio Processing Basics II</a></strong> -- <em>21/09/2020 10h00-12h00 5TC-G2</em></li>
-<li><strong>Lecture 7:  RTone Talk</strong> -- <em>21/09/2020 14h00-16h00 5TC-G2</em></li>
-<li><strong>Lecture 8: Faust Tutorial</strong> -- <em>21/09/2020 16h00-18h00 5TC-G2</em></li>
-<li><strong>Lecture 9: Embedded System Peripherals</strong> -- <em>22/09/2020 08h00-10h00 5TC-G2</em></li>
-<li><strong>Lecture 10:Embedded OS, FreeRTOS, Embedded Linux Devices</strong> -- <em>22/09/2020 10h00-12h00 5TC-G2</em></li>
-<li><strong>Lecture 11: <a href="lectures/lecture11/">Faust on the LyraT and Advanced Control</a></strong> -- <em>22/09/2020 10h00-12h00 5TC-G2</em></li>
-<li><strong>Sessions 12-14: Mini-project</strong><ul>
-<li><em>22/09/2020 16h00-18h00 5TC-G2</em></li>
-<li><em>30/09/2020 10h00-12h00 5TC-G2</em></li>
-<li><em>07/10/2020 10h00-12h00 5TC-G2</em></li>
-</ul>
-</li>
-</ul></div>
+<!--
+## Course Overview
+
+* **Lecture 1: [Course Introduction and Programming Environment Setup](lectures/lecture1.md)** -- *15/09/2020 08h00-10h00 5TC-G2*
+* **Lecture 2: [Audio Signal Processing Fundamentals](lectures/lecture2.md)** -- *15/09/2020 10h00-12h00 5TC-G2*
+* **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](lectures/lecture3.md)** -- *18/09/2020 14h00-16h00 5TC-G2*
+* **Lecture 4: [Audio Codec Configuration](lectures/lecture4.md)** -- *18/09/2020 16h00-18h00 5TC-G2*
+* **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *21/09/2020 08h00-10h00 5TC-G2*
+* **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *21/09/2020 10h00-12h00 5TC-G2*
+* **Lecture 7:  RTone Talk** -- *21/09/2020 14h00-16h00 5TC-G2*
+* **Lecture 8: Faust Tutorial** -- *21/09/2020 16h00-18h00 5TC-G2*
+* **Lecture 9: Embedded System Peripherals** -- *22/09/2020 08h00-10h00 5TC-G2*
+* **Lecture 10:Embedded OS, FreeRTOS, Embedded Linux Devices** -- *22/09/2020 10h00-12h00 5TC-G2*
+* **Lecture 11: [Faust on the LyraT and Advanced Control](lectures/lecture11.md)** -- *22/09/2020 10h00-12h00 5TC-G2*
+* **Sessions 12-14: Mini-project**
+    * *22/09/2020 16h00-18h00 5TC-G2*
+    * *30/09/2020 10h00-12h00 5TC-G2*
+    * *07/10/2020 10h00-12h00 5TC-G2*
+--></div>
             </div>
         </div>
 
@@ -215,16 +137,13 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>
@@ -275,6 +194,6 @@
 </html>
 
 <!--
-MkDocs version : 1.1
-Build Date UTC : 2020-09-22 13:40:06
+MkDocs version : 1.2.1
+Build Date UTC : 2022-07-13 08:55:34.701285+00:00
 -->

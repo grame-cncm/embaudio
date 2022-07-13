@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        
+        <link rel="canonical" href="https://embaudio.grame.fr/lectures/lecture11/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title> 11: Faust on the LyraT and Advanced Control  - AUD @ INSA Lyon</title>
+        <title>Lecture 11: Faust on the LyraT and Advanced Control - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -24,72 +24,9 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="../..">AUD @ INSA Lyon</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="../.." class="nav-link">Syllabus</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../lecture1/" class="dropdown-item"> 1: Course Introduction and Programming Environment Setup </a>
-</li>
-                                    
-<li>
-    <a href="../lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
-</li>
-                                    
-<li>
-    <a href="../lecture4/" class="dropdown-item"> 4: Audio Codec Configuration </a>
-</li>
-                                    
-<li>
-    <a href="../lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
-</li>
-                                    
-<li>
-    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
-</li>
-                                    
-<li>
-    <a href="../lecture7/" class="dropdown-item"> 7:  Faust Tutorial </a>
-</li>
-                                    
-<li>
-    <a href="../lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
-</li>
-                                    
-<li>
-    <a href="../lecture9/" class="dropdown-item"> 9:  Embedded System Peripherals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active"> 11: Faust on the LyraT and Advanced Control </a>
-</li>
-                                    
-<li>
-    <a href="../project/" class="dropdown-item"> Personnal Project </a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -97,16 +34,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../lecture10/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../project/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -181,11 +108,9 @@ gate = button(&quot;gate&quot;) : si.smoo;
 cutoff = nentry(&quot;cutoff&quot;,10000,50,10000,0.01) : si.smoo;
 process = os.sawtooth(freq)*gain*gate : fi.lowpass(3,cutoff) &lt;: _,_;
 </code></pre>
-
 <p>running:</p>
 <pre><code>faust FaustSynth.dsp
 </code></pre>
-
 <p>will output the C++ code corresponding to this file in the terminal. </p>
 <p>Faust comes with a system of C++ wrapper (called architectures in the Faust ecosystem) which can be used to customize the generated C++ code. <a href="https://github.com/grame-cncm/embaudio20/blob/master/faust/faustMinimal.h"><code>faustMininal.h</code></a> is a minimal architecture file including some C++ objects that can be used to facilitate interactions with the generated DSP:</p>
 <pre><code>#include &lt;cmath&gt;
@@ -203,12 +128,10 @@ process = os.sawtooth(freq)*gain*gate : fi.lowpass(3,cutoff) &lt;: _,_;
 
 // END-FAUSTDSP
 </code></pre>
-
 <p>For instance, <code>MapUI</code> allows us to access the parameters of a Faust DSP object using the <code>setParamValue</code> method, etc.</p>
 <p>To generate a C++ file using this architecture, you can run:</p>
 <pre><code>faust -i -a faustMinial.h FaustSynth.dsp -o FaustSynth.h
 </code></pre>
-
 <p>which will produce a <a href="https://github.com/grame-cncm/embaudio20/blob/master/faust/FaustSynth.h"><code>FaustSynth.h</code></a> file (feel free to click on it).</p>
 <p>The <code>-i</code> inlines all the included C++ <code>.h</code> files in the generated file.</p>
 <p>The <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/faust-synth"><code>faust-synth</code></a> LyraT example project demonstrates how <code>FaustSynth.h</code> can be used. First, it is included in <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/faust-synth"><code>AudioDsp.cpp</code></a> and the following elements are declared in <a href="https://github.com/grame-cncm/embaudio20/blob/master/examples/faust-synth/main/AudioDsp.h">the corresponding header file</a>:</p>
@@ -216,7 +139,6 @@ process = os.sawtooth(freq)*gain*gate : fi.lowpass(3,cutoff) &lt;: _,_;
 dsp* fDSP;
 float **outputs;
 </code></pre>
-
 <p><code>dsp</code> is the actual Faust DSP, <code>MapUI</code> will be used to interact with it, and <code>outputs</code> is the multidimensional output buffer. These objects are then allocated in the constructor of <code>AudioDsp.cpp</code>:</p>
 <pre><code>fDSP = new mydsp();
 fDSP-&gt;init(fSampleRate);
@@ -227,7 +149,6 @@ for (int channel = 0; channel &lt; 2; ++channel){
   outputs[channel] = new float[fBufferSize];
 }
 </code></pre>
-
 <p><code>buildUserInterface</code> is used to connect <code>fUI</code> to <code>fDSP</code> and then memory is allocated for the output buffer. Note that memory should be de-allocated in the destructor after this. In the <code>audioTask</code>, we just call the <code>compute</code> method of <code>fDSP</code> and then reformat the generated samples to transmit them via i2s:</p>
 <pre><code>fDSP-&gt;compute(fBufferSize,NULL,outputs);
 
@@ -243,7 +164,6 @@ size_t bytes_written = 0;
 i2s_write((i2s_port_t)0, &amp;samples_data_out, fNumOutputs*sizeof(int16_t)*fBufferSize,
   &amp;bytes_written, portMAX_DELAY);
 </code></pre>
-
 <p>Note that <code>outputs</code> is used as an intermediate here and the first dimension of the array is the channel number and the second dimension the samples themselves. </p>
 <p>The various parameters of the Faust object can then be changed just by calling the <code>setParamValue</code> method. The first argument of the method corresponds to the name of the parameter as specified in the Faust program:</p>
 <pre><code>void AudioDsp::setFreq(float freq){
@@ -254,7 +174,6 @@ void AudioDsp::setCutoff(float freq){
   fUI-&gt;setParamValue(&quot;cutoff&quot;,freq);
 }
 </code></pre>
-
 <h2 id="better-control-on-the-lyrat">Better Control on the LyraT</h2>
 <p>The control of the parameters of an audio DSP object on the LyraT is relatively limited with what we have seen in this class. In this brief section, we propose a few solutions to overcome this problem. Since they are beyond the scope of this class, we wont go into too many details.</p>
 <h3 id="midi">MIDI</h3>
@@ -264,7 +183,6 @@ void AudioDsp::setCutoff(float freq){
 <p><a href="https://en.wikipedia.org/wiki/Open_Sound_Control">Open Sound Control (OSC)</a> is a more modern communication standard used in the field of music technology. It is based on UDP which means that information can be transmitted via Ethernet or Wi-Fi. OSC uses a system of address/values to access the different parameters of a system. An OSC message can therefore look like:</p>
 <pre><code>/synth/freq 440
 </code></pre>
-
 <p>Since the LyraT has Wi-Fi built-in, implementing OSC control should also be relatively straight forward.</p>
 <h3 id="http">HTTP</h3>
 <p>Another common way on embedded audio systems to control parameters is to implement a simple web server. A webpage can then present the parameters to control in a user interface, etc. </p>
@@ -275,13 +193,11 @@ void AudioDsp::setCutoff(float freq){
 <p>The Faust libraries host a triangle wave oscillator:</p>
 <pre><code>os.triangle
 </code></pre>
-
 <p>Try to replace the sawtooth wave oscillator from the previous example by a triangle wave oscillator in Faust and run it on the LyraT.</p>
 <h3 id="flanger">Flanger</h3>
 <p>The Faust libraries host a <a href="https://faustlibraries.grame.fr/libs/phaflangers/#pfflanger_mono">flanger function</a>:</p>
 <pre><code>pf.flanger_mono
 </code></pre>
-
 <p>Turn your LyraT into a flanger effect processor!</p></div>
             </div>
         </div>
@@ -306,16 +222,13 @@ void AudioDsp::setCutoff(float freq){
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>

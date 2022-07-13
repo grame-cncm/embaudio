@@ -6,17 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        
+        <link rel="canonical" href="https://embaudio.grame.fr/lectures/lecture5/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title> 5: Audio Processing Basics I  - AUD @ INSA Lyon</title>
+        <title>Lecture 5: Audio Processing Basics I - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -24,72 +24,9 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="../..">AUD @ INSA Lyon</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="../.." class="nav-link">Syllabus</a>
-                            </li>
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../lecture1/" class="dropdown-item"> 1: Course Introduction and Programming Environment Setup </a>
-</li>
-                                    
-<li>
-    <a href="../lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
-</li>
-                                    
-<li>
-    <a href="../lecture4/" class="dropdown-item"> 4: Audio Codec Configuration </a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active"> 5: Audio Processing Basics I </a>
-</li>
-                                    
-<li>
-    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
-</li>
-                                    
-<li>
-    <a href="../lecture7/" class="dropdown-item"> 7:  Faust Tutorial </a>
-</li>
-                                    
-<li>
-    <a href="../lecture8/" class="dropdown-item"> 8:   Rtone conference </a>
-</li>
-                                    
-<li>
-    <a href="../lecture9/" class="dropdown-item"> 9:  Embedded System Peripherals </a>
-</li>
-                                    
-<li>
-    <a href="../lecture10/" class="dropdown-item"> 10:   Embedded OS, freeRTOS </a>
-</li>
-                                    
-<li>
-    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the LyraT and Advanced Control </a>
-</li>
-                                    
-<li>
-    <a href="../project/" class="dropdown-item"> Personnal Project </a>
-</li>
-                                </ul>
-                            </li>
-                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -97,16 +34,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../lecture4/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../lecture6/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -179,7 +106,6 @@ float Noise::tick(){
   return rand()*randDiv*2 - 1;
 }
 </code></pre>
-
 <p>The <a href="#simple-filter-one-zero">Simple Filter: One Zero</a> section presents a use example of white noise.</p>
 <h2 id="wave-shape-synthesis">Wave Shape Synthesis</h2>
 <p>Wave Shape synthesis is one of the most basic sound synthesis technique. It consists of using oscillators producing waveforms of different shapes to generate sound. The most standard wave shapes are:</p>
@@ -193,7 +119,6 @@ float Noise::tick(){
 <p>The <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-saw"><code>crazy-saw</code></a> example is very similar to <code>crazy-sine</code>, but it's based on a sawtooth wave instead. The sawtooth wave is created by using a <code>phasor</code> object. Just as a reminder, a phasor produces a signals tamping from 0 to 1 at a given frequency, it can therefore be seen as a sawtooth wave. Since the range of oscillators must be bounded between -1 and 1, we adjusts the output of the phasor such that:</p>
 <pre><code>float currentSample = sawtooth.tick()*2 - 1;
 </code></pre>
-
 <p>Feel free to try the <code>crazy-saw</code> example at this point.</p>
 <h2 id="amplitude-modulation-am-synthesis">Amplitude Modulation (AM) Synthesis</h2>
 <p>Amplitude modulation synthesis consists of modulating the amplitude of a signal with another one. Sine waves are typically used for that:</p>
@@ -217,7 +142,6 @@ float Noise::tick(){
   return sineTable.tick(cIndex)*(1 - posMod*modIndex)*gain;
 }
 </code></pre>
-
 <p>Note that phasors are used instead of "complete" sine wave oscillators to save the memory of an extra sine wave table. The range of the modulating oscillator is adjusted to be {0,1} instead of {-1,1}.</p>
 <p>The amplitude parameter of the modulating oscillator is called the <em>index of modulation</em> and its frequency, the <em>frequency of modulation</em>.</p>
 <p>In practice, the same result could be achieved using additive synthesis and three sine wave oscillators but AM allows us to save one oscillator. Also, AM is usually used an audio effect and modulation is applied to an input signal in that case instead of a sine wave. Sidebands will then be produced for each harmonic of the processed sound.</p>
@@ -244,7 +168,6 @@ float Noise::tick(){
   return sineTable.tick(cIndex)*gain;
 }
 </code></pre>
-
 <p>Note that as for the AM example, we're saving an extra sine wave table by using the same one for both oscillators.</p>
 <p>The examples folder of the course repository hosts <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/fm">a simple LyraT program</a> illustrating the use of FM. Use the <code>Rec</code> and <code>Mode</code> button to cycle through the parameters of the synth and change their value.</p>
 <p>FM synthesis was discovered in the late 1960s by John Chowning at Stanford University in California. He's now considered as one of the funding fathers of music technology and computer music. FM completely revolutionized the world of music in the 1980s by allowing Yamaha to produce the first commercial digital synthesizers: the <a href="https://en.wikipedia.org/wiki/Yamaha_DX7">DX7</a> which met a huge success. FM synthesis is the second most profitable patent that Stanford ever had.</p>
@@ -263,7 +186,6 @@ float Noise::tick(){
   return output*0.5;
 }
 </code></pre>
-
 <p>Note that we multiply the output by 0.5 to normalize the output gain.</p>
 <p>The <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/filtered-noise"><code>filtered-noise</code></a> example program for the LyraT demonstrates the use of <code>OneZero.cpp</code> by feeding <a href="#white-noise">white noise</a> in it. The value of <script type="math/tex">b_1</script> can be changed by pressing the "Mode" button on the board, give it a try!</p>
 <h2 id="exercises">Exercises</h2>
@@ -387,16 +309,13 @@ In `main.cpp`:
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>
