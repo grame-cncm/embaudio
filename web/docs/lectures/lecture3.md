@@ -1,6 +1,6 @@
 # Lecture 3: Digital Audio Systems Architectures and Audio Callback
 
-By the end of this lecture, you should be able to produce sound with your LyraT and have a basic understanding of the software and hardware architecture of embedded audio systems.
+By the end of this lecture, you should be able to produce sound with your Teensy and have a basic understanding of the software and hardware architecture of embedded audio systems.
 
 ## Basic Architecture of a Digital Audio System
 
@@ -12,13 +12,20 @@ All digital audio systems have an architecture involving at least an ADC and/or 
 
 The format of audio samples depends on the hardware configuration of the system. 
 
-## Architecture of Embedded Audio Systems Such as the LyraT
+## Architecture of Embedded Audio Systems Such as the Teensy
 
-Since the LyraT is and embedded system, the audio ADC and DAC are built-in in the board within a component called an audio codec. The audio codec can be seen as an audio interface providing audio inputs and outputs. It is directly connected to the ESP32 board though an i2s bus. Additional information on how this kind of system works will be provided in [Lecture 4](lecture4.md). 
+TODO: add some text here
+
+<!--
+
+REWRITE THE FOLLOWING PARAGRAPH
+
+The audio codec can be seen as an audio interface providing audio inputs and outputs. It is connected to the Teensy board through an i2s bus. Additional information on how this kind of system works will be provided in [Lecture 4](lecture4.md). 
+-->
 
 <figure>
-<img src="img/lyrat-diagram.jpg" class="mx-auto d-block" width="70%">
-<figcaption><center>LyraT Overview Diagram From <a href="https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat.html">the ESP32 Website</a></center></figcaption>
+<img src="img/teensy-diagram.jpg" class="mx-auto d-block" width="70%">
+<figcaption><center>Teensy and Audio Shield Overview</center></figcaption>
 </figure>
 
 ## Concept of Audio Blocks (Buffers), Audio Rate, and Control Rate
@@ -42,40 +49,34 @@ void audioCallback(float *inputs, float *outputs){
 
 Block size is directly linked to the audio latency of the system by the following formula: \(latency = BS/fs\) where \(latency\) is in seconds. Hence, the greater the block size, the larger the latency. For example, a block size of 256 samples at a sampling rate of 48 kHz will induce a latency of approximately 5ms. If the system has an audio input, this value has to be doubled, of course. A latency of 10ms might not seem like a lot but if the system is used for music purposes, this might be perceived by the performer. 
 
-Embedded systems such as the LyraT can achieve much lower latencies that regular computers because of their lightness. Hence, the block size of your LyraT can be as small as 16!
+Embedded systems such as the Teensy can achieve much lower latencies than regular computers because of their lightness. Hence, the block size of your Teensy can be as small as 8!
 
-## First Audio Program on the LyraT: `crazy-sine`
+## First Audio Program on the Teensy: `crazy-sine`
 
-The [course repository](https://github.com/grame-cncm/embaudio20) hosts an example containing a program synthesizing a sine wave on the LyraT board and controlling its frequency: [crazy-sine](https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-sine). This program contains all the building blocks of a real-time audio program including... the audio callback which can be found in [`AudioDsp.cpp`](https://github.com/grame-cncm/embaudio20/blob/master/examples/crazy-sine/main/AudioDsp.cpp)! The audio callback is implemented in this class in the `audioTask` method and take the following shape:
+The [course repository](https://github.com/grame-cncm/embaudio) hosts an example containing a program synthesizing a sine wave on the Teensy and controlling its frequency: [crazy-sine](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/crazy-sine). This program contains all the building blocks of a real-time audio program including... the audio callback which can be found in [`AudioDsp.cpp`](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/crazy-sine/MyDsp.cpp)! The audio callback is implemented in this class in the `update` method and take the following shape:
 
 ```
-void AudioDsp::audioTask()
-{
-  // inifinite loop
-  while (fRunning) {
-    int16_t samples_data_out[fNumOutputs*fBufferSize];
-    
-    // processing buffers
-    for (int i = 0; i < fBufferSize; i++) {
-      // DSP
-      float currentSample = echo.tick(sine.tick())*0.5;
-      
-      // copying to output buffer
-      samples_data_out[i*fNumOutputs] = currentSample*MULT_S16;
-      samples_data_out[i*fNumOutputs+1] = samples_data_out[i*fNumOutputs];
+void MyDsp::update(void) {
+  for (int channel = 0; channel < AUDIO_OUTPUTS; channel++) {
+    audio_block_t* outBlock[AUDIO_OUTPUTS];
+    outBlock[channel] = allocate();
+    if (outBlock[channel]) {
+      for (int i = 0; i < AUDIO_BLOCK_SAMPLES; i++) {
+        float currentSample = echo.tick(sine.tick())*0.5;
+        int32_t val = currentSample*MULT_16;
+        outBlock[channel]->data[i] = val >> 16;
+      }
+      transmit(outBlock[channel], channel);
+      release(outBlock[channel]);
     }
-    // transmitting output buffer
-    size_t bytes_written = 0;
-    i2s_write((i2s_port_t)0, &samples_data_out, 
-      fNumOutputs*sizeof(int16_t)*fBufferSize, 
-      &bytes_written, portMAX_DELAY);
   }
-  // Task has to deleted itself beforee returning
-  vTaskDelete(nullptr);
 }
 ```
 
-First, a `while` loop is implemented and is repeated every time a new buffer is needed, that's basically the "callback". `samples_data_out` is the output buffer whose size is the buffer size multiplied by the number of outputs of the system. For example, if the system has a stereo output and the buffer size is 256 samples, then the size of `samples_data_out` will be 512. Audio samples are coded here on 16 bits integers which is the data type accepted by the audio codec of the LyraT.
+The `update` method is called everytime a new audio buffer is needed by the system. 
+
+<!--
+First, a `for` loop is implemented and is repeated every time a new buffer is needed, that's basically the "callback". `samples_data_out` is the output buffer whose size is the buffer size multiplied by the number of outputs of the system. For example, if the system has a stereo output and the buffer size is 256 samples, then the size of `samples_data_out` will be 512. Audio samples are coded here on 16 bits integers which is the data type accepted by the audio codec of the LyraT.
 
 Then, the audio rate `for` loop is implemented and samples are processed and stored in a `float` called `currentSample`. `echo` and `sine` are defined in the [`lib` folder](https://github.com/grame-cncm/embaudio20/tree/master/examples/lib) and implement an echo and a sine wave oscillator, respectively.
 
@@ -303,3 +304,4 @@ for (int i = 0; i < fBufferSize; i++) {
   samples_data_out[i*fNumOutputs+1] = currentSampleR*MULT_S16;
 }
 ```
+-->
