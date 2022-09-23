@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://embaudio.grame.fr/lectures/lecture2/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lecture 2: Audio Signal Processing Fundamentals - AUD @ INSA Lyon</title>
+        <title> 2: Audio Signal Processing Fundamentals  - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -24,9 +24,28 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="../..">AUD @ INSA Lyon</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Syllabus</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lectures <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active"> 2: Audio Signal Processing Fundamentals </a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -34,6 +53,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../.." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -113,7 +142,7 @@
 
 <h2 id="the-discovery-of-digital-audio">The Discovery of Digital Audio</h2>
 <p>Sampling theory dates back from the beginning of the 20th century with initial work by <a href="https://en.wikipedia.org/wiki/Harry_Nyquist">Harry Nyquist</a> and was theorized in the 1930s by <a href="https://en.wikipedia.org/wiki/Claude_Shannon">Claude Shannon</a> to become the Nyquist-Shannon sampling theorem.</p>
-<p>Carrying sampling in the field of audio is relatively simple: voltage measurements are carried out at regular intervals of time on an analog electrical signal. Each individual acquired value is called a "sample" and can be stored on a computer. Hence, while an analog electric audio signal is just a variation of tension in time in an electric cable, a digital audio signal is just series of samples (values) in time as well. </p>
+<p>Carrying sampling in the field of audio is relatively simple: voltage measurements are carried out at regular intervals of time on an analog electrical signal. Each individual acquired value is called a "sample" and can be stored on a computer. Hence, while an analog electric audio signal is a variation of tension in time in an electric cable, a digital audio signal is just series of samples (values) in time as well. </p>
 <figure>
 <img src="img/sampling.png" class="mx-auto d-block" width="80%">
 <figcaption><center>Signal sampling representation. The continuous signal is represented with a green colored line while the discrete samples are indicated by the blue vertical lines. (source: <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)">Wikipedia</a>)</center></figcaption>
@@ -158,7 +187,7 @@
 <p>Beside sampling rate, the other parameter of sampling is the bit depth of audio samples. Audio is typically recorded at 8, 16 (the standard for CDs), or 24 bits (and 32 bits in some rarer cases). A higher bit depth means a more accurate precision for a given audio sample. This impacts directly the dynamic range and the signal-to-noise (SNR) ratio of a digital signal. In other words, a smaller bit depth will mean more noise in the signal, etc. Additional information about this topic can be found <a href="https://ccrma.stanford.edu/~jos/sasp/Processing_Gain.html">here</a>. </p>
 <h2 id="range-of-audio-samples">Range of Audio Samples</h2>
 <p>Audio samples can be coded in many different ways depending on the context. Some low-level systems use fixed-point numbers (i.e., integers) for efficiency. In that case, the range of the signal will be determined by the data type. For example, if audio samples are coded on 16 bits unsigned integers, the range of the signal will be 0 to <script type="math/tex">2^{16} - 1</script> (or 65535). At the hardware level (e.g., ADC/DAC), audio samples are almost exclusively coded on integers. </p>
-<p>On the other hand, fixed points are relatively hard to deal with at the software level when it comes to implementing DSP algorithms. In that case, it is much more convenient to use decimal numbers (i.e., floating points). <strong>The established standard in audio is that audio signals coded on decimal numbers always have the following range: {-1;1}.</strong> While this range can be exceeded within an algorithm without any consequences, the inputs and outputs of a DSP block must always be constrained between -1 and 1. Most systems will clip audio signal to this range to prevent warping and will hence result in clipping if exceeded. </p>
+<p>On the other hand, fixed points are relatively hard to deal with at the software level when it comes to implementing DSP algorithms. In that case, it is much more convenient to use decimal numbers (i.e., floating points). <strong>The established standard in audio is that audio signals coded on decimal numbers always have the following range: {-1;1}.</strong> While this range can be exceeded within an algorithm without any consequences, the inputs and outputs of a DSP block must always be constrained between -1 and 1. Most systems will clip audio signals to this range to prevent warping and will hence result in clipping if exceeded. </p>
 <h2 id="first-synthesized-sound-on-a-digital-computer">First Synthesized Sound on a Digital Computer</h2>
 <p>While Shanon and Nyquist theorized sampling in the 1930s, it's only in 1958 that a sound was synthesized for the first time on a computer by Max Mathews at Bell Labs, giving birth a few years later to the first song synthesized (and sung) by a computer:</p>
 <p><center></p>

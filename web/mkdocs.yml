@@ -2,6 +2,8 @@ site_name: AUD @ INSA Lyon
 site_description: Cours 5TC -- INSA Lyon -- Systèmes embarqués pour le traitement du signal audio en temps-réel
 nav:
   - Syllabus: index.md
+  - Lectures:
+    - ' 2: Audio Signal Processing Fundamentals ' : lectures/lecture2.md
     
 theme: 
   name: flatly
@@ -13,7 +15,7 @@ site_url: https://embaudio.grame.fr
 extra:
     social:
         - type: github
-          link: https://github.com/grame-cncm/embedaudio20
+          link: https://github.com/grame-cncm/embedaudio
         - type: home
           link: https://embedaudio.grame.fr
         - type: envelope

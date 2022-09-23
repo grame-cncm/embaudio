@@ -21,7 +21,7 @@ In nature, sounds almost always originate from a mechanical source. However, in 
 
 Sampling theory dates back from the beginning of the 20th century with initial work by [Harry Nyquist](https://en.wikipedia.org/wiki/Harry_Nyquist) and was theorized in the 1930s by [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon) to become the Nyquist-Shannon sampling theorem.
 
-Carrying sampling in the field of audio is relatively simple: voltage measurements are carried out at regular intervals of time on an analog electrical signal. Each individual acquired value is called a "sample" and can be stored on a computer. Hence, while an analog electric audio signal is just a variation of tension in time in an electric cable, a digital audio signal is just series of samples (values) in time as well. 
+Carrying sampling in the field of audio is relatively simple: voltage measurements are carried out at regular intervals of time on an analog electrical signal. Each individual acquired value is called a "sample" and can be stored on a computer. Hence, while an analog electric audio signal is a variation of tension in time in an electric cable, a digital audio signal is just series of samples (values) in time as well. 
 
 <figure>
 <img src="img/sampling.png" class="mx-auto d-block" width="80%">
@@ -84,7 +84,7 @@ Beside sampling rate, the other parameter of sampling is the bit depth of audio 
 
 Audio samples can be coded in many different ways depending on the context. Some low-level systems use fixed-point numbers (i.e., integers) for efficiency. In that case, the range of the signal will be determined by the data type. For example, if audio samples are coded on 16 bits unsigned integers, the range of the signal will be 0 to \(2^{16} - 1\) (or 65535). At the hardware level (e.g., ADC/DAC), audio samples are almost exclusively coded on integers. 
 
-On the other hand, fixed points are relatively hard to deal with at the software level when it comes to implementing DSP algorithms. In that case, it is much more convenient to use decimal numbers (i.e., floating points). **The established standard in audio is that audio signals coded on decimal numbers always have the following range: {-1;1}.** While this range can be exceeded within an algorithm without any consequences, the inputs and outputs of a DSP block must always be constrained between -1 and 1. Most systems will clip audio signal to this range to prevent warping and will hence result in clipping if exceeded. 
+On the other hand, fixed points are relatively hard to deal with at the software level when it comes to implementing DSP algorithms. In that case, it is much more convenient to use decimal numbers (i.e., floating points). **The established standard in audio is that audio signals coded on decimal numbers always have the following range: {-1;1}.** While this range can be exceeded within an algorithm without any consequences, the inputs and outputs of a DSP block must always be constrained between -1 and 1. Most systems will clip audio signals to this range to prevent warping and will hence result in clipping if exceeded. 
 
 ## First Synthesized Sound on a Digital Computer
 
