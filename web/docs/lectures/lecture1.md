@@ -16,8 +16,8 @@ All Lecture (2h on a computer) are labs on the LyraT board
 
 #### Part 2: Embedded Audio System Architecture
 - Lecture 8: RTone comference on embedded systems in industry [https://rtone.fr/](https://rtone.fr/)
-- Lecture 9: Embedded System Peripherals
-- Lecture 10: embedded OS, free-RTOS, embedded Audio linux devices
+- Lecture 9: TBD
+- Lecture 10: TDB 
 
 #### Part 3: LyraT programming
 - Lecture 11-14: mini project
@@ -26,20 +26,21 @@ All Lecture (2h on a computer) are labs on the LyraT board
 #Introduction to AUD2020 and ESP3
 <figure>
 <p>
-<img src="img/esp32-small.jpg"  width="30%"> 
-<img src="img/esp32-functional-bock.png"  width="30%"> 
-<img src="img/esp32-pin-layout.png"  width="30%"> 
-</p><figcaption><center>ESP32 die shot, taken from [zeptobars](https://zeptobars.com/en/read/Espressif-ESP32-Wi-Fi-Bluetooth-2.4Ghz-ISM),  its functional block and its pin layout, taken from esp32 datasheet </center></figcaption>
+<img src="img/teensy40_front.jpg"  width="30%"> 
+<img src="img/teensy3_audio.jpg"  width="30%"> 
+<img src="img/teensy3_audio_2.jpg"  width="30%"> 
+</p><figcaption><center>Teensy 4.0  from [PRJC](https://www.pjrc.com/store/teensy40.html),  and the associated audio adaptor board </center></figcaption>
 </figure>
 
-The development in AUD are performed on [LyraT](https://www.espressif.com/en/products/hardware/development-boards) which is developed by the espressif company.
-The programming environment used is <b>esp-idf</b> and <b>esp-adf</b> (esp-adf is a wrapper around esp-idf so as to enable easy audio configuration).
+The development in AUD are performed on [teensy](https://www.pjrc.com/store/teensy40.html) which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using  specialization of the arduino programming environnement ([teensyduino](https://www.pjrc.com/teensy/teensyduino.html)).
 
-[Espressif Systems](https://www.espressif.com/) is a fabless IC design company, founded in 2008 in Shanghai, China (~200 employees in 2018). Espressif is  designing and manufacturing low power wireless sensor chips.
+ Teensy is a brand of microcontroller development boards  designed by the co-owner of PJRC, [Paul Stoffregen](https://github.com/PaulStoffregen). The first 
+ Teensy 2.0, Teensy++ 2.0 (and discontinued predecessors) use an 8-bit AVR microcontrollers. Teensy 3.0 (and up) have instead Freescale microcontrollers, running ARM Cortex-M CPUs. 
 
-Their main product today is the ESP32 microcontroler, based on an old Xtensa processor architecture, that is sold for less the 5€ and that is strongly oriented toward Internet of Things (IoT).  Before that was ESP8089 and ESP8266 wifi chip
+In AUD, we use [Teensy 4.0](https://www.pjrc.com/store/teensy40.html) which contain an ARM Cortex-M7 at 600 MHz with a Floating point unit, hence it can handle non trivial audio treatment.
 
-#ESP32 and LyraT
+
+#Teensy 4.0 and Audio shield.
 The [ESP32](https://fr.wikipedia.org/wiki/ESP32) is a Single 2.4 GHz Wi-Fi and Bluetooth combo chip (i.e. radio basebands and processor integrated into the same chip). The processor is  and Xtensa Single or Dual-core 32-bit LX6
 microprocessor that can reach 600 MIPS. It comes with a ROM of 448 KB, and a SRAM of 520KB and, as any micro-controller, with a bunch of peripherals (ADC, DAC, Touch pad, SPI, I2S, I2C, PWM, SDIO, Ethernet, UART, etc.), see its [functionnal blocks](lecture1/img/esp32-functional-bock.png).
 
