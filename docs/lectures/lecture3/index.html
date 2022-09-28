@@ -103,6 +103,26 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#c-sine-wave-oscillator" class="nav-link">C++ Sine Wave Oscillator</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#looping-through-a-small-tune" class="nav-link">Looping Through a Small Tune</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#basic-additive-synthesis" class="nav-link">Basic Additive Synthesis</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#stereo-echo" class="nav-link">Stereo Echo</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -120,14 +140,7 @@
 
 <p>The format of audio samples depends on the hardware configuration of the system. </p>
 <h2 id="architecture-of-embedded-audio-systems-such-as-the-teensy">Architecture of Embedded Audio Systems Such as the Teensy</h2>
-<p>TODO: add some text here</p>
-<!--
-
-REWRITE THE FOLLOWING PARAGRAPH
-
-The audio codec can be seen as an audio interface providing audio inputs and outputs. It is connected to the Teensy board through an i2s bus. Additional information on how this kind of system works will be provided in [Lecture 4](lecture4.md). 
--->
-
+<p>In embedded audio systems, the component implementing the audio ADC and DAC is called an "Audio Codec." This name is slightly ambiguous because it is also used in the context of audio compression (e.g., mp3) to designate a totally different concept. In the case of the Teensy kits that are provided to you as part of this class, the audio codec we use is an SGTL5000. It is mounted on a shield/sister board that has the same form factor as the Teensy. Audio samples are sent and received between the Cortex M7 and the audio codec using the i2s protocol (additional information on how this kind of system works will be provided in <a href="../lecture4/">Lecture 4</a>). As a microcontroller, the Cortex M7 has its own analog inputs which can be used to retrieve sensor datas (e.g., potentiometers, etc.). These analog inputs cannot be used for audio because of their limited precision and sampling rate. We'll briefly show in Lecture TODO how these analog inputs can be used to use sensors to control audio algorithms running on the Teensy.</p>
 <figure>
 <img src="img/teensy-diagram.jpg" class="mx-auto d-block" width="70%">
 <figcaption><center>Teensy and Audio Shield Overview</center></figcaption>
@@ -150,15 +163,18 @@ The audio codec can be seen as an audio interface providing audio inputs and out
 <p>Embedded systems such as the Teensy can achieve much lower latencies than regular computers because of their lightness. Hence, the block size of your Teensy can be as small as 8!</p>
 <h2 id="first-audio-program-on-the-teensy-crazy-sine">First Audio Program on the Teensy: <code>crazy-sine</code></h2>
 <p>The <a href="https://github.com/grame-cncm/embaudio">course repository</a> hosts an example containing a program synthesizing a sine wave on the Teensy and controlling its frequency: <a href="https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/crazy-sine">crazy-sine</a>. This program contains all the building blocks of a real-time audio program including... the audio callback which can be found in <a href="https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/crazy-sine/MyDsp.cpp"><code>AudioDsp.cpp</code></a>! The audio callback is implemented in this class in the <code>update</code> method and take the following shape:</p>
-<pre><code>void MyDsp::update(void) {
+<pre><code>#define MULT_16 32767
+
+void MyDsp::update(void) {
+  audio_block_t* outBlock[AUDIO_OUTPUTS];
   for (int channel = 0; channel &lt; AUDIO_OUTPUTS; channel++) {
-    audio_block_t* outBlock[AUDIO_OUTPUTS];
     outBlock[channel] = allocate();
     if (outBlock[channel]) {
       for (int i = 0; i &lt; AUDIO_BLOCK_SAMPLES; i++) {
         float currentSample = echo.tick(sine.tick())*0.5;
-        int32_t val = currentSample*MULT_16;
-        outBlock[channel]-&gt;data[i] = val &gt;&gt; 16;
+        currentSample = max(-1,min(1,currentSample));
+        int16_t val = currentSample*MULT_16;
+        outBlock[channel]-&gt;data[i] = val;
       }
       transmit(outBlock[channel], channel);
       release(outBlock[channel]);
@@ -166,85 +182,49 @@ The audio codec can be seen as an audio interface providing audio inputs and out
   }
 }
 </code></pre>
-<p>The <code>update</code> method is called everytime a new audio buffer is needed by the system. </p>
-<!--
-First, a `for` loop is implemented and is repeated every time a new buffer is needed, that's basically the "callback". `samples_data_out` is the output buffer whose size is the buffer size multiplied by the number of outputs of the system. For example, if the system has a stereo output and the buffer size is 256 samples, then the size of `samples_data_out` will be 512. Audio samples are coded here on 16 bits integers which is the data type accepted by the audio codec of the LyraT.
-
-Then, the audio rate `for` loop is implemented and samples are processed and stored in a `float` called `currentSample`. `echo` and `sine` are defined in the [`lib` folder](https://github.com/grame-cncm/embaudio20/tree/master/examples/lib) and implement an echo and a sine wave oscillator, respectively.
-
-Note that `currentSample` is multiplied by 0.5 to control the output gain of the system here. 
-
-### Converting Floats to `int16_t`
-
-Since the type of the output buffer is 16 bits signed integer, the float value of `currentSample` must be converted. For that, we just have to multiply `currentSample` by \(2^{16}/2\) (the range of `currentSample` is {-1;1}). As explained in [Lecture 2](lecture2.md), `float` are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.
-
-### Interlacing Output Samples
-
-The LyraT has a stereo output (2 channels). The way parallel channels are transmitted to the audio codec is by interlacing samples in the output buffer (the same is true for the input, of course). This is carried out with the following piece of code:
-
-
-<pre><code>samples_data_out[i*fNumOutputs] = currentSample*MULT_S16;
-samples_data_out[i*fNumOutputs+1] = samples_data_out[i*fNumOutputs];
-</code></pre>
-
-
-Hence, the left channel sample is first written into the buffer, then the right channel sample and so on, etc. Here, the left channel is copied into the right channel since the DSP algorithm only has a single output. Now you should understand why `samples_data_out` was declared as `int16_t samples_data_out[fNumOutputs*fBufferSize];` ;). 
-
-### i2s Transmission
-
-Once `samples_data_out` has been formatted, the buffer is transmitted to the audio codec using the i2s protocol. The `i2s_write` uses a blocking mechanism to hold the thread (task) until a new buffer is needed. 
-
-## C++ Sine Wave Oscillator
-
-Sine wave are at the basis of many algorithms in the field of audio. The sound of a sine wave is what we call a "pure tone" since it only has a single harmonic. One of the consequences of this is that all sounds can be synthesized using a combination of sine waves ([Fourier transform](https://en.wikipedia.org/wiki/Fourier_transform)).
-
-From a mathematical standpoint, a sine oscillator can be implemented with the following differential equation:
-
-\[x(t) = Asin(\omega t + \phi)\]
-
-with:
-
-* \(A\): the peak amplitude
-* \(\omega = 2 \pi f\): the radian frequency (rad/sec)
-* \(f\): the frequency in Hz
-* \(t\): the time seconds
-* \(\phi\): the initial phase (radians)
-
-\(x(t)\) could be translated to C++ by writing something like (\(\phi\) is ignored here):
-
-
+<p>The <code>update</code> method is called every time a new audio buffer is needed by the system. A new audio buffer <code>audioBlock</code> containing <code>AUDIO_OUTPUTS</code> channels is first created. For every audio channel, memory is allocated and a full block of samples is computed. Individual samples resulting from computing a sine wave through an echo (<code>echo</code> and <code>sine</code> are defined in the <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/lib"><code>lib</code> folder</a> and implement an echo and a sine wave oscillator, respectively) are stored in <code>currentSample</code>. <code>currentSample</code> is a floating point number whose range is {-1;1}. This is a standard in the world of digital audio, hence, a signal actually ranging between {-1;1} will correspond to the "loudest" sound that can be played on a given system. <code>max(-1,min(1,currentSample));</code> ensures that <code>currentSample</code> doesn't exceed this range.</p>
+<p><code>AUDIO_BLOCK_SAMPLES</code> corresponds to the block size (256 samples by default on the Teensy, but this value can potentially be adjusted). The values contained in <code>currentSample</code> (between -1 and 1) must be converted to 16 bits signed integers (to ensure compatibility with the rest of the Teensy audio library). For that, we just have to multiply <code>currentSample</code> by <script type="math/tex">2^{16}/2</script>
+</p>
+<p>Note that <code>currentSample</code> is multiplied by 0.5 to control the output gain of the system here (we'll see later in this class that echos tend to add energy to the system hence we must limit the gain of the output signal to prevent potential saturation).</p>
+<p>Once a full block has been computed, it is transmitted to the rest of the system using the <code>transmit</code> function. Once this is done, the memory that was allocated for the audio block is freed using the <code>release</code> function. The <code>update</code> method is called over and over until the Teensy is powered out.</p>
+<h2 id="c-sine-wave-oscillator">C++ Sine Wave Oscillator</h2>
+<p>Sine wave are at the basis of many algorithms in the field of audio. The sound of a sine wave is what we call a "pure tone" since it only has a single harmonic. One of the consequences of this is that all sounds can be synthesized using a combination of sine waves (<a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transform</a>).</p>
+<p>From a mathematical standpoint, a sine oscillator can be implemented with the following differential equation:</p>
+<p>
+<script type="math/tex; mode=display">x(t) = Asin(\omega t + \phi)</script>
+</p>
+<p>with:</p>
+<ul>
+<li>
+<script type="math/tex">A</script>: the peak amplitude</li>
+<li>
+<script type="math/tex">\omega = 2 \pi f</script>: the radian frequency (rad/sec)</li>
+<li>
+<script type="math/tex">f</script>: the frequency in Hz</li>
+<li>
+<script type="math/tex">t</script>: the time seconds</li>
+<li>
+<script type="math/tex">\phi</script>: the initial phase (radians)</li>
+</ul>
+<p>
+<script type="math/tex">x(t)</script> could be translated to C++ by writing something like (<script type="math/tex">\phi</script> is ignored here):</p>
 <pre><code>float currentSample = A*std::sin(2*PI*f*t);
 </code></pre>
-
-
-however sine oscillators are rarely implemented as such since calling the `std::sin` function at every sample can be quite computationally expensive. For that reason, it is better to pre-compute the sine wave and store it in a wave table before computation starts. That kind of algorithm is then called a "wave table oscillator."
-
-[Sine.cpp](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp), which is used in `crazy-sine` is a good example of that. It uses [SineTable.cpp](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp) which pre-computes a sine table:
-
-
+<p>however sine oscillators are rarely implemented as such since calling the <code>std::sin</code> function at every sample can be quite computationally expensive. For that reason, it is better to pre-compute the sine wave and store it in a wave table before computation starts. That kind of algorithm is then called a "wave table oscillator."</p>
+<p><a href="https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/libraries/mydsp/src/Sine.cpp">Sine.cpp</a>, which is used in <code>crazy-sine</code> is a good example of that. It uses <a href="https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/libraries/mydsp/src/SineTable.cpp">SineTable.cpp</a> which pre-computes a sine table:</p>
 <pre><code>table = new float[size];
 for(int i=0; i&lt;size; i++){
   table[i] = std::sin(i*2.0*PI/size);
 }
 </code></pre>
-
-
-and then makes it accessible through the `tick` (compute) method:
-
-
+<p>and then makes it accessible through the <code>tick</code> (compute) method:</p>
 <pre><code>float SineTable::tick(int index){
   return table[index%tableSize];
 }
 </code></pre>
-
-
-The size of the table plays an important role on the quality of the generated sound. The greater the size, the more accurate/pure the sine wave. A low resolution sine wave will produce more distortion. In `Sine.cpp`, the sine wave table has a size of \(2^{14}\) which presents a good compromise between sound quality and memory.
-
-It is important to keep in mind that when working with embedded systems memory is also an important factor to take into account. 
-
-The sine table is then read with a "phasor." A phasor produces a ramp signal which is reset at a certain frequency. It can also be seen as a sawtooth wave. [Phasor.cpp](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Sine.cpp) is used for that purpose and its `tick` method is defined as:
-
-
+<p>The size of the table plays an important role on the quality of the generated sound. The greater the size, the more accurate/pure the sine wave. A low resolution sine wave will produce more distortion. In <code>Sine.cpp</code>, the sine wave table has a size of <script type="math/tex">2^{14}</script> which presents a good compromise between sound quality and memory.</p>
+<p>It is important to keep in mind that when working with embedded systems memory is also an important factor to take into account. </p>
+<p>The sine table is then read with a "phasor." A phasor produces a ramp signal which is reset at a certain frequency. It can also be seen as a sawtooth wave. <a href="https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/libraries/mydsp/src/Phasor.cpp">Phasor.cpp</a> is used for that purpose and its <code>tick</code> method is defined as:</p>
 <pre><code>float Phasor::tick(){
   float currentSample = phasor;
   phasor += phasorDelta;
@@ -252,90 +232,72 @@ The sine table is then read with a "phasor." A phasor produces a ramp signal whi
   return currentSample;
 }
 </code></pre>
-
-
-It hence ramps from 0 to 1 at a given frequency. The `phasor` object in `Sine.cpp` is used to read the sine table by adjusting the range of its output:
-
-
+<p>It hence ramps from 0 to 1 at a given frequency. The <code>phasor</code> object in <code>Sine.cpp</code> is used to read the sine table by adjusting the range of its output:</p>
 <pre><code>float Sine::tick(){
   int index = phasor.tick()*SINE_TABLE_SIZE;
   return sineTable.tick(index)*gain;
 }
 </code></pre>
+<h2 id="exercises">Exercises</h2>
+<h3 id="looping-through-a-small-tune">Looping Through a Small Tune</h3>
+<p>In the world of music technology, musical notes are usually represented by <a href="https://djip.co/blog/logic-studio-9-midi-note-numbers">MIDI numbers</a>. In MIDI, each pitch of the chromatic scale has a number between 0 and 127 associated to it: <a href="https://djip.co/blog/logic-studio-9-midi-note-numbers">https://djip.co/blog/logic-studio-9-midi-note-numbers</a></p>
+<p>As you can see, middle C (Do) corresponds to number 72. MIDI note numbers can be converted to a frequency using the following formula:</p>
+<p>
+<script type="math/tex; mode=display">f=2^{(d-69)/12}.440</script>
+</p>
+<p>where <script type="math/tex">d</script> is the MIDI number.</p>
+<p>Write a small tune/song looping through at least 5 notes and play it with the <code>crazy-sine</code> program on your Teensy.</p>
+<p><strong>Hint:</strong> For that, you'll probably have to replace the <code>myDsp.setFreq(random(50,1000));</code> line of of <code>crazy-sine.ino</code> by something else.</p>
+<p><strong>Solution:</strong></p>
+<p>Posted after class...</p>
+<!--
+In `crazy-sine.ino`:
 
 
-## Exercises
+<pre><code>#include &lt;Audio.h&gt;
+#include &quot;MyDsp.h&quot;
 
-### Looping Through a Small Tune
-
-In the world of music technology, musical notes are usually represented by [MIDI numbers](https://djip.co/blog/logic-studio-9-midi-note-numbers). In MIDI, each pitch of the chromatic scale has a number between 0 and 127 associated to it: <https://djip.co/blog/logic-studio-9-midi-note-numbers>
-
-As you can see, middle C (Do) corresponds to number 72. MIDI note numbers can be converted to a frequency using the following formula:
-
-\[f=2^{(d-69)/12}.440\]
-
-where \(d\) is the MIDI number.
-
-Write a small tune/song looping through at least 5 notes and play it with the `crazy-sine` program on your LyraT.
-
-**Hint:** For that, you'll probably have to replace the `audioDsp.setFreq(rand()%(2000-50 + 1) + 50);` line of of `main.cpp` by something else.
-
-**Solution:**
-
-In `main.cpp`:
-
-
-<pre><code>extern &quot;C&quot; {
-  void app_main(void);
-}
+MyDsp myDsp;
+AudioOutputI2S out;
+AudioControlSGTL5000 audioShield;
+AudioConnection patchCord0(myDsp,0,out,0);
+AudioConnection patchCord1(myDsp,0,out,1);
 
 float mtof(float note){
   return pow(2.0,(note-69.0)/12.0)*440.0;
 }
 
-void app_main(void)
-{
-  // initialize Audio Codec
-  ES8388 es8388;
-  es8388.init();
+int tune[] = {62,78,65,67,69};
+int cnt = 0;
 
-  // start audio DSP
-  AudioDsp audioDsp(48000,16);
-  audioDsp.start();
+void setup() {
+  AudioMemory(2);
+  audioShield.enable();
+  audioShield.volume(0.5);
+}
 
-  int tune[] = {62,78,65,67,69};
-  int cnt = 0;
-
-  // infinite loop
-  while(1) {
-    // changing frequency randomly every 100ms
-    audioDsp.setFreq(mtof(tune[cnt]));
-    cnt = (cnt+1)%5;
-    vTaskDelay(500 / portTICK_PERIOD_MS);
-  }
+void loop() {
+  myDsp.setFreq(mtof(tune[cnt]));
+  cnt = (cnt+1)%5;
+  delay(500);
 }
 </code></pre>
 
+-->
 
-### Basic Additive Synthesis
-
-One of the most basic kind of sound synthesis is "additive synthesis." In consists of adding multiple sine wave oscillators together to "sculpt" the timbre of a sound. Both the frequency and the gain of each individual oscillator can then be used to change the properties of the synthesized sound. 
-
-A simple additive synthesizer could be implemented from the `crazy-sine` example by declaring multiple instances of `sine`. E.g.:
-
-
+<h3 id="basic-additive-synthesis">Basic Additive Synthesis</h3>
+<p>One of the most basic kind of sound synthesis is "additive synthesis." In consists of adding multiple sine wave oscillators together to "sculpt" the timbre of a sound. Both the frequency and the gain of each individual oscillator can then be used to change the properties of the synthesized sound. </p>
+<p>A simple additive synthesizer could be implemented from the <code>crazy-sine</code> example by declaring multiple instances of <code>sine</code>. E.g.:</p>
 <pre><code>float currentSample = echo.tick(sine0.tick()*gain0 + sine1.tick()*gain1);
 </code></pre>
-
-
-but the problem with that option is that memory will be allocated twice for the `sineTable` array which is a terrible idea in the context of our embedded audio system with very little memory. Instead, the additive synthesizer should reuse the same instance of `sineTable` for each oscillator. In the `tick` method of `Sine.cpp`, try to call the `sineTable` a second time after `float currentSample = sineTable[index]*gain;` to add a second oscillator to the generated sample. The value of its index could be something like `index = (int) (index*1.5)%SINE_TABLE_SIZE;` so that the frequency of the second oscillator is one fifth above the main frequency. In other words, the differential equation of the synth should be:
-
-\[x(t) = sin(2 \pi f t) + sin(2 \pi (1.5f) t)\]
-
-**Hint:** Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. 
-
-**Solution:**
-
+<p>but the problem with that option is that memory will be allocated twice for the <code>sineTable</code> array which is a terrible idea in the context of our embedded audio system with very little memory. Instead, the additive synthesizer should reuse the same instance of <code>sineTable</code> for each oscillator. In the <code>tick</code> method of <code>Sine.cpp</code>, try to call the <code>sineTable</code> a second time after <code>float currentSample = sineTable[index]*gain;</code> to add a second oscillator to the generated sample. The value of its index could be something like <code>index = (int) (index*1.5)%SINE_TABLE_SIZE;</code> so that the frequency of the second oscillator is one fifth above the main frequency. In other words, the differential equation of the synth should be:</p>
+<p>
+<script type="math/tex; mode=display">x(t) = sin(2 \pi f t) + sin(2 \pi (1.5f) t)</script>
+</p>
+<p><strong>Hint:</strong> Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. </p>
+<p><strong>Solution:</strong></p>
+<p>Posted after class...</p>
+<!--
 In `Sine.cpp`:
 
 
@@ -346,23 +308,19 @@ In `Sine.cpp`:
 }
 </code></pre>
 
+-->
 
-### Stereo Echo
-
-Reusing the result of the previous exercise, create a second instance of `echo` (connected to the same instance of `sine`) *with different parameters from the first one* that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:
-
-
+<h3 id="stereo-echo">Stereo Echo</h3>
+<p>Reusing the result of the previous exercise, create a second instance of <code>echo</code> (connected to the same instance of <code>sine</code>) <em>with different parameters from the first one</em> that will be connected to the second channel of the output (i.e., the first instance should be connected to the left channel and the second one to the right channel). The final algorithm should look like this:</p>
 <pre><code>float sineSample = sine.tick();
 float currentSampleL = echo0.tick(sineSample)*0.5;
 float currentSampleR = echo1.tick(sineSample)*0.5;
 </code></pre>
-
-
-**Hint:** Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. 
-
-**Solution:**
-
-In `AudioDsp.h`:
+<p><strong>Hint:</strong> Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. </p>
+<p><strong>Solution:</strong></p>
+<p>Posted after class...</p>
+<!--
+In `MyDsp.h`:
 
 
 <pre><code>  Sine sine;
@@ -371,18 +329,14 @@ In `AudioDsp.h`:
 </code></pre>
 
 
-In `AudioDsp.cpp`:
+In `MyDsp.cpp`:
 
 
-<pre><code>AudioDsp::AudioDsp(int SR, int BS) : 
-fSampleRate(SR),
-fBufferSize(BS),
-fNumOutputs(2),
-fHandle(nullptr),
-fRunning(false),
-sine(SR),
-echo0(SR,10000),
-echo1(SR,7000)
+<pre><code>MyDsp::MyDsp() :
+AudioStream(AUDIO_OUTPUTS, new audio_block_t*[AUDIO_OUTPUTS]),
+sine(AUDIO_SAMPLE_RATE_EXACT),
+echo0(AUDIO_SAMPLE_RATE_EXACT,10000),
+echo1(AUDIO_SAMPLE_RATE_EXACT,7000)
 {
 
 ...
@@ -396,15 +350,13 @@ echo1.setFeedback(0.4);
 ...
 
 // processing buffers
-for (int i = 0; i &lt; fBufferSize; i++) {
+for (int i = 0; i &lt; AUDIO_BLOCK_SAMPLES; i++) {
   // DSP
   float sineSample = sine.tick();
   float currentSampleL = echo0.tick(sineSample)*0.5;
   float currentSampleR = echo1.tick(sineSample)*0.5;
 
-  // copying to output buffer
-  samples_data_out[i*fNumOutputs] = currentSampleL*MULT_S16;
-  samples_data_out[i*fNumOutputs+1] = currentSampleR*MULT_S16;
+  ...
 }
 </code></pre>
 
