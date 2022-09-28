@@ -15,8 +15,8 @@ In this course, students will learn about:
 ## Instructors
 
 * [Romain Michon](https://ccrma.stanford.edu/~rmichon) (INRIA)
-* [Tanguy Risset](http://perso.citi.insa-lyon.fr/trisset/) (Citi Lab)
-* Yann Orlarey
+* [Tanguy Risset](http://perso.citi.insa-lyon.fr/trisset/) (INSA Lyon)
+* Yann Orlarey (GRAME-CNCM)
 
 ## Organization and ECTS
 
@@ -27,22 +27,22 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 * 8x2h TP
 * Evaluation on TPs
 
-<!--
 ## Course Overview
 
-* **Lecture 1: [Course Introduction and Programming Environment Setup](lectures/lecture1.md)** -- *15/09/2020 08h00-10h00 5TC-G2*
-* **Lecture 2: [Audio Signal Processing Fundamentals](lectures/lecture2.md)** -- *15/09/2020 10h00-12h00 5TC-G2*
-* **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](lectures/lecture3.md)** -- *18/09/2020 14h00-16h00 5TC-G2*
-* **Lecture 4: [Audio Codec Configuration](lectures/lecture4.md)** -- *18/09/2020 16h00-18h00 5TC-G2*
-* **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *21/09/2020 08h00-10h00 5TC-G2*
-* **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *21/09/2020 10h00-12h00 5TC-G2*
-* **Lecture 7:  RTone Talk** -- *21/09/2020 14h00-16h00 5TC-G2*
-* **Lecture 8: Faust Tutorial** -- *21/09/2020 16h00-18h00 5TC-G2*
-* **Lecture 9: Embedded System Peripherals** -- *22/09/2020 08h00-10h00 5TC-G2*
-* **Lecture 10:Embedded OS, FreeRTOS, Embedded Linux Devices** -- *22/09/2020 10h00-12h00 5TC-G2*
-* **Lecture 11: [Faust on the LyraT and Advanced Control](lectures/lecture11.md)** -- *22/09/2020 10h00-12h00 5TC-G2*
-* **Sessions 12-14: Mini-project**
-    * *22/09/2020 16h00-18h00 5TC-G2*
-    * *30/09/2020 10h00-12h00 5TC-G2*
-    * *07/10/2020 10h00-12h00 5TC-G2*
--->
+* **Lecture 1: [Course Introduction and Programming Environment Setup](lectures/lecture1.md)** -- *15/11/2022 14h00-16h00*
+* **Lecture 2: [Audio Signal Processing Fundamentals](lectures/lecture2.md)** -- *16/11/2022 14h00-16h00*
+* **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](lectures/lecture3.md)** -- *16/11/2022 16h00-18h00*
+* **Lecture 4: [Hardware Control and Audio Codec Configuration](lectures/lecture4.md)** -- *22/11/2022 14h00-16h00*
+* **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *23/11/2022 14h00-16h00*
+* **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *23/11/2022 16h00-18h00*
+* **Lecture 7: TBD** -- *29/11/2022 14h00-16h00*
+* **Lecture 8: Faust Tutorial** -- *30/11/2022 14h00-16h00*
+* **Lecture 9: Embedded System Peripherals** -- *30/11/2022 16h00-18h00*
+* **Lecture 10: Embedded OS, FreeRTOS, Embedded Linux Devices** -- *06/12/2022 14h00-16h00*
+* **Lecture 11: [Faust on the Teensy and Advanced Control](lectures/lecture11.md)** -- *07/12/2022 14h00-16h00*
+* **Sessions 12-16: Mini-project**
+    * *07/12/2022 16h00-18h00*
+    * *12/12/2022 14h00-16h00*
+    * *12/12/2022 16h00-18h00*
+    * *14/12/2022 14h00-16h00*
+    * *14/12/2022 16h00-18h00*
