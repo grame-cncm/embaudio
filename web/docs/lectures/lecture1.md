@@ -16,53 +16,82 @@ All Lecture (2h on a computer) are labs on the LyraT board
 
 #### Part 2: Embedded Audio System Architecture
 - Lecture 8: RTone comference on embedded systems in industry [https://rtone.fr/](https://rtone.fr/)
-- Lecture 9: Embedded System Peripherals
-- Lecture 10: embedded OS, free-RTOS, embedded Audio linux devices
+- Lecture 9: TBD
+- Lecture 10: TDB 
 
 #### Part 3: LyraT programming
 - Lecture 11-14: mini project
 - Lecture 15-16: demonstrations
 
-#Introduction to AUD2020 and ESP3
+#Introduction to AUD2020 and Teensy
 <figure>
 <p>
-<img src="img/esp32-small.jpg"  width="30%"> 
-<img src="img/esp32-functional-bock.png"  width="30%"> 
-<img src="img/esp32-pin-layout.png"  width="30%"> 
-</p><figcaption><center>ESP32 die shot, taken from [zeptobars](https://zeptobars.com/en/read/Espressif-ESP32-Wi-Fi-Bluetooth-2.4Ghz-ISM),  its functional block and its pin layout, taken from esp32 datasheet </center></figcaption>
+<img src="img/teensy40_front.jpg"  width="30%"> 
+<img src="img/teensy3_audio.jpg"  width="30%"> 
+<img src="img/teensy3_audio_2.jpg"  width="30%"> 
+</p><figcaption><center>Teensy 4.0  from [PRJC](https://www.pjrc.com/store/teensy40.html),  and the associated audio adaptor board </center></figcaption>
 </figure>
 
-The development in AUD are performed on [LyraT](https://www.espressif.com/en/products/hardware/development-boards) which is developed by the espressif company.
-The programming environment used is <b>esp-idf</b> and <b>esp-adf</b> (esp-adf is a wrapper around esp-idf so as to enable easy audio configuration).
+The development in AUD are performed on [teensy](https://www.pjrc.com/store/teensy40.html) which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using  specialization of the arduino programming environnement ([teensyduino](https://www.pjrc.com/teensy/teensyduino.html)).
 
-[Espressif Systems](https://www.espressif.com/) is a fabless IC design company, founded in 2008 in Shanghai, China (~200 employees in 2018). Espressif is  designing and manufacturing low power wireless sensor chips.
+ Teensy is a brand of microcontroller development boards  designed by the co-owner of PJRC, [Paul Stoffregen](https://github.com/PaulStoffregen). The first 
+ Teensy 2.0, Teensy++ 2.0 (and discontinued predecessors) use an 8-bit AVR microcontrollers. Teensy 3.0 (and up) have instead Freescale microcontrollers, running ARM Cortex-M CPUs. 
 
-Their main product today is the ESP32 microcontroler, based on an old Xtensa processor architecture, that is sold for less the 5€ and that is strongly oriented toward Internet of Things (IoT).  Before that was ESP8089 and ESP8266 wifi chip
+In AUD, we use [Teensy 4.0](https://www.pjrc.com/store/teensy40.html) which contain an ARM Cortex-M7 at 600 MHz with a Floating point unit, hence it can handle non trivial audio treatment.
+<figure>
+<p>
+<img src="img/teensy40_front.jpg"  width="30%"> 
+<img src="img/teensy3_audio.jpg"  width="30%"> 
+<img src="img/teensy3_audio_2.jpg"  width="30%"> 
+</p><figcaption><center>Teensy 4.0  from [PRJC](https://www.pjrc.com/store/teensy40.html),  and the associated audio adaptor board </center></figcaption>
+</figure>
 
-#ESP32 and LyraT
-The [ESP32](https://fr.wikipedia.org/wiki/ESP32) is a Single 2.4 GHz Wi-Fi and Bluetooth combo chip (i.e. radio basebands and processor integrated into the same chip). The processor is  and Xtensa Single or Dual-core 32-bit LX6
-microprocessor that can reach 600 MIPS. It comes with a ROM of 448 KB, and a SRAM of 520KB and, as any micro-controller, with a bunch of peripherals (ADC, DAC, Touch pad, SPI, I2S, I2C, PWM, SDIO, Ethernet, UART, etc.), see its [functionnal blocks](lecture1/img/esp32-functional-bock.png).
 
-The two CPUs are named “PRO\_CPU” and
-“APP\_CPU” (for “protocol” and “application”), however, for most
-purposes the two CPUs are interchangeable.
+#Teensy 4.0 and Audio shield (from PJRC website).
+Teensy 4.0 uses many powerful CPU features useful for true real-time microcontroller platform. The CPU is an ARM Cortex-M7 dual-issue superscaler clocked at at 600 MHz.  CPU performance is many times faster than typical 32 bit microcontrollers. The Floating Point Unit performs 32 bit float and 64 bit double precision math in hardware. DSP extension instructions accelerate signal processing, filters and Fourier transform. The Audio library automatically makes uses of these DSP instructions.
+<p align="center">
+ <img src="img/coremark_barchart_t40_small.png" /> <br>
+ Teensy performance from Core Benchmarks
+</p>
 
-Espressif proposes three  documentations for the ESP32:
-<ul>
-<li> : brief presentation (30 pages) of the whole ESP32 architecture, including the  {\em Memory Map} and {\em Peripheral Pin Configurations}.
-<li>   [esp32_technical_reference_manual_en.pdf](lecture1/img/esp32_technical_reference_manual_en.pdf): Complete reference guide of the chip, 600 pages, useful to understand the configuration of a particular component such as a peripheral for instance.
-<li> [esp32_hardware_design_guidelines_en.pdf](lecture1/img/esp32_hardware_design_guidelines_en.pdf) which presents in details the interface to ESP32 chip and is  mostly useful to integrate ESP32 in a new board. 
-</ul>
+
+
+This pinout reference card comes with Teensy 4.0  (<em >do not loose it! </em>).
+
+
+<figure>
+<center>
+<img  src="img/teensy40_card10a_rev2.png" width="40%">&nbsp  &nbsp  &nbsp   <img  src="img/teensy40_card10b_rev2.png" width="40%">
+</center>
+<center>
+<caption> Teensy 4.0 pin map (from  PJRC webite)</caption>
+</center>
+</figure>
+
+Teensy 4.0 has a total of 40 input/output signal pins. 24 are easily accessible when used with a solderless breadboard. The available pins include general purpose IO (GPIO), as well as integrated serial protocols (I2C, I2S, CAN,  SPI and UART protocols) that are used to connect to other devices. 
+
+In AUD, we use the [audio adaptor board](https://www.pjrc.com/store/teensy3_audio.html) provided by PJRC that integrates a low power stereo codex (NXP Semiconductors SGTL5000 codec) and a SD card reader.
+
+
+<figure>
+<p>
+<img src="img/teensy4_audio_front.jpg"  width="40%"> 
+<img src="img/teensy4_audio_back.jpg"  width="40%"> 
+</p><figcaption><center>Teensy audio adaptor (rev. D)  from [PRJC](https://www.pjrc.com/store/teensy40.html),   </center></figcaption>
+</figure>
+
+
+
+TO BE CONTINUED
 
 We use ESP32-LyraT v4.3 evaluation board, all available documentation is present on  [espressif web site](https://docs.espressif.com/projects/esp-adf/en/latest/get-started/get-started-esp32-lyrat.html#). You will need to access to the [hardware reference](https://docs.espressif.com/projects/esp-adf/en/latest/design-guide/board-esp32-lyrat-v4.3.html) and the [schematics of the board](https://dl.espressif.com/dl/schematics/esp32-lyrat-v4.3-schematic.pdf).
 
 <figure>
 <center>
-<img  src="img/lyrat-diag1.png" width="40%">
-<img  src="img/lyrat-photo2.png" width="40%">
+<img  src="img/teensy40_card10a_rev2.png" width="40%">&nbsp  &nbsp  &nbsp   <img  src="img/teensy40_card10b_rev2.png" width="40%">
 </center>
 <center>
-<caption> LyraT simple diagram and board layout (from  espressive webite)</caption>
+<caption> Teensy 4.0 pin map (from  PJRC webite)</caption>
 </center>
 </figure>
 
