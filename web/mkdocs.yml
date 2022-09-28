@@ -5,6 +5,7 @@ nav:
   - Lectures:
     - ' 2: Audio Signal Processing Fundamentals ' : lectures/lecture2.md
     - ' 3: Digital Audio Systems Architectures and Audio Callback ' : lectures/lecture3.md
+    - ' 4: Hardware Control and Audio Codec Configuration ' : lectures/lecture4.md
     
 theme: 
   name: flatly
