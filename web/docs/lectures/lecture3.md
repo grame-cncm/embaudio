@@ -14,14 +14,7 @@ The format of audio samples depends on the hardware configuration of the system.
 
 ## Architecture of Embedded Audio Systems Such as the Teensy
 
-TODO: add some text here
-
-<!--
-
-REWRITE THE FOLLOWING PARAGRAPH
-
-The audio codec can be seen as an audio interface providing audio inputs and outputs. It is connected to the Teensy board through an i2s bus. Additional information on how this kind of system works will be provided in [Lecture 4](lecture4.md). 
--->
+In embedded audio systems, the component implementing the audio ADC and DAC is called an "Audio Codec." This name is slightly ambiguous because it is also used in the context of audio compression (e.g., mp3) to designate a totally different concept. In the case of the Teensy kits that are provided to you as part of this class, the audio codec we use is an SGTL5000. It is mounted on a shield/sister board that has the same form factor as the Teensy. Audio samples are sent and received between the Cortex M7 and the audio codec using the i2s protocol (additional information on how this kind of system works will be provided in [Lecture 4](lecture4.md)). As a microcontroller, the Cortex M7 has its own analog inputs which can be used to retrieve sensor datas (e.g., potentiometers, etc.). These analog inputs cannot be used for audio because of their limited precision and sampling rate. We'll briefly show in Lecture TODO how these analog inputs can be used to use sensors to control audio algorithms running on the Teensy.
 
 <figure>
 <img src="img/teensy-diagram.jpg" class="mx-auto d-block" width="70%">
@@ -56,15 +49,18 @@ Embedded systems such as the Teensy can achieve much lower latencies than regula
 The [course repository](https://github.com/grame-cncm/embaudio) hosts an example containing a program synthesizing a sine wave on the Teensy and controlling its frequency: [crazy-sine](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/crazy-sine). This program contains all the building blocks of a real-time audio program including... the audio callback which can be found in [`AudioDsp.cpp`](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/crazy-sine/MyDsp.cpp)! The audio callback is implemented in this class in the `update` method and take the following shape:
 
 ```
+#define MULT_16 32767
+
 void MyDsp::update(void) {
+  audio_block_t* outBlock[AUDIO_OUTPUTS];
   for (int channel = 0; channel < AUDIO_OUTPUTS; channel++) {
-    audio_block_t* outBlock[AUDIO_OUTPUTS];
     outBlock[channel] = allocate();
     if (outBlock[channel]) {
       for (int i = 0; i < AUDIO_BLOCK_SAMPLES; i++) {
         float currentSample = echo.tick(sine.tick())*0.5;
-        int32_t val = currentSample*MULT_16;
-        outBlock[channel]->data[i] = val >> 16;
+        currentSample = max(-1,min(1,currentSample));
+        int16_t val = currentSample*MULT_16;
+        outBlock[channel]->data[i] = val;
       }
       transmit(outBlock[channel], channel);
       release(outBlock[channel]);
@@ -73,33 +69,19 @@ void MyDsp::update(void) {
 }
 ```
 
-The `update` method is called everytime a new audio buffer is needed by the system. 
+The `update` method is called every time a new audio buffer is needed by the system. A new audio buffer `audioBlock` containing `AUDIO_OUTPUTS` channels is first created. For every audio channel, memory is allocated and a full block of samples is computed. Individual samples resulting from computing a sine wave through an echo (`echo` and `sine` are defined in the [`lib` folder](https://github.com/grame-cncm/embaudio20/tree/master/examples/lib) and implement an echo and a sine wave oscillator, respectively) are stored in `currentSample`. `currentSample` is a floating point number whose range is {-1;1}. This is a standard in the world of digital audio. Hence, a signal actually ranging between {-1;1} will correspond to the "loudest" sound that can be played on a given system. `AUDIO_BLOCK_SAMPLES` corresponds to the block size (256 samples by default on the Teensy, but this value can potentially be adjusted). The values contained in `currentSample` (between -1 and 1) must be converted to 16 bits signed integers (to ensure compatibility with the rest of the Teensy audio library).
+
+Note that `currentSample` is multiplied by 0.5 to control the output gain of the system here (we'll see later in this class that echos tend to add energy to the system hence we must limit the gain of the output signal to prevent potential saturation).
+
+Once a full block has been computed, it is transmitted to the rest of the system using the `transmit` function. Once this is done, the memory that was allocated for the audio block is freed using the `release` function. The `update` method is called over and over until the Teensy is powered out.
 
 <!--
-First, a `for` loop is implemented and is repeated every time a new buffer is needed, that's basically the "callback". `samples_data_out` is the output buffer whose size is the buffer size multiplied by the number of outputs of the system. For example, if the system has a stereo output and the buffer size is 256 samples, then the size of `samples_data_out` will be 512. Audio samples are coded here on 16 bits integers which is the data type accepted by the audio codec of the LyraT.
-
-Then, the audio rate `for` loop is implemented and samples are processed and stored in a `float` called `currentSample`. `echo` and `sine` are defined in the [`lib` folder](https://github.com/grame-cncm/embaudio20/tree/master/examples/lib) and implement an echo and a sine wave oscillator, respectively.
-
-Note that `currentSample` is multiplied by 0.5 to control the output gain of the system here. 
 
 ### Converting Floats to `int16_t`
 
 Since the type of the output buffer is 16 bits signed integer, the float value of `currentSample` must be converted. For that, we just have to multiply `currentSample` by \(2^{16}/2\) (the range of `currentSample` is {-1;1}). As explained in [Lecture 2](lecture2.md), `float` are used for signal processing for convenience because most algorithms are easier to deal with using decimal numbers.
-
-### Interlacing Output Samples
-
-The LyraT has a stereo output (2 channels). The way parallel channels are transmitted to the audio codec is by interlacing samples in the output buffer (the same is true for the input, of course). This is carried out with the following piece of code:
-
-```
-samples_data_out[i*fNumOutputs] = currentSample*MULT_S16;
-samples_data_out[i*fNumOutputs+1] = samples_data_out[i*fNumOutputs];
-```
-
-Hence, the left channel sample is first written into the buffer, then the right channel sample and so on, etc. Here, the left channel is copied into the right channel since the DSP algorithm only has a single output. Now you should understand why `samples_data_out` was declared as `int16_t samples_data_out[fNumOutputs*fBufferSize];` ;). 
-
-### i2s Transmission
-
-Once `samples_data_out` has been formatted, the buffer is transmitted to the audio codec using the i2s protocol. The `i2s_write` uses a blocking mechanism to hold the thread (task) until a new buffer is needed. 
+TODO: we might have to detail a bit better the global architecture of the system as this was done for the LyraT.
+-->
 
 ## C++ Sine Wave Oscillator
 
