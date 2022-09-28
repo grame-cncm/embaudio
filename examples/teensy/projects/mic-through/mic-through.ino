@@ -11,7 +11,6 @@ void setup() {
   AudioMemory(6);
   audioShield.enable();
   audioShield.inputSelect(AUDIO_INPUT_MIC);
-  audioShield.inputLevel(1);
   audioShield.micGain(10); // in dB
   audioShield.volume(1);
 }

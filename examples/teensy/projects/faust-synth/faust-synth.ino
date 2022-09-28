@@ -8,7 +8,6 @@ AudioConnection patchCord0(myDsp,0,out,0);
 AudioConnection patchCord1(myDsp,0,out,1);
 
 void setup() {
-  Serial.begin(9600);
   AudioMemory(2);
   audioShield.enable();
   audioShield.volume(0.5);

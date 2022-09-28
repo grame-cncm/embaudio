@@ -11,9 +11,10 @@ AudioConnection patchCord2(myDsp,0,out,0);
 AudioConnection patchCord3(myDsp,1,out,1);
 
 void setup() {
-  Serial.begin(9600);
   AudioMemory(6);
   audioShield.enable();
+  audioShield.inputSelect(AUDIO_INPUT_MIC);
+  audioShield.micGain(10); // in dB
   audioShield.volume(0.5);
 }
 
