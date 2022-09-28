@@ -1,7 +1,156 @@
-# Lecture 4: Audio Codec Configuration
+# Lecture 4: Hardware Control and Audio Codec Configuration
 
-The goal of this lecture is to get a basic understanding of how audio codecs work and how they can be configured using the i2c protocol. By the end of it, you should be able to write a simple audio codec driver.
+The two main goals of this lecture are:
+*
 
+is to get a basic understanding of how audio codecs work and how they can be configured using the i2c protocol. By the end of it, you should be able to write a simple audio codec driver.
+
+TODO: double check above in function of what you will say below
+
+## Electronic Basics
+
+While the goal of this class is not to teach electronics nor to make projects involving complicated circuitry, some basic circuits do need to be implemented in order to control the various parameters of the DSP algorithms studied in class using hardware controllers such as buttons and potentiometers. Hence, in case you feel like your electronics skills are a bit rusty, feel free to review the following page: <https://ccrma.stanford.edu/wiki/Introduction_to_Electronics_(condensed)>.
+
+## Teensy 4.0 Pinout
+
+The Teensy pins map can be seen in the following figure (directly taken from the [PJRC website](https://www.pjrc.com/teensy/pinout.html)). Most pins can be used as digital I/Os. Some pins noted "A(N)" can be used as analog inputs. Please, also note that 3.3v power can be retrieved from the top right corner pin and the ground from the top left pin. Make sure to never connect the 5.5v Vin pin to any other pin of the Teensy: that would probably fry it (the Cortex M7 inside the Teensy operates at 3.3v)!
+
+<figure>
+<img src="img/pinout0.png" class="mx-auto d-block" width="70%">
+<img src="img/pinout1.png" class="mx-auto d-block" width="70%">
+<figcaption><center>Teensy pinout.</center></figcaption>
+</figure>
+
+The Teensy audio shield uses a bunch of pins on the Teensy for i2c and i2s communication:
+
+<figure>
+<img src="img/teensy4_audio_pins.jpg" class="mx-auto d-block" width="50%">
+<figcaption><center>Teensy audio shield pins.</center></figcaption>
+</figure>
+
+This means that these pins (besides GND and 3.3v, of course) cannot be used for something else (i.e., connecting external sensors).
+
+## Bringing Power to Your Breadboard
+
+The first step in making your first circuit with the Teensy is to bring power to the breadboard included in your kit using jumper wires:
+
+<figure>
+<img src="img/teensy.jpg" class="mx-auto d-block" width="80%">
+<figcaption><center>Teensy connected to the breadboard.</center></figcaption>
+</figure>
+
+Basically connect the 3.3v pin to the red strip and the GND pin to the back strip of the breadboard.
+
+**WARNING: Do not connect the 5.5v pin to the breadboard!**
+
+## Adding a Rotary Potentiometer to the Circuit
+
+Your kit should come with a couple of rotary potentiometers:
+
+<figure>
+<img src="img/pot.jpg" class="mx-auto d-block" width="80%">
+<figcaption><center>Rotary potentiometer mounted on the breadboard.</center></figcaption>
+</figure>
+
+Place it on the breadboard, and connect its leftmost pin to power and its rightmost pin to the ground. Finally, connect its center pin to the A0 pin of the Teensy using a jumper wire. Please, note that we're using the pin since it is not used by the audio shield (see previous section).
+
+## Testing the Potentiometer
+
+In the current configuration, the potentiometer will deliver a 3.3v current at its center pin if it is fully turned to the right side, and 0v if it is fully turned to the left side. The following Teensy program:
+
+```
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int sensorValue = analogRead(A0);
+  Serial.println(sensorValue);
+  delay(100);
+}
+```
+
+displays the values measured at the A0 pin on the Teensy in the serial debugger. Values should be between 0 and 1023 (10 bits values). Make sure that the values you're getting are consistent with the position of the potentiometer.
+
+## Controlling DSP Parameters With the Potentiometer
+
+Now that you know how to retrieve potentiometer values in the Teensy, plugging it to your audio DSP should be pretty straightforward. Hence, we can reuse the `crazy-sine` example and do:
+
+```
+#include <Audio.h>
+#include "MyDsp.h"
+
+MyDsp myDsp;
+AudioOutputI2S out;
+AudioControlSGTL5000 audioShield;
+AudioConnection patchCord0(myDsp,0,out,0);
+AudioConnection patchCord1(myDsp,0,out,1);
+
+void setup() {
+  AudioMemory(2);
+  audioShield.enable();
+  audioShield.volume(0.5);
+}
+
+void loop() {
+  int sensorValue = analogRead(A0);
+  float freq = sensorValue + 100;
+  myDsp.setFreq(freq);
+}
+```
+
+Note that `sensorValue` needs to be turned into a frequency in hertz so we just add 100 to it to get a frequency between 100 and 1123 hertz.
+
+Now take some time to have fun ;)!
+
+## Using a Button
+
+Using a button with the Teensy is slightly more involving since the use of a pulldown resistor is required (alternatively, a pullup resistor could be used, of course). This is due to the fact that buttons are "just" circuit breakers: they don't have a dedicated output pin like potentiometers. The pulldown resistor is used to suck potential floating currents out of the output pin of the button in order to get a stable signal to be measured on the Teensy. Hence, the following circuit must be implemented:
+
+<figure>
+<img src="img/circuit.jpg" class="mx-auto d-block" width="80%">
+<figcaption><center>Circuit to connect a button to the Teensy.</center></figcaption>
+</figure>
+
+There's no need to use an analog pin on the Teensy to measure the voltage at the output of the button since we're looking at discrete values here (0 or 1). Hence, the button shall be connected to a digital pin (number 0, for example). Expanding on the previous example, we could write:
+
+```
+#include <Audio.h>
+#include "MyDsp.h"
+
+MyDsp myDsp;
+AudioOutputI2S out;
+AudioControlSGTL5000 audioShield;
+AudioConnection patchCord0(myDsp,0,out,0);
+AudioConnection patchCord1(myDsp,0,out,1);
+
+void setup() {
+  pinMode(0, INPUT); // configuring digital pin 0 as an input
+  AudioMemory(2);
+  audioShield.enable();
+  audioShield.volume(0.5);
+}
+
+void loop() {
+  if (digitalRead(0)) { // button is pressed
+    myDsp.setGain(1);
+  }
+  else {
+    myDsp.setGain(0);
+  }
+  int sensorValue = analogRead(A0);
+  float freq = sensorValue + 100;
+  myDsp.setFreq(freq);
+}
+```
+
+(Assuming that a `setGain` method has been implemented, which is not the case in the previous example. It shouldn't be too hard though ;) )
+
+## Exercise: Looping Between Notes by Pressing a Button
+
+Expand the "note looper" that [you implemented as part of lecture 3](lecture3.md/#looping-through-a-small-tune) so that new notes are triggered when a button is pressed (as opposed to be triggered automatically). Every time the button is pressed, a new note is produced. This means that you'll have to turn your push button into a switch using software techniques... Finally, make sure that gain is controllable using a rotary potentiometer.
+
+<!--
 ## Audio Codec
 
 An audio codec is a hardware component providing an ADC and a DAC for audio purposes. Hence, it typically has analog audio inputs and outputs (stereo, in general) and digital audio inputs and outputs. Most audio codecs support standard audio sampling rate (i.e., 44.1, 48kHz, etc.) and bit depth (i.e., 16, 24 bits, etc.). Some high-end audio codecs also support higher sampling rates (e.g., 96, 192 kHz, etc.) and bit depth (32 bits, mostly) as well as more than a stereo interface (e.g., 4x4, 8x8, etc.). The price range of audio codecs can vary significantly impacting the quality of the components, i.e., audio is usually extremely sensitive to the quality of the hardware components of a system. 
@@ -141,3 +290,4 @@ writeReg(ES8388_ADCCONTROL5,3);
 writeReg(ES8388_DACCONTROL2,3);
 AudioDsp audioDsp(32000,16);
 ```
+-->

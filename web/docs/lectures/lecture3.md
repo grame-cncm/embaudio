@@ -144,7 +144,7 @@ float Sine::tick(){
 
 ## Exercises
 
-### Looping Through a Small Tune
+### Looping Through a Small Tune: Making a Music Box
 
 In the world of music technology, musical notes are usually represented by [MIDI numbers](https://djip.co/blog/logic-studio-9-midi-note-numbers). In MIDI, each pitch of the chromatic scale has a number between 0 and 127 associated to it: <https://djip.co/blog/logic-studio-9-midi-note-numbers>
 
