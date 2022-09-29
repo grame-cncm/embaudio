@@ -13,7 +13,7 @@ x - \frac{x^3}{3}, \; \; -1 < x < 1\\
 \end{cases}
 \] 
 
-[`Distortion.cpp`](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Distortion.cpp) implements a cubic distortion as:
+[`Distortion.cpp`](https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/libraries/mydsp/src/Distortion.cpp) implements a cubic distortion as:
 
 ```
 float Distortion::cubic(float x){
@@ -32,7 +32,7 @@ The range of `drive` is {0;1} which means that the value of `input` can be multi
 
 Distortion is created here by clipping the signal using the `fmin` and `fmax` functions. Finally, the cubic polynomial is used to round the edges of the waveform of the signal as explained above. 
 
-The [`distortion`](https://github.com/grame-cncm/embaudio20/tree/master/examples/distortion) example program for the LyraT demonstrates the use of `Distortion.cpp`.
+The [`distortion`](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/distortion) example program for the Teensy demonstrates the use of `Distortion.cpp`.
 
 Distortion is a very trendy field of research in audio technology these days especially using "virtual analog" algorithms which consists of modeling the electronic circuit of distortion on a computer.
 
@@ -42,11 +42,11 @@ An echo is a very common audio effect which is used a lot to add some density an
 
 \[y(n) = x(n) + g.y(n - M)\]
 
-where \(g\) is the feedback between 0 and 1 and \(M\) the delay as a number of samples.  
+where \(g\) is the feedback between 0 and 1 and \(M\) the delay as a number of samples.
 
 It can be seen as a simple physical model of what happens in the real world when echo is produced: the delay represents the time it takes for an acoustical wave to go from point A to point B at the speed of sound and \(g\) can control the amount of absorption created by the air and the reflecting material.
 
-[`Echo.cpp`](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/Echo.cpp) implements an echo as: 
+[`Echo.cpp`](https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/libraries/mydsp/src/Echo.cpp) implements an echo as:
 
 ```
 float Echo::tick(float input){
@@ -60,7 +60,7 @@ float Echo::tick(float input){
 
 Here, `delBuffer` is used as a "ring buffer": incoming samples are stored and the read and write indices loop around to buffer to write incoming samples and read previous ones. Note that memory is allocated in the constructor of the class for `delBuffer` based on the value of `maxDel`, the maximum size of the delay.
 
-The [`echo`](https://github.com/grame-cncm/embaudio20/tree/master/examples/echo) example program for the LyraT demonstrates the use of `Echo.cpp`. 
+The [`echo`](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/echo) example program for the Teensy demonstrates the use of `Echo.cpp`.
 
 ## Comb
 
@@ -74,7 +74,7 @@ where \(M\) is the length of the delay and \(g\) feedback coefficient.
 
 From an acoustical standpoint, a feedback comb filter will introduce resonances at specific point in the spectrum of the sound. The position and the spacing of these resonances is determined by the value of \(M\). \(g\), on the other hand, will determine the amplitude and sharpness of these resonances. 
 
-The [`comb`](https://github.com/grame-cncm/embaudio20/tree/master/examples/comb) example program for the LyraT demonstrates the use of `Echo.cpp` as a comb filter. The "Mode" button can be used to change the value of the delay. 
+The [`comb`](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/comb) example program for the Teensy demonstrates the use of `Echo.cpp` as a comb filter. The "Mode" button can be used to change the value of the delay.
 
 ## Physical Modeling: the Simple Case of the Karplus Strong
 
@@ -86,7 +86,7 @@ Physical modeling is one of the most advanced sound synthesis technique and a ve
 
 While MI and FDS model the vibrational behavior of a system (i.e., using partial differential equation in the case of FDS), signal models model an object as a combination of signal processors. In this section, we will only look at this type of model the other ones being out of the scope of this class.
 
-An extremely primitive string model can be implemented using a delay line and a loop. The delay line models the time it takes for vibration in the string to go from one extremity to the other, and the loop models the reflections at the boundaries of the string. In other words, we can literally just reuse [the echo algorithm](TODO) for this. This primitive string model is called the "Karplus-Strong" algorithm:
+An extremely primitive string model can be implemented using a delay line and a loop. The delay line models the time it takes for vibration in the string to go from one extremity to the other, and the loop models the reflections at the boundaries of the string. In other words, we can literally just reuse the echo algorithm for this. This primitive string model is called the "Karplus-Strong" algorithm:
 
 <figure>
 <img src="img/karplus.svg" class="mx-auto d-block" width="60%">
@@ -109,7 +109,7 @@ The length of the delay \(L\) can be controlled as a frequency using the followi
 
 At the very least, the system must be excited by a dirac (i.e., a simple impulse going from 1 to 0). The quality of the generated sound can be significantly improved if a noise impulse is used though. 
 
-[`KS.cpp`](https://github.com/grame-cncm/embaudio20/blob/master/examples/lib/KS.cpp) implements a basic Karplus-Strong algorithm:
+[`KS.cpp`](https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/libraries/mydsp/src/KS.cpp) implements a basic Karplus-Strong algorithm:
 
 ```
 float KS::tick(){
@@ -139,7 +139,7 @@ float KS::oneZero(float x){
 }
 ```
 
-The examples folder of the course repository hosts [a simple LyraT program](https://github.com/grame-cncm/embaudio20/tree/master/examples/ks) illustrating the use of `KS.cpp`.
+The examples folder of the course repository hosts [a simple Teensy program](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/ks) illustrating the use of `KS.cpp`.
 
 Note that this algorithm could be improved in many ways. In particular, the fact that the delay length is currently expressed as an integer can result in frequency mismatches at high frequencies. In other words, our current string is out of tune. This could be fixed using [fractional delay](https://ccrma.stanford.edu/~jos/Interpolation/Welcome.html).
 
@@ -154,7 +154,7 @@ Flanger could be a bonus if we manage to fix it...
 
 -->
 
-## Exercise
+## Exercises
 
 ### Smoothing
 
@@ -164,10 +164,13 @@ In most cases, DSP parameters are executed at control rate. Moreover, the resolu
 
 where \(s\) is the value of the pole and is typically set to 0.999 for optimal results.
 
-Modify the [crazy-saw](https://github.com/grame-cncm/embaudio20/tree/master/examples/crazy-saw) example by "smoothing" the value of the frequency parameter by implementing the filter above with \(s=0.999\). Then slow down the rate at which frequency is being changed so that only two new values are generated per second. The result should sound quite funny :).  
+Modify the [crazy-saw](https://github.com/grame-cncm/embaudio/tree/master/examples/teensy/projects/crazy-saw) example by "smoothing" the value of the frequency parameter by implementing the filter above with \(s=0.999\). Then slow down the rate at which frequency is being changed so that only two new values are generated per second. The result should sound quite funny :).
+
+**Solution:**
+
+Shall be posted after class...
 
 <!--
-**Solution:**
 
 In addition to `Smooth.cpp` and `Smooth.h`, in `Phasor.h`:
 
@@ -188,3 +191,8 @@ float Phasor::tick(){
 }
 ```
 -->
+
+### Smoothing Potentiometer Values
+
+Try to use the smoothing function that you implemented in the previous step to smooth sensor values coming from a potential potentiometer controlling some parameter of one of the Teensy examples. The main idea is to get rid of sound artifacts when making abrupt changes in potentiometers.
+
