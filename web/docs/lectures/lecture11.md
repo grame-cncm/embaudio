@@ -1,10 +1,10 @@
-# Lecture 11: Faust on the LyraT and Advanced Control
+# Lecture 11: Faust on the Teensy and Advanced Control
 
 ## Generating and Using a Faust C++ Object
 
 **In order to run the examples in this lecture, you should install the Faust distribution on your system from the [Faust Git Repository](https://github.com/grame-cncm/faust).**
 
-At the most fundamental level, the Faust compiler is a command line tool translating a Faust DSP object into C++ code. For example, assuming that Faust is properly installed on your system, given the following simple Faust program implementing a filtered sawtooth wave oscillator ([`FaustSynth.dsp`](https://github.com/grame-cncm/embaudio20/blob/master/faust/FaustSynth.dsp)):
+At the most fundamental level, the Faust compiler is a command line tool translating a Faust DSP object into C++ code. For example, assuming that Faust is properly installed on your system, given the following simple Faust program implementing a filtered sawtooth wave oscillator ([`FaustSynth.dsp`](https://github.com/grame-cncm/embaudio/blob/master/faust/FaustSynth.dsp)):
 
 ```
 import("stdfaust.lib");
@@ -23,7 +23,7 @@ faust FaustSynth.dsp
 
 will output the C++ code corresponding to this file in the terminal. 
 
-Faust comes with a system of C++ wrapper (called architectures in the Faust ecosystem) which can be used to customize the generated C++ code. [`faustMininal.h`](https://github.com/grame-cncm/embaudio20/blob/master/faust/faustMinimal.h) is a minimal architecture file including some C++ objects that can be used to facilitate interactions with the generated DSP:
+Faust comes with a system of C++ wrapper (called architectures in the Faust ecosystem) which can be used to customize the generated C++ code. [`faustMininal.h`](https://github.com/grame-cncm/embaudio/blob/master/faust/faustMinimal.h) is a minimal architecture file including some C++ objects that can be used to facilitate interactions with the generated DSP:
 
 ```
 #include <cmath>
@@ -50,47 +50,50 @@ To generate a C++ file using this architecture, you can run:
 faust -i -a faustMinial.h FaustSynth.dsp -o FaustSynth.h
 ```
 
-which will produce a [`FaustSynth.h`](https://github.com/grame-cncm/embaudio20/blob/master/faust/FaustSynth.h) file (feel free to click on it).
+which will produce a [`FaustSynth.h`](https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/projects/faust-synth/FaustSynth.h) file (feel free to click on it).
 
 The `-i` inlines all the included C++ `.h` files in the generated file.
 
-The [`faust-synth`](https://github.com/grame-cncm/embaudio20/tree/master/examples/faust-synth) LyraT example project demonstrates how `FaustSynth.h` can be used. First, it is included in [`AudioDsp.cpp`](https://github.com/grame-cncm/embaudio20/tree/master/examples/faust-synth) and the following elements are declared in [the corresponding header file](https://github.com/grame-cncm/embaudio20/blob/master/examples/faust-synth/main/AudioDsp.h):
+The [`faust-synth`](https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/projects/faust-synth) Teensy example project demonstrates how `FaustSynth.h` can be used. First, it is included in [`MyDsp.cpp`](https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/projects/faust-synth/MyDsp.cpp) and the following elements are declared in [the corresponding header file](https://github.com/grame-cncm/embaudio/blob/master/examples/teensy/projects/faust-synth/MyDsp.h):
 
 ```
-MapUI* fUI;
-dsp* fDSP;
-float **outputs;
+private:
+  MapUI* fUI;
+  dsp* fDSP;
+  float **outputs;
 ```
 
-`dsp` is the actual Faust DSP, `MapUI` will be used to interact with it, and `outputs` is the multidimensional output buffer. These objects are then allocated in the constructor of `AudioDsp.cpp`:
+`dsp` is the actual Faust DSP, `MapUI` will be used to interact with it, and `outputs` is the multidimensional output buffer. These objects are then allocated in the constructor of `MyDsp.cpp`:
 
 ```
 fDSP = new mydsp();
-fDSP->init(fSampleRate);
+fDSP->init(AUDIO_SAMPLE_RATE_EXACT);
 fUI = new MapUI();
 fDSP->buildUserInterface(fUI);
-outputs = new float*[2];
-for (int channel = 0; channel < 2; ++channel){
-  outputs[channel] = new float[fBufferSize];
+outputs = new float*[AUDIO_OUTPUTS];
+for (int channel = 0; channel < AUDIO_OUTPUTS; ++channel){
+  outputs[channel] = new float[AUDIO_BLOCK_SAMPLES];
 }
 ```
 
-`buildUserInterface` is used to connect `fUI` to `fDSP` and then memory is allocated for the output buffer. Note that memory should be de-allocated in the destructor after this. In the `audioTask`, we just call the `compute` method of `fDSP` and then reformat the generated samples to transmit them via i2s:
+`buildUserInterface` is used to connect `fUI` to `fDSP` and then memory is allocated for the output buffer. Note that memory should be de-allocated in the destructor after this. In the `update` method, we just call the `compute` method of `fDSP` and then reformat the generated samples to transmit them via i2s:
 
 ```
-fDSP->compute(fBufferSize,NULL,outputs);
-    
-// processing buffers
-for (int channel = 0; channel < 2; ++channel){
-  for(int i=0; i<fBufferSize; i++){
-    samples_data_out[i*fNumOutputs+channel] = outputs[channel][i]*MULT_S16;
+void MyDsp::update(void) {
+  fDSP->compute(AUDIO_BLOCK_SAMPLES,NULL,outputs);
+  audio_block_t* outBlock[AUDIO_OUTPUTS];
+  for (int channel = 0; channel < AUDIO_OUTPUTS; channel++) {
+    outBlock[channel] = allocate();
+    if (outBlock[channel]) {
+      for (int i = 0; i < AUDIO_BLOCK_SAMPLES; i++) {
+        int16_t val = outputs[channel][i]*MULT_16;
+        outBlock[channel]->data[i] = val;
+      }
+      transmit(outBlock[channel], channel);
+      release(outBlock[channel]);
+    }
   }
 }
-    
-// transmitting output buffer
-size_t bytes_written = 0;
-i2s_write((i2s_port_t)0, &samples_data_out, fNumOutputs*sizeof(int16_t)*fBufferSize,
-  &bytes_written, portMAX_DELAY);
 ``` 
 
 Note that `outputs` is used as an intermediate here and the first dimension of the array is the channel number and the second dimension the samples themselves. 
@@ -98,24 +101,28 @@ Note that `outputs` is used as an intermediate here and the first dimension of t
 The various parameters of the Faust object can then be changed just by calling the `setParamValue` method. The first argument of the method corresponds to the name of the parameter as specified in the Faust program:
 
 ```
-void AudioDsp::setFreq(float freq){
+void MyDsp::setFreq(float freq){
   fUI->setParamValue("freq",freq);
 }
 
-void AudioDsp::setCutoff(float freq){
+void MyDsp::setCutoff(float freq){
   fUI->setParamValue("cutoff",freq);
+}
+
+void MyDsp::setGate(int gate){
+  fUI->setParamValue("gate",gate);
 }
 ```
 
-## Better Control on the LyraT
+## Better Control on the Teensy
 
-The control of the parameters of an audio DSP object on the LyraT is relatively limited with what we have seen in this class. In this brief section, we propose a few solutions to overcome this problem. Since they are beyond the scope of this class, we wont go into too many details.
+In addition to controlling DSP parameters on the Teensy using external sensors connected to the board's GPIOs, other techniques can potentially be used. We briefly summarize this section.
 
 ### MIDI
 
 [MIDI](https://en.wikipedia.org/wiki/MIDI) is THE standard in the world of music to control digital devices. It has been around since 1983 and even though it is very "low tech," it is still heavily used. While MIDI was traditionally transmitted over MIDI ports, USB is used nowadays to send MIDI.
 
-Implementing MIDI USB on the LyraT should be relatively straight forward but it hasn't been done yet. 
+USB MIDI is natively supported on the Teensy through the Teensy USB MIDI library: <https://www.pjrc.com/teensy/td_midi.html>. Interfacing this library with your DSP programs should be very straightforward. Please, also note that Teensys can be used to send MIDI messages over USB which means that implementing your own midi controller using a Teensy is fairly straightforward as well. If you're curious about this, you can check this page: <https://ccrma.stanford.edu/courses/250a-winter-2018/labs/2/>.
 
 ### OSC
 
@@ -125,15 +132,7 @@ Implementing MIDI USB on the LyraT should be relatively straight forward but it 
 /synth/freq 440
 ```
 
-Since the LyraT has Wi-Fi built-in, implementing OSC control should also be relatively straight forward.
-
-### HTTP
-
-Another common way on embedded audio systems to control parameters is to implement a simple web server. A webpage can then present the parameters to control in a user interface, etc. 
-
-### Hardware Control
-
-A simple way to offer a better control on the LyraT is to add physical sensors/elements to it (e.g., buttons, potentiometers, etc.). However, even though the LyraT hosts an ESP32 microcontroller, it doesn't provide any analog inputs to plug sensors to them. This can be solved by adding a sensor DAC to this device such as a MCP3008 (8 channel 10-bit ADC with SPI interface). 
+On the Teensy, dealing with OSC is a bit more tricky than MIDI because the Teensy 4.0 provided as part of your class kit don't have a built-in Ethernet port. Hence, the only way to get an Ethernet connection to the Teensy is to buy an external Ethernet adapter (that will likely connect to the Teensy through i2c, etc.). Another option is to buy a Teensy 4.1 which hosts an Ethernet chip (an Ethernet connector can just be soldered to the board).
 
 ## Exercises
 
@@ -145,7 +144,7 @@ The Faust libraries host a triangle wave oscillator:
 os.triangle
 ```
 
-Try to replace the sawtooth wave oscillator from the previous example by a triangle wave oscillator in Faust and run it on the LyraT.
+Try to replace the sawtooth wave oscillator from the previous example by a triangle wave oscillator in Faust and run it on the Teensy.
 
 ### Flanger
 
@@ -155,4 +154,4 @@ The Faust libraries host a [flanger function](https://faustlibraries.grame.fr/li
 pf.flanger_mono
 ```
 
-Turn your LyraT into a flanger effect processor!
+Turn your Teensy into a flanger effect processor!

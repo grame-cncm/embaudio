@@ -47,6 +47,22 @@
 <li>
     <a href="./" class="dropdown-item active"> 3: Digital Audio Systems Architectures and Audio Callback </a>
 </li>
+                                    
+<li>
+    <a href="../lecture4/" class="dropdown-item"> 4: Hardware Control and Audio Codec Configuration </a>
+</li>
+                                    
+<li>
+    <a href="../lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
+</li>
+                                    
+<li>
+    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
+</li>
+                                    
+<li>
+    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the Teensy and Advanced Control </a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -63,7 +79,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
+                                <a rel="next" href="../lecture4/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -109,7 +125,7 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#looping-through-a-small-tune" class="nav-link">Looping Through a Small Tune</a>
+            <li class="nav-item" data-level="3"><a href="#looping-through-a-small-tune-making-a-music-box" class="nav-link">Looping Through a Small Tune: Making a Music Box</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -183,8 +199,7 @@ void MyDsp::update(void) {
 }
 </code></pre>
 <p>The <code>update</code> method is called every time a new audio buffer is needed by the system. A new audio buffer <code>audioBlock</code> containing <code>AUDIO_OUTPUTS</code> channels is first created. For every audio channel, memory is allocated and a full block of samples is computed. Individual samples resulting from computing a sine wave through an echo (<code>echo</code> and <code>sine</code> are defined in the <a href="https://github.com/grame-cncm/embaudio20/tree/master/examples/lib"><code>lib</code> folder</a> and implement an echo and a sine wave oscillator, respectively) are stored in <code>currentSample</code>. <code>currentSample</code> is a floating point number whose range is {-1;1}. This is a standard in the world of digital audio, hence, a signal actually ranging between {-1;1} will correspond to the "loudest" sound that can be played on a given system. <code>max(-1,min(1,currentSample));</code> ensures that <code>currentSample</code> doesn't exceed this range.</p>
-<p><code>AUDIO_BLOCK_SAMPLES</code> corresponds to the block size (256 samples by default on the Teensy, but this value can potentially be adjusted). The values contained in <code>currentSample</code> (between -1 and 1) must be converted to 16 bits signed integers (to ensure compatibility with the rest of the Teensy audio library). For that, we just have to multiply <code>currentSample</code> by <script type="math/tex">2^{16}/2</script>
-</p>
+<p><code>AUDIO_BLOCK_SAMPLES</code> corresponds to the block size (256 samples by default on the Teensy, but this value can potentially be adjusted). The values contained in <code>currentSample</code> (between -1 and 1) must be converted to 16 bits signed integers (to ensure compatibility with the rest of the Teensy audio library). For that, we just have to multiply <code>currentSample</code> by <script type="math/tex">2^{16-1}</script> (if we were looking at unsigned integers, which can happen on some system, we would multiply <code>currentSample</code> by <script type="math/tex">2^{16}</script>).</p>
 <p>Note that <code>currentSample</code> is multiplied by 0.5 to control the output gain of the system here (we'll see later in this class that echos tend to add energy to the system hence we must limit the gain of the output signal to prevent potential saturation).</p>
 <p>Once a full block has been computed, it is transmitted to the rest of the system using the <code>transmit</code> function. Once this is done, the memory that was allocated for the audio block is freed using the <code>release</code> function. The <code>update</code> method is called over and over until the Teensy is powered out.</p>
 <h2 id="c-sine-wave-oscillator">C++ Sine Wave Oscillator</h2>
@@ -239,7 +254,7 @@ for(int i=0; i&lt;size; i++){
 }
 </code></pre>
 <h2 id="exercises">Exercises</h2>
-<h3 id="looping-through-a-small-tune">Looping Through a Small Tune</h3>
+<h3 id="looping-through-a-small-tune-making-a-music-box">Looping Through a Small Tune: Making a Music Box</h3>
 <p>In the world of music technology, musical notes are usually represented by <a href="https://djip.co/blog/logic-studio-9-midi-note-numbers">MIDI numbers</a>. In MIDI, each pitch of the chromatic scale has a number between 0 and 127 associated to it: <a href="https://djip.co/blog/logic-studio-9-midi-note-numbers">https://djip.co/blog/logic-studio-9-midi-note-numbers</a></p>
 <p>As you can see, middle C (Do) corresponds to number 72. MIDI note numbers can be converted to a frequency using the following formula:</p>
 <p>
