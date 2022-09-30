@@ -19,7 +19,7 @@ All Lecture (2h on a computer) are labs on the LyraT board
 - Lecture 9: TBD
 - Lecture 10: TDB 
 
-#### Part 3: LyraT programming
+#### Part 3: Teensy programming
 - Lecture 11-14: mini project
 - Lecture 15-16: demonstrations
 
@@ -29,8 +29,10 @@ All Lecture (2h on a computer) are labs on the LyraT board
 <img src="img/teensy40_front.jpg"  width="30%"> 
 <img src="img/teensy3_audio.jpg"  width="30%"> 
 <img src="img/teensy3_audio_2.jpg"  width="30%"> 
-</p><figcaption><center>Teensy 4.0  from [PRJC](https://www.pjrc.com/store/teensy40.html),  and the associated audio adaptor board </center></figcaption>
+</p><figcaption><center>Teensy 4.0,  and the associated audio adaptor board </center></figcaption>
 </figure>
+
+Most of the document on this course come from from [PRJC](https://www.pjrc.com/store/teensy40.html). Actually most of the documentation on Teensy is from from [PRJC](https://www.pjrc.com/store/teensy40.html).
 
 The development in AUD are performed on [teensy](https://www.pjrc.com/store/teensy40.html) which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using  specialization of the arduino programming environnement ([teensyduino](https://www.pjrc.com/teensy/teensyduino.html)).
 
@@ -38,13 +40,6 @@ The development in AUD are performed on [teensy](https://www.pjrc.com/store/teen
  Teensy 2.0, Teensy++ 2.0 (and discontinued predecessors) use an 8-bit AVR microcontrollers. Teensy 3.0 (and up) have instead Freescale microcontrollers, running ARM Cortex-M CPUs. The technical characteritics of all Teensy can be compared [here](https://www.pjrc.com/teensy/techspecs.html)
 
 In AUD, we use [Teensy 4.0](https://www.pjrc.com/store/teensy40.html) which contain an ARM Cortex-M7 at 600 MHz with a Floating point unit, hence it can handle non trivial audio treatment.
-<figure>
-<p>
-<img src="img/teensy40_front.jpg"  width="30%"> 
-<img src="img/teensy3_audio.jpg"  width="30%"> 
-<img src="img/teensy3_audio_2.jpg"  width="30%"> 
-</p><figcaption><center>Teensy 4.0  from [PRJC](https://www.pjrc.com/store/teensy40.html),  and the associated audio adaptor board </center></figcaption>
-</figure>
 
 
 #Teensy 4.0 and Audio shield (from PJRC website).
@@ -88,7 +83,21 @@ The schematics of the audio shield board, rev. D,  can bee seen [here](https://w
 
 The USB connector of the Teensy can support many serial communication from the host computer to the Teensy: (JTAG for flashing/programming, Serial UART, midi, mouse etc. see `Tools -> USB Type` menu in arduino IDE). In AUD it is mainly used to program the device (i.e. download binary code into flash memory) and textual communication between the host and the Teensy using UART communicatino protocol (Serial). In linux machine, the serial port will appear as `/dev/ttyACM0`
 
-Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. The flash memory can also store read-only variables and arrays.1024K of memory is available for variables and data. Half of this memory (RAM1) is accessed as tightly coupled memory for maximum performance. The other half (RAM2) is optimized for access by DMA. Normally large arrays & data buffers are placed in RAM2, to save the ultra-fast RAM1 for normal variables.  The memory map is the following:
+
+#Teensy 4.0 processor: NXP  i.MX RT1062
+The Teensy uses the i.MX RT1062 processor chip from NXP (a model of the serie i.MX RT1060). The main components of the chip can be seen on the image extracted from the [i.MX RT1060 datasheet](img/datasheet_IMXRT1060RM_rev2.pdf). The processor used in the chip is an ARM Cortex-M7 ([technical reference manuel of Cortex-M7 here](img/ARM_Cortex_M7_technical_reference.pdf)). The ARM Cortex-M7 is the latest architecture that uses the ISA ARMv7 ([ARM v7 reference manuel](img/ARM_v7m_ref_manual.pdf))
+
+
+<figure>
+<p>
+<center>
+<img src="img/imxrt1062.png"  width="50%"> 
+</p><figcaption><center>The i.MX RT1060 used in Teensy 4.0 and the associated perifpherals </center></figcaption>
+</figure>
+
+Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. 1Mbyte  of memory is available for execution (i.e. for variables and data storing during execution). Half of this memory (RAM1) is accessed as tightly coupled memory for maximum performance. The other half (RAM2) is optimized for access by DMA. Normally large arrays & data buffers are placed in RAM2, to save the ultra-fast RAM1 for normal variables. The mapping of variables to memories is indicated at the variables declaration by compiler directive (such as  {\tt DMAMEM} for variable in RAM2 or FASTRUN for variable in RAM1, see [here](https://www.pjrc.com/store/teensy40.html). 
+
+The memory map is the following:
 <figure>
 <center>
 <img  src="img/teensy4_memory.png" width="50%">
@@ -97,21 +106,6 @@ Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. The flash
 <caption> Teensy 4.0 pin map (from  PJRC webite)</caption>
 </center>
 </figure>
-
-When the compiler builds your program, all global variables, static variables, and compiled code is assigned to dedicated locations in memory. This is called static allocation, because the memory addresses are fixed. By default, allocation tries to use the ultra-fast DTCM & ITCM memory. The following keywords allow control over where the compiler will place your variables and code within the memory.
-{TODO: shorten that:}
-
-
-DMAMEM - Variables defined with DMAMEM are placed at the beginning of RAM2. Normally buffers and large arrays are placed here. These variables can not be initialized, your program must write their initial values, if needed.
-PROGMEM & F() - Variables defined with PROGMEM, and strings surrounded by F() are placed only in the flash memory. They can be accessed normally, special functions normally used on 8 bit boards are not required to read PROGMEM variables.
-    FASTRUN - Functions defined with "FASTRUN" are allocated in the beginning of RAM1. A copy is also stored in Flash and copied to RAM1 at startup. These functions are accessed by the Cortex-M7 ITCM bus, for the fastest possible performance. By default, functions without any memory type defined are treated as FASTRUN. A small amount of memory is typically unused, because the ITCM bus must access a memory region which is a multiple of 32K.
-    FLASHMEM - Functions defined with "FLASHMEM" executed directly from Flash. If the Cortex-M7 cache is not already holding a copy of the function, a delay results while the Flash memory is read into the M7's cache. FLASHMEM should be used on startup code and other functions where speed is not important. 
-
-As your program runs, it may use all of the RAM which was not reserved by static allocation. Because the specific memory address for each variable is computed as your program runs, this is called dynamic memory allocation.
-
-Local Variables - Local variables, and also return addresses from function calls and the saved state from interrupts are placed on a stack which starts from the top of RAM1 and grown downward. The amount of space for local variable is the portion of RAM1 not used by FASTRUN code and the initialized and zeroed variables.
-Heap - Memory allocated by C++ "new" and C malloc(), and Arduino String variables are placed in RAM2, starting immediately after the DMAMEM variables. 
-	
 #Teensy  developpement framework: teensyduino
 	
 [Arduino's IDE](https://www.pjrc.com/teensy/td_download.html) software with the Teensyduino add-on is the primary programming environment for Teensy. Other environment can be used: [Visual Micro](https://www.visualmicro.com/), [PlatformIO](https://platformio.org/platformio-ide) or traditionnal command line Makefile (type `make` in directory `$(arduino)/{Arduino}/hardware/teensy/avr/cores/teensy4/`). 
