@@ -3,26 +3,29 @@
 This lecture is devoted to the software suite install so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.
 
 ## Course outline
-All Lecture (2h on a computer) are labs on the LyraT board
+All Lecture (2h on a computer) are labs using Teensy boad
 
 ####Part 1 : Board introduction and Audio Signal Processing Basics </b>
-
-- Lecture 1 (2h): Course Introduction, programming env setup
-- Lecture 2: Basic signal processing,
-- Lecture 3: Audio systems architecture, audio callback
-- Lecture 4: Hardware Audio codec configuration
-- Lecture 5 & 6: Audio signal processing basics synthesis
-- Lecture 7: Faust Language tutorial [https://faust.grame.fr/](https://faust.grame.fr/)
+* **Lecture 1: [Course Introduction and Programming Environment Setup](../lectures/lecture1.md)** 
+* **Lecture 2: [Audio Signal Processing Fundamentals](../lectures/lecture2.md)** 
+* **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](../lectures/lecture3.md)** 
+* **Lecture 4: [Hardware Control and Audio Codec Configuration](../lectures/lecture4.md)**
+* **Lecture 5: [Audio Processing Basics I](../lectures/lecture5.md)** 
+* **Lecture 6: [Audio Processing Basics II](../lectures/lecture6.md)**
 
 #### Part 2: Embedded Audio System Architecture
-- Lecture 8: RTone comference on embedded systems in industry [https://rtone.fr/](https://rtone.fr/)
-- Lecture 9: TBD
-- Lecture 10: TDB 
+* **Lecture 7: RTone conference on embedded systems in industry [https://rtone.fr/](https://rtone.fr/)**
+* **Lecture 8: Faust Tutorial [https://faust.grame.fr/](https://faust.grame.fr/)** 
+* **Lecture 9: Embedded System Peripherals** 
+* **Lecture 10: Embedded OS, FreeRTOS, Embedded Linux Devices** 
+* **Lecture 11: [Faust on the Teensy and Advanced Control](../lectures/lecture11.md)** 
 
-#### Part 3: Teensy programming
-- Lecture 11-14: mini project
-- Lecture 15-16: demonstrations
-
+#### Part 3, Sessions 12-16: Teensy programming
+* **Lecture 12 **
+* **Lecture 13 **
+* **Lecture 14 **
+* **Lecture 15 **
+* **Lecture 16: Demos **
 #Introduction to AUD2020 and Teensy
 <figure>
 <p>
@@ -81,7 +84,7 @@ The audio codec connects to Teensy using 7 signals (Yellow signal in pin map abo
 
 The schematics of the audio shield board, rev. D,  can bee seen [here](https://www.pjrc.com/store/teensy3_audio.html) and the schématic of the Teensy 4.0 can be seen at the end of the page [here](https://www.pjrc.com/store/teensy40.html). Of course, as they are both made by PJRC, they are designed to be compatible. We (the teachers!) have soldered the connectors so that the audio shiel can be easily connected to the tennsy.
 
-The USB connector of the Teensy can support many serial communication from the host computer to the Teensy: (JTAG for flashing/programming, Serial UART, midi, mouse etc. see `Tools -> USB Type` menu in arduino IDE). In AUD it is mainly used to program the device (i.e. download binary code into flash memory) and textual communication between the host and the Teensy using UART communicatino protocol (Serial). In linux machine, the serial port will appear as `/dev/ttyACM0`
+The USB connector of the Teensy can support many serial communication from the host computer to the Teensy: (JTAG for flashing/programming, Serial UART, midi, mouse etc. see `Tools -> USB Type` menu in arduino IDE). In AUD the USB connector is  used to program the device (i.e. download binary code into flash memory) and ascii communication between the host and the Teensy (i.e. using UART/Serial communicatino protocol). In linux machines, when the teensy USB cable is connected, the serial port will appear as `/dev/ttyACM0`
 
 
 #Teensy 4.0 processor: NXP  i.MX RT1062
@@ -95,7 +98,7 @@ The Teensy uses the i.MX RT1062 processor chip from NXP (a model of the serie i.
 </p><figcaption><center>The i.MX RT1060 used in Teensy 4.0 and the associated perifpherals </center></figcaption>
 </figure>
 
-Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. 1Mbyte  of memory is available for execution (i.e. for variables and data storing during execution). Half of this memory (RAM1) is accessed as tightly coupled memory for maximum performance. The other half (RAM2) is optimized for access by DMA. Normally large arrays & data buffers are placed in RAM2, to save the ultra-fast RAM1 for normal variables. The mapping of variables to memories is indicated at the variables declaration by compiler directive (such as  {\tt DMAMEM} for variable in RAM2 or FASTRUN for variable in RAM1, see [here](https://www.pjrc.com/store/teensy40.html). 
+Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. 1Mbyte  of memory is available for execution (i.e. for variables and data storing during execution). Half of this memory (RAM1) is accessed as tightly coupled memory for maximum performance. The other half (RAM2) is optimized for access by DMA. Normally large arrays & data buffers are placed in RAM2, to save the ultra-fast RAM1 for normal variables. The mapping of variables to memories is indicated at the variables declaration by compiler directive (such as  `DMAMEM` for variable in RAM2 or `FASTRUN` for variable in RAM1, see [here](https://www.pjrc.com/store/teensy40.html). 
 
 The memory map is the following:
 <figure>
@@ -108,18 +111,44 @@ The memory map is the following:
 </figure>
 #Teensy  developpement framework: teensyduino
 	
-[Arduino's IDE](https://www.pjrc.com/teensy/td_download.html) software with the Teensyduino add-on is the primary programming environment for Teensy. Other environment can be used: [Visual Micro](https://www.visualmicro.com/), [PlatformIO](https://platformio.org/platformio-ide) or traditionnal command line Makefile (type `make` in directory `$(arduino)/{Arduino}/hardware/teensy/avr/cores/teensy4/`). 
+Teensy can be programmed in many ways:
 
-TEENSYDUINO
- 
-PROGRAMMING 
+- [Arduino's IDE](https://www.pjrc.com/teensy/td_download.html) software with the Teensyduino add-on is the primary programming environment for Teensy. 
+- [Visual Micro](https://www.visualmicro.com/), 
+- [PlatformIO](https://platformio.org/platformio-ide)  
+- Makefiles: type `make` in directory `$(arduino)/hardware/teensy/avr/cores/teensy4/`. 
+
+ in AUD we will use most popular  [Arduino's IDE with Teensyduino](https://www.pjrc.com/teensy/td_download.html). In general programming the Teensy amounts to compile an application to an executable (`main.elf` usually) and then download the application on the teensy which is connected through its USB interface to your PC. The teensyduino software add the source file to arduino in order to compile code for the teensy and call the `teensy_loader` that flashes the `main.elf` in the connected Teensy.
 
 
 
-###Installing teensyduino on your computer
+##Installing teensyduino on your computer
 
-#Getting Started on TC Machines
+Teensyduino can be installed on Macintosh, Lunix or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines. 
 
-### Flashing the LED.
+The installation procedure is the following: 
 
-# Known Problems
+1. Install arduino from here: [https://www.arduino.cc/en/software](https://www.arduino.cc/en/software). Warning, make sure to install *one of the supported version*: 1.8.5, 1.8.9, 1.8.13, 1.8.15, 1.8.16 or (recommended:) 1.8.19. Download the installer corresponding to your OS (click "just download" if you do not want to donate), This installer is just an archive containing all the arduino files. Hence place it in an appropriate directory on your drive, Then unzip or untar it.The directory created (`/home/mylogin/arduino-1.8.19` for instance) will become your `$ARDUINOPATH` variable. 
+
+2. Install teensyduino following these instructions: [https://www.pjrc.com/teensy/td_download.html](https://www.pjrc.com/teensy/td_download.html)
+
+3. In addition you will need some files written specifically for the AUD cours: the `mydsp`directory available [here](where). Copy the `mydsp`directory in the directory `$ARDUINOPATH/libraries`
+
+##Getting Started on TC Machines
+Arduino is installed in directory `/opt/arduino-1.8.19`. Launching arduino is done simply by typing the command `arduino` in a command line shell. However, the `mydsp` library must be made available to arduino. For that, you have to select a directory for additionnal arduino library, for instance `/home/mylogin/Arduino` and indicate it to arduino par writing the directory path in `file->preference->sketchbook location`. Then copy the `mydsp` directory in the  `/home/mylogin/Arduino`directory.
+
+### Flashing the LED and using serial terminal.
+For programming the teensy:
+
+1. Connect the teensy on your computer or on the TC machine
+2. Launch arduino: `> arduino`
+3. Make sure that the correct board is selected: select `Tools -> Boards -> Teensyduino -> Teensy 4.0`
+4. Make sure that the serial port is configured correctly: select `Tools -> USB Type -> Serial`
+5. Select the flashing led example: select `File -> Examples -> Teensy -> Tutorial1 -> Blink`. A new arduino editor with the 'Blink' application code.
+6. Compile and download the code by clickin in  'Upload' button in ardiuno (big arrow). This should launch the teensy_loader, and upload the code, then the led should be blinking.
+7. Select the serial communication example: select `File -> Examples -> Teensy -> Serial  -> EchoBoth`. A new arduino editor with the 'EchoBoth' application code.
+6. Compile and download the code. Launch the `serial monitor` window from arduino (magnifying glass on the upper right). This should launch a new window showing serial communcations. Type some characters in the windown and send them (i.e. type 'return'), what is happening? Try to understand the code of the `EchoBoth` application.
+
+### Audio applications on Teensy 
+The application prepared for the AUD course are available [here](where). Download the file and untar it in, this will create an `projects` directory. Open (`File -> open...` in arduino) the `crazy-sine/crazy-sine.ino` project. Download it to teensy and ear the crazy sine. 
+
