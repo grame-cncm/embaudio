@@ -88,7 +88,7 @@ The USB connector of the Teensy can support many serial communication from the h
 
 
 #Teensy 4.0 processor: NXP  i.MX RT1062
-The Teensy uses the i.MX RT1062 processor chip from NXP (a model of the serie i.MX RT1060). The main components of the chip can be seen on the image extracted from the [i.MX RT1060 datasheet](img/datasheet_IMXRT1060RM_rev2.pdf). The processor used in the chip is an ARM Cortex-M7 ([technical reference manuel of Cortex-M7 here](img/ARM_Cortex_M7_technical_reference.pdf)). The ARM Cortex-M7 is the latest architecture that uses the ISA ARMv7 ([ARM v7 reference manuel](img/ARM_v7m_ref_manual.pdf))
+The Teensy uses the i.MX RT1062 processor chip from NXP (a model of the serie i.MX RT1060). The main components of the chip can be seen on the image extracted from the [i.MX RT1060 datasheet](lecture1/img/datasheet_IMXRT1060RM_rev2.pdf). The processor used in the chip is an ARM Cortex-M7 ([technical reference manuel of Cortex-M7 here](lecture1/img/ARM_Cortex_M7_technical_reference.pdf)). The ARM Cortex-M7 is the latest architecture that uses the ISA ARMv7 ([ARM v7 reference manuel](lecture1/img/ARM_v7m_ref_manual.pdf))
 
 
 <figure>
