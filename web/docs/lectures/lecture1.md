@@ -1,9 +1,9 @@
 # Lecture 1: Course Introduction and Programming Environment Setup
 
-This lecture is devoted to the software suite install so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.
+This lecture is devoted to the software suite installion so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.
 
 ## Course outline
-All Lecture (2h on a computer) are labs using Teensy boad
+All Lectures (2h on a computer) are labs using Teensy boards.
 
 ####Part 1 : Board introduction and Audio Signal Processing Basics </b>
 * **Lecture 1: [Course Introduction and Programming Environment Setup](../lectures/lecture1.md)** 
@@ -35,9 +35,10 @@ All Lecture (2h on a computer) are labs using Teensy boad
 </p><figcaption><center>Teensy 4.0,  and the associated audio adaptor board </center></figcaption>
 </figure>
 
-Most of the document on this course come from from [PRJC](https://www.pjrc.com/store/teensy40.html). Actually most of the documentation on Teensy is from from [PRJC](https://www.pjrc.com/store/teensy40.html).
+<!-- TODORM: redundant -->
+Most of the document on this course come from [PRJC](https://www.pjrc.com/store/teensy40.html). Actually most of the documentation on Teensy is from from [PRJC](https://www.pjrc.com/store/teensy40.html).
 
-The development in AUD are performed on [teensy](https://www.pjrc.com/store/teensy40.html) which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using  specialization of the arduino programming environnement ([teensyduino](https://www.pjrc.com/teensy/teensyduino.html)).
+The development in AUD are performed on [teensy](https://www.pjrc.com/store/teensy40.html) which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using a custom/modified version of the arduino programming environnement ([teensyduino](https://www.pjrc.com/teensy/teensyduino.html)).
 
  Teensy is a brand of microcontroller development boards  designed by the co-owner of PJRC, [Paul Stoffregen](https://github.com/PaulStoffregen). The first 
  Teensy 2.0, Teensy++ 2.0 (and discontinued predecessors) use an 8-bit AVR microcontrollers. Teensy 3.0 (and up) have instead Freescale microcontrollers, running ARM Cortex-M CPUs. The technical characteritics of all Teensy can be compared [here](https://www.pjrc.com/teensy/techspecs.html)
