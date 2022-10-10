@@ -2,7 +2,6 @@
 
 This course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal ([Windows Subsystem for Linux](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl))  
 
-It is (temporarily) available through sildes [here](lecture8/img/cours1-embedded.pdf)
 
 ## First teensy-makefile project
 
@@ -116,7 +115,7 @@ Create another project `teensy_serial` that prints, at each second, on the seria
 Posted after class...
  
 ##Exercice: LED, timer and Audio
-Download the [teensy_audio](img/teensy_audio.tar) project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.
+Download the [teensy_audio](lecture8/img/teensy_audio.tar) project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.
 
 1. Check that the sound is correct.
 2. Add a 10ms delai in the `blinkLED` callback. What do you notice. 
