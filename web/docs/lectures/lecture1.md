@@ -14,10 +14,10 @@ All Lectures (2h on a computer) are labs using Teensy boards.
 * **Lecture 6: [Audio Processing Basics II](../lectures/lecture6.md)**
 
 #### Part 2: Embedded Audio System Architecture
-* **Lecture 7: RTone conference on embedded systems in industry [https://rtone.fr/](https://rtone.fr/)**
-* **Lecture 8: Faust Tutorial [https://faust.grame.fr/](https://faust.grame.fr/)** 
-* **Lecture 9: Embedded System basics: peripherals, interrupts and timers
-* **Lecture 10: Embedded Systems multi-tasking: thread and embedded OS** 
+* **Lecture 7: Faust Tutorial** -- *29/11/2022 14h00-16h00*
+* **Lecture 8: [Embedded System Peripherals](lectures/lecture8.md)** -- *30/11/2022 14h00-16h00*
+* **Lecture 9: Embedded OS, FreeRTOS, Embedded Linux Devices** -- *30/11/2022 16h00-18h00*
+* **Lecture 10: Embedded systems at [Rtone](https://rtone.fr/)** -- *06/12/2022 14h00-16h00*
 * **Lecture 11: [Faust on the Teensy and Advanced Control](../lectures/lecture11.md)** 
 
 #### Part 3, Sessions 12-16: Teensy programming
