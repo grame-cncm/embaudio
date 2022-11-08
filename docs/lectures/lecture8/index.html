@@ -65,7 +65,11 @@
 </li>
                                     
 <li>
-    <a href="../lecture9/" class="dropdown-item"> 9: Embedded System Basics </a>
+    <a href="../lecture9/" class="dropdown-item"> 9: Embedded System Basics: peripherals </a>
+</li>
+                                    
+<li>
+    <a href="../lecture10/" class="dropdown-item"> 10: Embedded System Basics: Embedded OS </a>
 </li>
                                     
 <li>
@@ -140,7 +144,7 @@
 <p>This course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal (<a href="https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl">Windows Subsystem for Linux</a>)  </p>
 <h2 id="first-teensy-makefile-project">First teensy-makefile project</h2>
 <ul>
-<li>Download the teensy_makefile project <a href="img/teensy_makefile.tar">here</a></li>
+<li>Download the teensy_makefile project <a href="lecture8/img/teensy_makefile.tar">here</a></li>
 <li>Untar the archive <code>tar xvf teensy_makefile.tar</code> somewhere (this will create <code>teensy_makefile</code> directory)</li>
 <li>Go into the <code>teensy_makefile</code> directory and edit the <code>Makefile</code> to fill up the definition of   <code>$ARDUINOPATH</code> (your arduino installation) and <code>$MYDSPPATH</code> (location of the AUD MyDsp library on your computer).</li>
 <li>Type <code>make</code> check that the compilation is going well. </li>
@@ -224,7 +228,7 @@ myTimer.begin(foo, 150000);
 <p><strong>Solution:</strong></p>
 <p>Posted after class...</p>
 <h2 id="exercice-led-timer-and-audio">Exercice: LED, timer and Audio</h2>
-<p>Download the <a href="img/teensy_audio.tar">teensy_audio</a> project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.</p>
+<p>Download the <a href="lecture8/img/teensy_audio.tar">teensy_audio</a> project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.</p>
 <ol>
 <li>Check that the sound is correct.</li>
 <li>Add a 10ms delai in the <code>blinkLED</code> callback. What do you notice. </li>
