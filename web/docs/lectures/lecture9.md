@@ -10,33 +10,37 @@ It is (temporarily) available through sildes [here](lecture9/img/cours1-embedded
  - Untar the archive `tar xvf teensy_makefile.tar` somewhere (this will create `teensy_makefile` directory)
  - Go into the `teensy_makefile` directory and edit the `Makefile` to fill up the definition of   `$ARDUINOPATH` (your arduino installation) and `$MYDSPPATH` (location of the AUD MyDsp library on your computer).
  - Type `make` check that the compilation is going well. 
- 
- The object files are compiled in the build directory. The only file that are interesting for you are in the current directory: `main.cpp` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. The `main.cpp` is this one: 
 
-```
-#include <Audio.h>
-#include "MyDsp.h"
-
-int main(void)
-{
-  MyDsp myDsp;
-  AudioOutputI2S out;
-  AudioControlSGTL5000 audioShield;
-  AudioConnection patchCord0(myDsp,0,out,0);
-  AudioConnection patchCord1(myDsp,0,out,1);
-
-  AudioMemory(2);
-  audioShield.enable();
-  audioShield.volume(0.5);
-  while (1) {
-    myDsp.setFreq(random(50,1000));
-    delay(100);
-  }
-}
-
-```
-
+ The object files are compiled in the build directory. 
 As one can see, we do not have a `setup()` and `loop()` function, but just a `main()` function with an initialization (which corresponds to the `setup()` function) and an infinite loop (which correponds to the `loop()` function). This is allways the case for embedded programming: initialization and infinite loop. Here, we know exactly what executes on the ARM CPU, and it is very explicit that the ARM processor is 100% running the loop doing nothing (i.e. no operating system is present on the ARM), hence sound processing relies on interrupts. A very common programming model for embedded system is to rely only on interrupts. 
+
+The `main.cpp` is this one: 
+```
+#include <Arduino.h>
+
+// See $ARDUINOPATH/hardware/teensy/avr/cos/teensy4/pins_arduino.h`
+const int ledPin = LED_BUILTIN;
+
+
+extern "C" int main(void)
+{
+  pinMode(ledPin, OUTPUT);
+  // To use Teensy 4.0 without Arduino, simply put your code here.
+  while (1) {
+    digitalWrite(ledPin, HIGH);   // set the LED on
+    delay(100);                   // flash for 100 ms
+    digitalWrite(ledPin, LOW);    // set the LED off
+    delay(100);                  // wait for a second
+  }
+
+}
+```
+
+To understand (or write this code):
+
+1. You have to know on which GPIO the LED has been soldered. You can look at the [schematic of the Teensy 4.0](https://www.pjrc.com/teensy/schematic40.png) or a look at file `$ARDUINOPATH/hardware/teensy/avr/cos/teensy4/pins_arduino.h` and guess which macro can be used for the LED pin (let's call it `ledPin`).
+2. Then you just have to know that this pin has to be configured in output mode: `pinMode(ledPin, OUTPUT)` and that switching on and off the led can be done using `digitalWrite(ledPin, HIGH);` and `digitalWrite(ledPin, LOW);`
+3. Using the built in function `delay(int numMilliSeconds)` write a program that blink the LED. 
 
 
 ## INTERRUPTS
@@ -88,17 +92,6 @@ myTimer.begin(foo, 150000);
 ```
 For that,  `foo()` function must have type: `void foo()`
 
-##Exercice: LED blinking
-Copy the `teensy_example` directory to a new `teensy_led` directory. write a code that blinks the teensy LED every 100ms. For that:
-
-1. You have to know on which GPIO the LED has been soldered. You can look at the [schematic of the Teensy 4.0](https://www.pjrc.com/teensy/schematic40.png) or a look at file `$ARDUINOPATH/hardware/teensy/avr/cos/teensy4/pins_arduino.h` and guess which macro can be used for the LED pin (let's call it `ledPin`).
-2. Then you just have to know that this pin has to be configured in output mode: `pinMode(ledPin, OUTPUT)` and that switching on and off the led can be done using `digitalWrite(ledPin, HIGH);` and `digitalWrite(ledPin, LOW);`
-3. Using the built in function `delay(int numMilliSeconds)` write a program that blink the LED. 
-
-**Solution:**
-
-Posted after class...
-
 ##Exercice: LED  and timer
 1. Copy the `teensy_led` directory to a `teensy_timer` directory. write a function `void toggle_LED()` that uses a global variable `LEDstate` which correspond to the current status of the LED. (In general, it is very common in embedded system to have a *local copy* of the state of peripheral, just to know in which state we are). 
 2. Instantiate an `IntervalTimer` and, as shown above, use `toggle_LED()` function as timer callback. Have the  LED   blinking every 0.15s
@@ -114,11 +107,37 @@ Create another project `teensy_serial` that prints, at each second, on the seria
 **Solution:**
 
 Posted after class...
- 
-##Exercice: LED, timer and Audio
-Download the [teensy_audio](img/teensy_audio.tar) project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.
 
-1. Check that the sound is correct.
-2. Add a 10ms delai in the `blinkLED` callback. What do you notice. 
+#Running Audio with Makefile
+
+Download the [teensy_audio](img/teensy_audio.tar). There are now two C++ files in the directory: `main.cpp` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. 
+
+```
+#include <Audio.h>
+#include "MyDsp.h"
+
+int main(void)
+{
+  MyDsp myDsp;
+  AudioOutputI2S out;
+  AudioControlSGTL5000 audioShield;
+  AudioConnection patchCord0(myDsp,0,out,0);
+  AudioConnection patchCord1(myDsp,0,out,1);
+
+  AudioMemory(2);
+  audioShield.enable();
+  audioShield.volume(0.5);
+  while (1) {
+    myDsp.setFreq(random(50,1000));
+    delay(100);
+  }
+}
+
+```
+This project plays the crazy-sine sound while blinking the LED.
+
+1. set the  ARDUINOPATH and MYDSPPATH again as you did above. 
+2. Type make and check that the sound is correct.
+3. Add a 10ms delai in the `blinkLED` callback. What do you notice. 
 
 It is very important to spend a *very short time* in ISR, other wise your system can be blocked, miss interrupts or not respect real time constraints. 
