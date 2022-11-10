@@ -1,32 +1,12 @@
 # Lecture 1: Course Introduction and Programming Environment Setup
 
-This lecture is devoted to the software suite installion so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.
+This lecture is devoted to installing the software suite used in this course so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.
 
-## Course outline
-All Lectures (2h on a computer) are labs using Teensy boards.
+## Course Outline
 
-####Part 1 : Board introduction and Audio Signal Processing Basics </b>
-* **Lecture 1: [Course Introduction and Programming Environment Setup](../lectures/lecture1.md)** 
-* **Lecture 2: [Audio Signal Processing Fundamentals](../lectures/lecture2.md)** 
-* **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](../lectures/lecture3.md)** 
-* **Lecture 4: [Hardware Control and Audio Codec Configuration](../lectures/lecture4.md)**
-* **Lecture 5: [Audio Processing Basics I](../lectures/lecture5.md)** 
-* **Lecture 6: [Audio Processing Basics II](../lectures/lecture6.md)**
+All Lectures (2h on a computer) are labs using the Teensy board. The full course schedule can be found on [the home page](../index.md#course-overview).
 
-#### Part 2: Embedded Audio System Architecture
-* **Lecture 7: Faust Tutorial** -- *29/11/2022 14h00-16h00*
-* **Lecture 8: [Embedded System Peripherals](../lectures/lecture8.md)** -- *30/11/2022 14h00-16h00*
-* **Lecture 9: Embedded OS, FreeRTOS, Embedded Linux Devices** -- *30/11/2022 16h00-18h00*
-* **Lecture 10: Embedded systems at [Rtone](https://rtone.fr/)** -- *06/12/2022 14h00-16h00*
-* **Lecture 11: [Faust on the Teensy and Advanced Control](../lectures/lecture11.md)** 
-
-#### Part 3, Sessions 12-16: Teensy programming
-* **Lecture 12 **
-* **Lecture 13 **
-* **Lecture 14 **
-* **Lecture 15 **
-* **Lecture 16: Demos **
-#Introduction to AUD2020 and Teensy
+# Introduction to AUD2020 and Teensy
 <figure>
 <p>
 <img src="img/teensy40_front.jpg"  width="30%"> 
@@ -36,17 +16,18 @@ All Lectures (2h on a computer) are labs using Teensy boards.
 </figure>
 
 <!-- TODORM: redundant -->
-Most of the document on this course come from [PRJC](https://www.pjrc.com/store/teensy40.html). Actually most of the documentation on Teensy is from from [PRJC](https://www.pjrc.com/store/teensy40.html).
+Most of the document on this course come from [PJRC](https://www.pjrc.com/store/teensy40.html). Actually most of the documentation on Teensy is from [PJRC](https://www.pjrc.com/store/teensy40.html).
 
-The development in AUD are performed on [teensy](https://www.pjrc.com/store/teensy40.html) which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using a custom/modified version of the arduino programming environnement ([teensyduino](https://www.pjrc.com/teensy/teensyduino.html)).
+The development in AUD are performed on [teensy](https://www.pjrc.com/store/teensy40.html) which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using a custom/modified version of the arduino programming environment ([teensyduino](https://www.pjrc.com/teensy/teensyduino.html)).
 
  Teensy is a brand of microcontroller development boards  designed by the co-owner of PJRC, [Paul Stoffregen](https://github.com/PaulStoffregen). The first 
- Teensy 2.0, Teensy++ 2.0 (and discontinued predecessors) use an 8-bit AVR microcontrollers. Teensy 3.0 (and up) have instead Freescale microcontrollers, running ARM Cortex-M CPUs. The technical characteritics of all Teensy can be compared [here](https://www.pjrc.com/teensy/techspecs.html)
+ Teensy 2.0, Teensy++ 2.0 (and discontinued predecessors) use an 8-bit AVR microcontrollers. Teensy 3.0 (and up) have instead Freescale microcontrollers, running ARM Cortex-M CPUs. The technical characteritics of all Teensy can be compared [here](https://www.pjrc.com/teensy/techspecs.html).
 
-In AUD, we use [Teensy 4.0](https://www.pjrc.com/store/teensy40.html) which contain an ARM Cortex-M7 at 600 MHz with a Floating point unit, hence it can handle non trivial audio treatment.
+In AUD, we use the [Teensy 4.0](https://www.pjrc.com/store/teensy40.html) which contains an ARM Cortex-M7 at 600 MHz with a Floating point unit, hence it can handle non trivial audio treatment.
 
 
-#Teensy 4.0 and Audio shield (from PJRC website).
+# Teensy 4.0 and Audio Shield (from PJRC Website)
+
 Teensy 4.0 uses many powerful CPU features useful for true real-time microcontroller platform. The CPU is an ARM Cortex-M7 dual-issue superscaler clocked at at 600 MHz.  CPU performance is many times faster than typical 32 bit microcontrollers. The Floating Point Unit performs 32 bit float and 64 bit double precision math in hardware. DSP extension instructions accelerate signal processing, filters and Fourier transform. The Audio library automatically makes uses of these DSP instructions.
 <p align="center">
  <img src="img/coremark_barchart_t40_small.png" /> <br>
@@ -55,7 +36,7 @@ Teensy 4.0 uses many powerful CPU features useful for true real-time microcontro
 
 
 
-This pinout reference card comes with Teensy 4.0  (<em >do not loose it! </em>). The pins are not 5V tolerant. Do not drive any digital pin higher than 3.3V.
+This pinout reference card comes with the Teensy 4.0  (*do not loose it!*). The pins are not 5V tolerant. Do not drive any digital pin higher than 3.3V.
 
 
 <figure>
@@ -67,7 +48,7 @@ This pinout reference card comes with Teensy 4.0  (<em >do not loose it! </em>).
 </center>
 </figure>
 
-Teensy 4.0 has a total of 40 input/output signal pins. 24 are easily accessible when used with a solderless breadboard. The available pins include general purpose IO (GPIO, digital or analog, i.e. ADC), as well as integrated serial protocols (I2C, I2S, CAN,  SPI and UART protocols) that are used to connect to other devices. 
+The Teensy 4.0 has a total of 40 input/output signal pins. 24 are easily accessible when used with a solderless breadboard. The available pins include general purpose IO (GPIO, digital or analog, i.e. ADC), as well as integrated serial protocols (I2C, I2S, CAN,  SPI and UART protocols) that are used to connect to other devices.
 
 In AUD, we use the [audio adaptor board](https://www.pjrc.com/store/teensy3_audio.html) provided by PJRC that integrates a low power stereo codex (NXP Semiconductors SGTL5000 codec) and a SD card reader.
 
@@ -81,14 +62,15 @@ In AUD, we use the [audio adaptor board](https://www.pjrc.com/store/teensy3_audi
 </center>
 </figure>
 
-The audio codec connects to Teensy using 7 signals (Yellow signal in pin map above) which are used by two protocol: I2C and I2S. This is a traditionnal configuration for audio codec: the I2C (or I²C: Inter-Integrated Circuit) protocol   is used to configure the codec (sample rate, input and output pins etc.) and the I2S (or I²S: Inter-IC Sound) is used to transfer samples bit by bit in both direction (i.e. from and to the teensy). The I2C pins SDA and SCL are used to control the chip and adjust parameters. Audio data uses I2S signals, TX (to headphones and/or line out) and RX (from line in or mic), and 3 clocks, LRCLK (44.1 kHz), BCLK (1.41 MHz) and MCLK (11.29 MHz). All 3 clocks are created by Teensy which means that the SGTL5000 operates in "slave mode".
+The audio codec connects to Teensy using 7 signals (Yellow signal in pin map above) which are used by two protocol: I2C and I2S. This is a traditional configuration for audio codec: the I2C (or I²C: Inter-Integrated Circuit) protocol   is used to configure the codec (sample rate, input and output pins etc.) and the I2S (or I²S: Inter-IC Sound) is used to transfer samples bit by bit in both direction (i.e. from and to the teensy). The I2C pins SDA and SCL are used to control the chip and adjust parameters. Audio data uses I2S signals, TX (to headphones and/or line out) and RX (from line in or mic), and 3 clocks, LRCLK (44.1 kHz), BCLK (1.41 MHz) and MCLK (11.29 MHz). All 3 clocks are created by Teensy which means that the SGTL5000 operates in "slave mode".
 
-The schematics of the audio shield board, rev. D,  can bee seen [here](https://www.pjrc.com/store/teensy3_audio.html) and the schématic of the Teensy 4.0 can be seen at the end of the page [here](https://www.pjrc.com/store/teensy40.html). Of course, as they are both made by PJRC, they are designed to be compatible. We (the teachers!) have soldered the connectors so that the audio shiel can be easily connected to the tennsy.
+The schematics of the audio shield board, rev. D,  can bee seen [here](https://www.pjrc.com/store/teensy3_audio.html) and the schematic of the Teensy 4.0 can be seen at the end of the page [here](https://www.pjrc.com/store/teensy40.html). Of course, as they are both made by PJRC, they are designed to be compatible. We (the teachers!) have soldered the connectors so that the audio shiel can be easily connected to the tennsy.
 
-The USB connector of the Teensy can support many serial communication from the host computer to the Teensy: (JTAG for flashing/programming, Serial UART, midi, mouse etc. see `Tools -> USB Type` menu in arduino IDE). In AUD the USB connector is  used to program the device (i.e. download binary code into flash memory) and ascii communication between the host and the Teensy (i.e. using UART/Serial communicatino protocol). In linux machines, when the teensy USB cable is connected, the serial port will appear as `/dev/ttyACM0`
+The USB connector of the Teensy can support many serial communication from the host computer to the Teensy: (JTAG for flashing/programming, Serial UART, midi, mouse etc. see `Tools -> USB Type` menu in arduino IDE). In AUD, the USB connector is  used to program the device (i.e., download binary code into flash memory) and ascii communication between the host and the Teensy (i.e. using UART/Serial communicatino protocol). In linux machines, when the teensy USB cable is connected, the serial port will appear as `/dev/ttyACM0`
 
 
-#Teensy 4.0 processor: NXP  i.MX RT1062
+# Teensy 4.0 Processor: NXP  i.MX RT1062
+
 The Teensy uses the i.MX RT1062 processor chip from NXP (a model of the serie i.MX RT1060). The main components of the chip can be seen on the image extracted from the [i.MX RT1060 datasheet](lecture1/img/datasheet_IMXRT1060RM_rev2.pdf). The processor used in the chip is an ARM Cortex-M7 ([technical reference manuel of Cortex-M7 here](lecture1/img/ARM_Cortex_M7_technical_reference.pdf)). The ARM Cortex-M7 is the latest architecture that uses the ISA ARMv7 ([ARM v7 reference manuel](lecture1/img/ARM_v7m_ref_manual.pdf))
 
 
@@ -99,7 +81,7 @@ The Teensy uses the i.MX RT1062 processor chip from NXP (a model of the serie i.
 </p><figcaption><center>The i.MX RT1060 used in Teensy 4.0 and the associated perifpherals </center></figcaption>
 </figure>
 
-Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. 1Mbyte  of memory is available for execution (i.e. for variables and data storing during execution). Half of this memory (RAM1) is accessed as tightly coupled memory for maximum performance. The other half (RAM2) is optimized for access by DMA. Normally large arrays & data buffers are placed in RAM2, to save the ultra-fast RAM1 for normal variables. The mapping of variables to memories is indicated at the variables declaration by compiler directive (such as  `DMAMEM` for variable in RAM2 or `FASTRUN` for variable in RAM1, see [here](https://www.pjrc.com/store/teensy40.html). 
+Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. 1Mbyte  of memory is available for execution (i.e., for variables and data storing during execution). Half of this memory (RAM1) is accessed as tightly coupled memory for maximum performance. The other half (RAM2) is optimized for access by DMA. Normally large arrays & data buffers are placed in RAM2, to save the ultra-fast RAM1 for normal variables. The mapping of variables to memories is indicated at the variables declaration by compiler directive (such as  `DMAMEM` for variable in RAM2 or `FASTRUN` for variable in RAM1, see [here](https://www.pjrc.com/store/teensy40.html).
 
 The memory map is the following:
 <figure>
@@ -110,22 +92,23 @@ The memory map is the following:
 <caption> Teensy 4.0 pin map (from  PJRC webite)</caption>
 </center>
 </figure>
-#Teensy  developpement framework: teensyduino
-	
-Teensy can be programmed in many ways:
+
+# Teensy Development Framework: teensyduino
+
+The Teensy can be programmed in many ways:
 
 - [Arduino's IDE](https://www.pjrc.com/teensy/td_download.html) software with the Teensyduino add-on is the primary programming environment for Teensy. 
 - [Visual Micro](https://www.visualmicro.com/), 
 - [PlatformIO](https://platformio.org/platformio-ide)  
 - Makefiles: type `make` in directory `$(arduino)/hardware/teensy/avr/cores/teensy4/`. 
 
- in AUD we will use most popular  [Arduino's IDE with Teensyduino](https://www.pjrc.com/teensy/td_download.html). In general programming the Teensy amounts to compile an application to an executable (`main.elf` usually) and then download the application on the teensy which is connected through its USB interface to your PC. The teensyduino software add the source file to arduino in order to compile code for the teensy and call the `teensy_loader` that flashes the `main.elf` in the connected Teensy.
+ in AUD we will use most popular  [Arduino's IDE with Teensyduino](https://www.pjrc.com/teensy/td_download.html). In general, programming the Teensy amounts to compile an application to an executable (`main.elf` usually) and then download the application on the teensy which is connected through its USB interface to your PC. The teensyduino software add the source file to arduino in order to compile code for the teensy and call the `teensy_loader` that flashes the `main.elf` in the connected Teensy.
 
 
 
-##Installing teensyduino on your computer
+## Installing teensyduino on Your Computer
 
-Teensyduino can be installed on Macintosh, Lunix or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines. 
+Teensyduino can be installed on Macintosh, Linux or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines.
 
 The installation procedure is the following: 
 
@@ -138,7 +121,8 @@ The installation procedure is the following:
 ##Getting Started on TC Machines
 Arduino is installed in directory `/opt/arduino-1.8.19`. Launching arduino is done simply by typing the command `arduino` in a command line shell. However, the `mydsp` library must be made available to arduino. For that, you have to select a directory for additionnal arduino library, for instance `/home/mylogin/Arduino` and indicate it to arduino par writing the directory path in `file->preference->sketchbook location`. Then copy the `mydsp` directory in the  `/home/mylogin/Arduino`directory.
 
-### Flashing the LED and using serial terminal.
+### Flashing the LED and Using Serial Terminal
+
 For programming the teensy:
 
 1. Connect the teensy on your computer or on the TC machine
@@ -150,6 +134,7 @@ For programming the teensy:
 7. Select the serial communication example: select `File -> Examples -> Teensy -> Serial  -> EchoBoth`. A new arduino editor with the 'EchoBoth' application code.
 6. Compile and download the code. Launch the `serial monitor` window from arduino (magnifying glass on the upper right). This should launch a new window showing serial communcations. Type some characters in the windown and send them (i.e. type 'return'), what is happening? Try to understand the code of the `EchoBoth` application.
 
-### Audio applications on Teensy 
+### Audio Applications on Teensy
+
 The application prepared for the AUD course are available [here](where). Download the file and untar it in, this will create an `projects` directory. Open (`File -> open...` in arduino) the `crazy-sine/crazy-sine.ino` project. Download it to teensy and ear the crazy sine. 
 
