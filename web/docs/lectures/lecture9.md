@@ -110,7 +110,7 @@ Posted after class...
 
 #Running Audio with Makefile
 
-Download the [teensy_audio](img/teensy_audio.tar). There are now two C++ files in the directory: `main.cpp` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. 
+Download the [teensy_audio](lecture9/img/teensy_audio.tar). There are now two C++ files in the directory: `main.cpp` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. 
 
 ```
 #include <Arduino.h>
