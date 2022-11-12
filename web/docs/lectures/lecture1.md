@@ -140,5 +140,5 @@ For programming the teensy:
 
 ### Audio applications on Teensy
 
-The application prepared for the AUD course are available [here](lecture1/img/crazy-sine.tar). Download the file and untar it in, this will create an `projects` directory. Open (`File -> open...` in arduino) the `crazy-sine/crazy-sine.ino` project. Download it to teensy and ear the crazy sine. 
+The application prepared for the AUD course are available [here](lecture1/img/crazy-sine.tar) or you can find them in the embaudio git repository (``examples/teensy/projects`` directory). Download the file and untar it in, this will create an `projects` directory. Open (`File -> open...` in arduino) the `crazy-sine/crazy-sine.ino` project. Download it to teensy and ear the crazy sine. 
 
