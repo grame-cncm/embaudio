@@ -145,7 +145,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="3"><a href="#audio-applications-on-teensy" class="nav-link">Audio Applications on Teensy</a>
+            <li class="nav-item" data-level="3"><a href="#audio-applications-on-teensy" class="nav-link">Audio applications on Teensy</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -161,7 +161,7 @@
 <h1 id="lecture-1-course-introduction-and-programming-environment-setup">Lecture 1: Course Introduction and Programming Environment Setup</h1>
 <p>This lecture is devoted to installing the software suite used in this course so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.</p>
 <h2 id="course-outline">Course Outline</h2>
-<p>All Lectures (2h on a computer) are labs using the Teensy board. The full course schedule can be found on <a href="../..#course-overview">the home page</a>.</p>
+<p>All Lectures (2h on a computer) are labs using the Teensy board. The full course schedule can be found on <a href="../../#course-overview">the home page</a>.</p>
 <h1 id="introduction-to-aud2020-and-teensy">Introduction to AUD2020 and Teensy</h1>
 <figure>
 <p>
@@ -248,7 +248,11 @@
 <p>Install teensyduino following these instructions: <a href="https://www.pjrc.com/teensy/td_download.html">https://www.pjrc.com/teensy/td_download.html</a></p>
 </li>
 <li>
-<p>In addition you will need some files written specifically for the AUD cours: the <code>mydsp</code>directory available <a href="where">here</a>. Copy the <code>mydsp</code>directory in the directory <code>$ARDUINOPATH/libraries</code></p>
+<p>Clone embaudio github repository :
+<a href="https://github.com/grame-cncm/embaudio">https://github.com/grame-cncm/embaudio</a></p>
+</li>
+<li>
+<p>You will need some files written specifically for the AUD cours: the <code>examples/teensy/libraries/mydsp</code>directory available in the github cloned . Copy the <code>mydsp</code>directory in the directory <code>$ARDUINOPATH/libraries</code></p>
 </li>
 </ol>
 <h2 id="getting-started-on-tc-machines">Getting Started on TC Machines</h2>
@@ -265,8 +269,8 @@
 <li>Select the serial communication example: select <code>File -&gt; Examples -&gt; Teensy -&gt; Serial  -&gt; EchoBoth</code>. A new arduino editor with the 'EchoBoth' application code.</li>
 <li>Compile and download the code. Launch the <code>serial monitor</code> window from arduino (magnifying glass on the upper right). This should launch a new window showing serial communcations. Type some characters in the windown and send them (i.e. type 'return'), what is happening? Try to understand the code of the <code>EchoBoth</code> application.</li>
 </ol>
-<h3 id="audio-applications-on-teensy">Audio Applications on Teensy</h3>
-<p>The application prepared for the AUD course are available <a href="where">here</a>. Download the file and untar it in, this will create an <code>projects</code> directory. Open (<code>File -&gt; open...</code> in arduino) the <code>crazy-sine/crazy-sine.ino</code> project. Download it to teensy and ear the crazy sine. </p></div>
+<h3 id="audio-applications-on-teensy">Audio applications on Teensy</h3>
+<p>The application prepared for the AUD course are available <a href="img/crazy-sine.tar">here</a>. Download the file and untar it in, this will create an <code>projects</code> directory. Open (<code>File -&gt; open...</code> in arduino) the <code>crazy-sine/crazy-sine.ino</code> project. Download it to teensy and ear the crazy sine. </p></div>
             </div>
         </div>
 

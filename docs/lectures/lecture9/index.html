@@ -229,11 +229,30 @@ myTimer.begin(foo, 150000);
 <p>Posted after class...</p>
 <h1 id="running-audio-with-makefile">Running Audio with Makefile</h1>
 <p>Download the <a href="img/teensy_audio.tar">teensy_audio</a>. There are now two C++ files in the directory: <code>main.cpp</code> and <code>MyDsp.cpp</code>. The files <code>MyDsp.h</code> and <code>MyDsp.cpp</code> are the same as in the the AUD examples projects. </p>
-<pre><code>#include &lt;Audio.h&gt;
+<pre><code>#include &lt;Arduino.h&gt;
+#include &lt;Audio.h&gt;
 #include &quot;MyDsp.h&quot;
+
+const int ledPin = LED_BUILTIN;
+volatile int ledState = LOW; // use volatile for shared variables
+volatile unsigned long blinkCount = 0; 
+
+// functions called by IntervalTimer should be short, run as quickly as
+// possible, and should avoid calling other functions if possible.
+void blinkLED() {
+  if (ledState == LOW) {
+    ledState = HIGH;
+    blinkCount = blinkCount + 1;  // increase when LED turns on
+  } else {
+    ledState = LOW;
+  }
+  digitalWrite(ledPin, ledState);
+}
+
 
 int main(void)
 {
+  /* MyDsp declaration and init */
   MyDsp myDsp;
   AudioOutputI2S out;
   AudioControlSGTL5000 audioShield;
@@ -243,6 +262,17 @@ int main(void)
   AudioMemory(2);
   audioShield.enable();
   audioShield.volume(0.5);
+
+
+  IntervalTimer myTimer;
+
+  /* serial port init */
+  Serial.begin(9600);
+  /* LED init */
+  pinMode(ledPin, OUTPUT);
+
+  /* timer init*/
+  myTimer.begin(blinkLED, 150000);  // blinkLED to run every 0.15 seconds
   while (1) {
     myDsp.setFreq(random(50,1000));
     delay(100);
