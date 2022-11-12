@@ -113,20 +113,50 @@ Posted after class...
 Download the [teensy_audio](img/teensy_audio.tar). There are now two C++ files in the directory: `main.cpp` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. 
 
 ```
+#include <Arduino.h>
 #include <Audio.h>
 #include "MyDsp.h"
 
+const int ledPin = LED_BUILTIN;
+volatile int ledState = LOW; // use volatile for shared variables
+volatile unsigned long blinkCount = 0; 
+
+// functions called by IntervalTimer should be short, run as quickly as
+// possible, and should avoid calling other functions if possible.
+void blinkLED() {
+  if (ledState == LOW) {
+    ledState = HIGH;
+    blinkCount = blinkCount + 1;  // increase when LED turns on
+  } else {
+    ledState = LOW;
+  }
+  digitalWrite(ledPin, ledState);
+}
+
+
 int main(void)
 {
+  /* MyDsp declaration and init */
   MyDsp myDsp;
   AudioOutputI2S out;
   AudioControlSGTL5000 audioShield;
   AudioConnection patchCord0(myDsp,0,out,0);
   AudioConnection patchCord1(myDsp,0,out,1);
-
+ 
   AudioMemory(2);
   audioShield.enable();
   audioShield.volume(0.5);
+
+ 
+  IntervalTimer myTimer;
+  
+  /* serial port init */
+  Serial.begin(9600);
+  /* LED init */
+  pinMode(ledPin, OUTPUT);
+
+  /* timer init*/
+  myTimer.begin(blinkLED, 150000);  // blinkLED to run every 0.15 seconds
   while (1) {
     myDsp.setFreq(random(50,1000));
     delay(100);

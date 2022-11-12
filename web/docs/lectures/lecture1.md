@@ -116,7 +116,11 @@ The installation procedure is the following:
 
 2. Install teensyduino following these instructions: [https://www.pjrc.com/teensy/td_download.html](https://www.pjrc.com/teensy/td_download.html)
 
-3. In addition you will need some files written specifically for the AUD cours: the `mydsp`directory available [here](where). Copy the `mydsp`directory in the directory `$ARDUINOPATH/libraries`
+3. Clone embaudio github repository :
+[https://github.com/grame-cncm/embaudio](https://github.com/grame-cncm/embaudio
+)
+
+4. You will need some files written specifically for the AUD cours: the `examples/teensy/libraries/mydsp`directory available in the github cloned . Copy the `mydsp`directory in the directory `$ARDUINOPATH/libraries`
 
 ##Getting Started on TC Machines
 Arduino is installed in directory `/opt/arduino-1.8.19`. Launching arduino is done simply by typing the command `arduino` in a command line shell. However, the `mydsp` library must be made available to arduino. For that, you have to select a directory for additionnal arduino library, for instance `/home/mylogin/Arduino` and indicate it to arduino par writing the directory path in `file->preference->sketchbook location`. Then copy the `mydsp` directory in the  `/home/mylogin/Arduino`directory.
@@ -134,7 +138,7 @@ For programming the teensy:
 7. Select the serial communication example: select `File -> Examples -> Teensy -> Serial  -> EchoBoth`. A new arduino editor with the 'EchoBoth' application code.
 6. Compile and download the code. Launch the `serial monitor` window from arduino (magnifying glass on the upper right). This should launch a new window showing serial communcations. Type some characters in the windown and send them (i.e. type 'return'), what is happening? Try to understand the code of the `EchoBoth` application.
 
-### Audio Applications on Teensy
+### Audio applications on Teensy
 
-The application prepared for the AUD course are available [here](where). Download the file and untar it in, this will create an `projects` directory. Open (`File -> open...` in arduino) the `crazy-sine/crazy-sine.ino` project. Download it to teensy and ear the crazy sine. 
+The application prepared for the AUD course are available [here](img/crazy-sine.tar). Download the file and untar it in, this will create an `projects` directory. Open (`File -> open...` in arduino) the `crazy-sine/crazy-sine.ino` project. Download it to teensy and ear the crazy sine. 
 
