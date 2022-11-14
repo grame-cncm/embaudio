@@ -10,8 +10,7 @@ AudioConnection patchCord1(myDsp,0,out,1);
 void setup() {
   AudioMemory(2);
   audioShield.enable();
-  audioShield.write(0x0022,0x7F7F);
-  //audioShield.volume(0.5);
+  audioShield.volume(0.5);
 }
 
 void loop() {
