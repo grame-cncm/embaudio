@@ -133,7 +133,7 @@ For programming the teensy:
 2. Launch arduino: `> arduino`
 3. Make sure that the correct board is selected: select `Tools -> Boards -> Teensyduino -> Teensy 4.0`
 4. Make sure that the serial port is configured correctly: select `Tools -> USB Type -> Serial`
-5. Select the flashing led example: select `File -> Examples -> Teensy -> Tutorial1 -> Blink`. A new arduino editor with the 'Blink' application code.
+5. Select the flashing led example: select `File -> Examples -> 01.Basic -> Blink`. A new arduino editor with the 'Blink' application code.
 6. Compile and download the code by clickin in  'Upload' button in ardiuno (big arrow). This should launch the teensy_loader, and upload the code, then the led should be blinking.
 7. Select the serial communication example: select `File -> Examples -> Teensy -> Serial  -> EchoBoth`. A new arduino editor with the 'EchoBoth' application code.
 6. Compile and download the code. Launch the `serial monitor` window from arduino (magnifying glass on the upper right). This should launch a new window showing serial communcations. Type some characters in the windown and send them (i.e. type 'return'), what is happening? Try to understand the code of the `EchoBoth` application.

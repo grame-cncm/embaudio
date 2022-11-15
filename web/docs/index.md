@@ -32,13 +32,13 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 * **Lecture 1: [Course Introduction and Programming Environment Setup](lectures/lecture1.md)** -- *15/11/2022 14h00-16h00*
 * **Lecture 2: [Audio Signal Processing Fundamentals](lectures/lecture2.md)** -- *16/11/2022 14h00-16h00*
 * **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](lectures/lecture3.md)** -- *16/11/2022 16h00-18h00*
-* **Lecture 4: [Hardware Control and Audio Codec Configuration](lectures/lecture4.md)** -- *22/11/2022 14h00-16h00*
-* **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *23/11/2022 14h00-16h00*
-* **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *23/11/2022 16h00-18h00*
+* **Lecture 4: [Hardware Control and Audio Codec Configuration](lectures/lecture4.md)** -- *18/11/2022 8h00-10h00*
+* **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *18/11/2022 10h00-12h00*
+* **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *22/11/2022 14h00-16h00*
 * **Lecture 7: Faust Tutorial** -- *29/11/2022 14h00-16h00*
-* **Lecture 8: [Embedded System Peripherals](lectures/lecture8.md)** -- *30/11/2022 14h00-16h00*
-* **Lecture 9: Embedded OS, FreeRTOS, Embedded Linux Devices** -- *30/11/2022 16h00-18h00*
-* **Lecture 10: Embedded systems at [Rtone](https://rtone.fr/)** -- *06/12/2022 14h00-16h00*
+* **Lecture 9: [Embedded System Peripherals](lectures/lecture9.md)** -- *30/11/2022 14h00-16h00*
+* **Lecture 11: [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/lecture9.md)** -- *30/11/2022 16h00-18h00*
+* **Lecture 8: Embedded systems at [Rtone](https://rtone.fr/)** -- *06/12/2022 14h00-16h00*
 * **Lecture 11: [Faust on the Teensy and Advanced Control](lectures/lecture11.md)** -- *07/12/2022 14h00-16h00*
 * **Sessions 12-16: Mini-project**
     * *07/12/2022 16h00-18h00*
