@@ -276,11 +276,7 @@ for(int i=0; i&lt;size; i++){
 <p>Write a small tune/song looping through at least 5 notes and play it with the <code>crazy-sine</code> program on your Teensy.</p>
 <p><strong>Hint:</strong> For that, you'll probably have to replace the <code>myDsp.setFreq(random(50,1000));</code> line of of <code>crazy-sine.ino</code> by something else.</p>
 <p><strong>Solution:</strong></p>
-<p>Posted after class...</p>
-<!--
-In `crazy-sine.ino`:
-
-
+<p>In <code>crazy-sine.ino</code>:</p>
 <pre><code>#include &lt;Audio.h&gt;
 #include &quot;MyDsp.h&quot;
 
@@ -309,9 +305,6 @@ void loop() {
   delay(500);
 }
 </code></pre>
-
--->
-
 <h3 id="basic-additive-synthesis">Basic Additive Synthesis</h3>
 <p>One of the most basic kind of sound synthesis is "additive synthesis." In consists of adding multiple sine wave oscillators together to "sculpt" the timbre of a sound. Both the frequency and the gain of each individual oscillator can then be used to change the properties of the synthesized sound. </p>
 <p>A simple additive synthesizer could be implemented from the <code>crazy-sine</code> example by declaring multiple instances of <code>sine</code>. E.g.:</p>

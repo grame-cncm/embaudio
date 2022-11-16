@@ -160,9 +160,6 @@ Write a small tune/song looping through at least 5 notes and play it with the `c
 
 **Solution:**
 
-Posted after class...
-
-<!--
 In `crazy-sine.ino`:
 
 ```
@@ -194,7 +191,6 @@ void loop() {
   delay(500);
 }
 ```
--->
 
 ### Basic Additive Synthesis
 
