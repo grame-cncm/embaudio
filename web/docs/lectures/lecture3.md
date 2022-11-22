@@ -210,9 +210,6 @@ but the problem with that option is that memory will be allocated twice for the 
 
 **Solution:**
 
-Posted after class...
-
-<!--
 In `Sine.cpp`:
 
 ```
@@ -222,7 +219,6 @@ float Sine::tick(){
   return (sineTable.tick(index)+sineTable.tick(index2))*gain*0.5;
 }
 ```
--->
 
 ### Stereo Echo
 
@@ -238,9 +234,6 @@ float currentSampleR = echo1.tick(sineSample)*0.5;
 
 **Solution:**
 
-Posted after class...
-
-<!--
 In `MyDsp.h`:
 
 ```
@@ -279,4 +272,3 @@ for (int i = 0; i < AUDIO_BLOCK_SAMPLES; i++) {
   ...
 }
 ```
--->

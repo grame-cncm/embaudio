@@ -150,6 +150,57 @@ void loop() {
 
 Expand the "note looper" that [you implemented as part of lecture 3](lecture3.md/#looping-through-a-small-tune) so that new notes are triggered when a button is pressed (as opposed to be triggered automatically). Every time the button is pressed, a new note is produced. This means that you'll have to turn your push button into a switch using software techniques... Finally, make sure that gain is controllable using a rotary potentiometer.
 
+**Solution:**
+
+In `crazy-sine.ino`:
+
+```
+#include <Audio.h>
+#include "MyDsp.h"
+
+MyDsp myDsp;
+AudioOutputI2S out;
+AudioControlSGTL5000 audioShield;
+AudioConnection patchCord0(myDsp,0,out,0);
+AudioConnection patchCord1(myDsp,0,out,1);
+
+float mtof(float note){
+  return pow(2.0,(note-69.0)/12.0)*440.0;
+}
+
+int tune[] = {62,78,65,67,69};
+int cnt = 0;
+
+bool change = true;
+bool on = false;
+
+void setup() {
+  AudioMemory(2);
+  audioShield.enable();
+  audioShield.volume(0.5);
+  pinMode(0, INPUT);
+}
+
+void loop() {
+  if (digitalRead(0)) { // button is pressed
+    if(!on) change = true;
+    on = true;
+  }
+  else {
+    if(on) change = true;
+    on = false;
+  }
+
+  if(change){ // if the status of the button changed
+    if(on){ // if the button is pressed
+      myDsp.setFreq(mtof(tune[cnt]));
+      cnt = (cnt+1)%5;
+    }
+    change = false; // status changed
+  }
+}
+```
+
 ## Audio Codec Configuration
 
 ## Audio Codec
