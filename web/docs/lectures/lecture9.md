@@ -1,11 +1,13 @@
 # Lecture 9: Embedded System Basics
 
-This course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal ([Windows Subsystem for Linux](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl))  
+This course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling.
 
 It is (temporarily) available through sildes [here](lecture9/img/cours1-embedded.pdf)
 
-## First teensy-makefile project
+## Compiling  teensy with Makefile?
 
+The arduino environment is not mandatory to program Teensy. We show here how use simplem makefile to program the teensy. If you are using  Windows OS, use the WSL terminal ([Windows Subsystem for Linux](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl))
+ 
  - Download the teensy_makefile project [here](lecture9/img/teensy_makefile.tar)
  - Untar the archive `tar xvf teensy_makefile.tar` somewhere (this will create `teensy_makefile` directory)
  - Go into the `teensy_makefile` directory and edit the `Makefile` to fill up the definition of   `$ARDUINOPATH` (your arduino installation) and `$MYDSPPATH` (location of the AUD MyDsp library on your computer).
@@ -93,7 +95,7 @@ myTimer.begin(foo, 150000);
 For that,  `foo()` function must have type: `void foo()`
 
 ##Exercice: LED  and timer
-1. Copy the `teensy_led` directory to a `teensy_timer` directory. write a function `void toggle_LED()` that uses a global variable `LEDstate` which correspond to the current status of the LED. (In general, it is very common in embedded system to have a *local copy* of the state of peripheral, just to know in which state we are). 
+1. Download the [led project](img/led.tar) that blinks a led without timer. Checj that the project compiles and blinks the led . write a function `void toggle_LED()` that uses a global variable `LEDstate` which correspond to the current status of the LED. (In general, it is very common in embedded system to have a *local copy* of the state of peripheral, just to know in which state we are). 
 2. Instantiate an `IntervalTimer` and, as shown above, use `toggle_LED()` function as timer callback. Have the  LED   blinking every 0.15s
 3. What is the advantage of this approach (i.e. using timers instead of dealys)
 
@@ -101,16 +103,16 @@ For that,  `foo()` function must have type: `void foo()`
 
 Posted after class...
 
-##Exercice: LED, timer and UART
+##Exercice: LED, timer and UART (optionnal)
 Create another project `teensy_serial` that prints, at each second, on the serial port the number of LED switch occured from the beguinning. Note that you will have to use a global variable shared by the ISR (in function `toogle_LED()`) and the main code. It is recommended to disable interrupt when modifyng this variable in the main code, using `noInterrupts()` and `Interrupts()` functions.
  
 **Solution:**
 
 Posted after class...
 
-#Running Audio with Makefile
+# Audio and blinking
 
-Download the [teensy_audio](lecture9/img/teensy_audio.tar). There are now two C++ files in the directory: `main.cpp` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. 
+Download the [audio](lecture9/img/audio.tar) project. There are now two C++ files in the directory: `audio.ino` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. 
 
 ```
 #include <Arduino.h>
@@ -120,6 +122,13 @@ Download the [teensy_audio](lecture9/img/teensy_audio.tar). There are now two C+
 const int ledPin = LED_BUILTIN;
 volatile int ledState = LOW; // use volatile for shared variables
 volatile unsigned long blinkCount = 0; 
+
+/* MyDsp declaration and init */
+MyDsp myDsp;
+AudioOutputI2S out;
+AudioControlSGTL5000 audioShield;
+AudioConnection patchCord0(myDsp,0,out,0);
+AudioConnection patchCord1(myDsp,0,out,1);
 
 // functions called by IntervalTimer should be short, run as quickly as
 // possible, and should avoid calling other functions if possible.
@@ -134,22 +143,8 @@ void blinkLED() {
 }
 
 
-int main(void)
+void setup(void)
 {
-  /* MyDsp declaration and init */
-  MyDsp myDsp;
-  AudioOutputI2S out;
-  AudioControlSGTL5000 audioShield;
-  AudioConnection patchCord0(myDsp,0,out,0);
-  AudioConnection patchCord1(myDsp,0,out,1);
- 
-  AudioMemory(2);
-  audioShield.enable();
-  audioShield.volume(0.5);
-
- 
-  IntervalTimer myTimer;
-  
   /* serial port init */
   Serial.begin(9600);
   /* LED init */
@@ -157,17 +152,24 @@ int main(void)
 
   /* timer init*/
   myTimer.begin(blinkLED, 150000);  // blinkLED to run every 0.15 seconds
-  while (1) {
-    myDsp.setFreq(random(50,1000));
-    delay(100);
-  }
+
+  AudioMemory(2);
+  audioShield.enable();
+  audioShield.volume(0.5);
+
 }
 
+void loop(void)
+{
+     while (1) {
+     myDsp.setFreq(random(50,1000));
+     delay(100);
+}		
+ 
 ```
 This project plays the crazy-sine sound while blinking the LED.
 
-1. set the  ARDUINOPATH and MYDSPPATH again as you did above. 
-2. Type make and check that the sound is correct.
-3. Add a 10ms delai in the `blinkLED` callback. What do you notice. 
+1.  Check that the sound is correct and that the led is blinking
+2. Add a 10ms delai in the `blinkLED` callback using the `delay()` function. What do you notice. 
 
 It is very important to spend a *very short time* in ISR, other wise your system can be blocked, miss interrupts or not respect real time constraints. 

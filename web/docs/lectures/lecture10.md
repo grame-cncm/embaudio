@@ -7,10 +7,9 @@ This course will present the important notions of embedded operating systems and
 It is (temporarily) available through sildes [here](lecture10/img/cours_2_os.pdf)
 
 ## A teensy program with protothreads 
-Download the [teensy_protothreads_blink.tar](lecture10/img/teensy_protothreads_blink.tar) archive and uncompress it. 
-Again you have to set up the definition of   `$ARDUINOPATH` (your arduino installation) and `$MYDSPPATH` (location of the AUD MyDsp library on your computer). The Makefile is only different in the sense that we have added ``./protothread`` directory into the ``INCLUDE_PATH``. 
+Download the [protothreads_blink.tar](lecture10/img/protothreads_blink.tar) archive and uncompress it. 
 
-Have a look at the ``main.cpp`` program. This programs defines two protothreads:`thread_red_led` that switch the LED state every  seconds, and `thread_sine` that changes the sine tune every 0.25 seconds. Both these thread are unlock by a dedicated timer. 
+Have a look at the ``protothread_blink.ino`` program. This programs defines two protothreads:`thread_red_led` that switch the LED state every  seconds, and `thread_sine` that changes the sine tune every 0.25 seconds. Both these thread are unlock by a dedicated timer. 
 
 Can you understand how it works? 
 
@@ -24,7 +23,7 @@ Note finaly, note that many variables have been set as global variables as local
 
 
 ## Add a UART printing 
-copy this ``teensy_protothreads_blink`` directory to a new ``teensy_protothreads_count`` and modify the program to print on UART serial port, every second,   the number of blinking of the LED since the beginning of the program.  This imply the following tasks (see [UART teensy Documentation](https://www.pjrc.com/teensy/td_uart.html)):
+copy this ``protothreads_blink`` directory to a new ``protothreads_count`` and modify the program to print on UART serial port, every second,   the number of blinking of the LED since the beginning of the program.  This imply the following tasks (see [UART teensy Documentation](https://www.pjrc.com/teensy/td_uart.html)):
 
 - Initialize serial communication at 9600 bauds using `Serial.begin(9600);`
 -  Declare a global variable `blink_count`
@@ -35,7 +34,7 @@ copy this ``teensy_protothreads_blink`` directory to a new ``teensy_protothreads
 Use the command ``minicom -D /dev/ttyACM0`` to visualize what is send on serial port by the teensy. 
 
 ## Control LED and sound with keyboard
-copy this ``teensy_protothreads_count`` directory to a new ``teensy_protothreads_control``
+copy this ``protothreads_count`` directory to a new ``protothreads_control``
 
 declare a new protothread ``static PT_THREAD(thread_receive(struct pt *pt))` that will receive characters on UART serial port for the host computer. the condition in the `PT_WAIT_UNTIL` will be `Serial.available()>0` (indicating that the receiving buffer contains some characters, see [UART teensy Documentation](https://www.pjrc.com/teensy/td_uart.html)). As soon as a character is typed, echo its ascii code. 
 
