@@ -143,16 +143,15 @@
 <h2 id="slides">Slides</h2>
 <p>It is (temporarily) available through sildes <a href="img/cours_2_os.pdf">here</a></p>
 <h2 id="a-teensy-program-with-protothreads">A teensy program with protothreads</h2>
-<p>Download the <a href="img/teensy_protothreads_blink.tar">teensy_protothreads_blink.tar</a> archive and uncompress it. 
-Again you have to set up the definition of   <code>$ARDUINOPATH</code> (your arduino installation) and <code>$MYDSPPATH</code> (location of the AUD MyDsp library on your computer). The Makefile is only different in the sense that we have added <code>./protothread</code> directory into the <code>INCLUDE_PATH</code>. </p>
-<p>Have a look at the <code>main.cpp</code> program. This programs defines two protothreads:<code>thread_red_led</code> that switch the LED state every  seconds, and <code>thread_sine</code> that changes the sine tune every 0.25 seconds. Both these thread are unlock by a dedicated timer. </p>
+<p>Download the <a href="img/protothreads_blink.tar">protothreads_blink.tar</a> archive and uncompress it. </p>
+<p>Have a look at the <code>protothread_blink.ino</code> program. This programs defines two protothreads:<code>thread_red_led</code> that switch the LED state every  seconds, and <code>thread_sine</code> that changes the sine tune every 0.25 seconds. Both these thread are unlock by a dedicated timer. </p>
 <p>Can you understand how it works? </p>
 <p>This example, of course, is a bit trivial because the changes in the LED state and the sine tune could have been done in timer callbacks. But, first,  we try to avoid writing to much code in the call back and, second, one has to imagine other conditions for unlocking the threads such as internal variable states or input on UART... </p>
 <p>What happens if one <code>PT_WAIT_UNTIL</code> is commented out? For instance in <code>thread_led_ref</code>:</p>
 <p><code>//PT_WAIT_UNTIL(pt, TIMER_LED_RED_ON == 1);</code></p>
 <p>Note finaly, note that many variables have been set as global variables as local protothread variables are not remanent.</p>
 <h2 id="add-a-uart-printing">Add a UART printing</h2>
-<p>copy this <code>teensy_protothreads_blink</code> directory to a new <code>teensy_protothreads_count</code> and modify the program to print on UART serial port, every second,   the number of blinking of the LED since the beginning of the program.  This imply the following tasks (see <a href="https://www.pjrc.com/teensy/td_uart.html">UART teensy Documentation</a>):</p>
+<p>copy this <code>protothreads_blink</code> directory to a new <code>protothreads_count</code> and modify the program to print on UART serial port, every second,   the number of blinking of the LED since the beginning of the program.  This imply the following tasks (see <a href="https://www.pjrc.com/teensy/td_uart.html">UART teensy Documentation</a>):</p>
 <ul>
 <li>Initialize serial communication at 9600 bauds using <code>Serial.begin(9600);</code></li>
 <li>Declare a global variable <code>blink_count</code></li>
@@ -162,7 +161,7 @@ Again you have to set up the definition of   <code>$ARDUINOPATH</code> (your ard
 </ul>
 <p>Use the command <code>minicom -D /dev/ttyACM0</code> to visualize what is send on serial port by the teensy. </p>
 <h2 id="control-led-and-sound-with-keyboard">Control LED and sound with keyboard</h2>
-<p>copy this <code>teensy_protothreads_count</code> directory to a new <code>teensy_protothreads_control</code></p>
+<p>copy this <code>protothreads_count</code> directory to a new <code>protothreads_control</code></p>
 <p>declare a new protothread <code>`static PT_THREAD(thread_receive(struct pt *pt))</code> that will receive characters on UART serial port for the host computer. the condition in the <code>PT_WAIT_UNTIL</code> will be <code>Serial.available()&gt;0</code> (indicating that the receiving buffer contains some characters, see <a href="https://www.pjrc.com/teensy/td_uart.html">UART teensy Documentation</a>). As soon as a character is typed, echo its ascii code. </p>
 <p>Use that mecanism to control the sound and LED:</p>
 <ul>
