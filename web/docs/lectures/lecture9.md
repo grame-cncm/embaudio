@@ -95,7 +95,7 @@ myTimer.begin(foo, 150000);
 For that,  `foo()` function must have type: `void foo()`
 
 ##Exercice: LED  and timer
-1. Download the [led project](img/led.tar) that blinks a led without timer. Checj that the project compiles and blinks the led . write a function `void toggle_LED()` that uses a global variable `LEDstate` which correspond to the current status of the LED. (In general, it is very common in embedded system to have a *local copy* of the state of peripheral, just to know in which state we are). 
+1. Download the [led project](img/led.tar) that blinks a led without timer. Check that the project compiles and blinks the led . write a function `void toggle_LED()` that uses a global variable `LEDstate` which correspond to the current status of the LED. (In general, it is very common in embedded system to have a *local copy* of the state of peripheral, just to know in which state we are). 
 2. Instantiate an `IntervalTimer` and, as shown above, use `toggle_LED()` function as timer callback. Have the  LED   blinking every 0.15s
 3. What is the advantage of this approach (i.e. using timers instead of dealys)
 
