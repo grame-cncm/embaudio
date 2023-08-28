@@ -36,9 +36,9 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 * **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *10/10/2023 14h00-16h00*
 * **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *06/11/2023 08h00-10h00*
 * **Lecture 7: Faust Tutorial** -- *06/11/2023 10h00-12h00*
-* **Lecture 8: [Embedded System Peripherals](lectures/lecture9.md)** -- *07/11/2023 14h00-16h00*
-* **Lecture 9: [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/lecture9.md)** -- *08/11/2023 10h00-12h00*
-* **Lecture 10: Embedded systems at [Rtone](https://rtone.fr/)** -- *14/11/2023 14h00-16h00*
+* **Lecture 8: Embedded systems at [Rtone](https://rtone.fr/)** -- *07/11/2023 14h00-16h00*
+* **Lecture 9: [Embedded System Peripherals](lectures/lecture9.md)** -- *08/11/2023 10h00-12h00*
+* **Lecture 10: [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/lecture9.md)** -- *14/11/2023 14h00-16h00*
 * **Lecture 11: [Faust on the Teensy and Advanced Control](lectures/lecture11.md)** -- *22/11/2023 10h00-12h00*
 * **Sessions 12-16: Mini-project**
     * *29/11/2023 10h00-12h00*
