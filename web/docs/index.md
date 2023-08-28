@@ -29,23 +29,25 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 
 ## Course Overview
 
-* **Lecture 1: [Course Introduction and Programming Environment Setup](lectures/lecture1.md)** -- *15/11/2022 14h00-16h00*
-* **Lecture 2: [Audio Signal Processing Fundamentals](lectures/lecture2.md)** -- *16/11/2022 14h00-16h00*
-* **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](lectures/lecture3.md)** -- *16/11/2022 16h00-18h00*
-* **Lecture 4: [Hardware Control and Audio Codec Configuration](lectures/lecture4.md)** -- *18/11/2022 8h00-10h00*
-* **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *18/11/2022 10h00-12h00*
-* **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *22/11/2022 14h00-16h00*
-* **Lecture 7: Faust Tutorial** -- *29/11/2022 14h00-16h00*
-* **Lecture 9: [Embedded System Peripherals](lectures/lecture9.md)** -- *30/11/2022 14h00-16h00*
-* **Lecture 11: [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/lecture9.md)** -- *30/11/2022 16h00-18h00*
-* **Lecture 8: Embedded systems at [Rtone](https://rtone.fr/)** -- *06/12/2022 14h00-16h00*
-* **Lecture 11: [Faust on the Teensy and Advanced Control](lectures/lecture11.md)** -- *07/12/2022 14h00-16h00*
+* **Lecture 1: [Course Introduction and Programming Environment Setup](lectures/lecture1.md)** -- *19/09/2023 14h00-16h00*
+* **Lecture 2: [Audio Signal Processing Fundamentals](lectures/lecture2.md)** -- *26/09/2023 14h00-16h00*
+* **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](lectures/lecture3.md)** -- *03/10/2023 14h00-16h00*
+* **Lecture 4: [Hardware Control and Audio Codec Configuration](lectures/lecture4.md)** -- *09/10/2023 14h00-16h00*
+* **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *10/10/2023 14h00-16h00*
+* **Lecture 6: [Audio Processing Basics II](lectures/lecture6.md)** -- *06/11/2023 08h00-10h00*
+* **Lecture 7: Faust Tutorial** -- *06/11/2023 10h00-12h00*
+* **Lecture 8: [Embedded System Peripherals](lectures/lecture9.md)** -- *07/11/2023 14h00-16h00*
+* **Lecture 9: [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/lecture9.md)** -- *08/11/2023 10h00-12h00*
+* **Lecture 10: Embedded systems at [Rtone](https://rtone.fr/)** -- *14/11/2023 14h00-16h00*
+* **Lecture 11: [Faust on the Teensy and Advanced Control](lectures/lecture11.md)** -- *22/11/2023 10h00-12h00*
 * **Sessions 12-16: Mini-project**
-    * *07/12/2022 16h00-18h00*
-    * *12/12/2022 14h00-16h00*
-    * *12/12/2022 16h00-18h00*
-    * *14/12/2022 14h00-16h00*
-    * *14/12/2022 16h00-18h00*
+    * *29/11/2023 10h00-12h00*
+    * *06/12/2023 10h00-12h00*
+    * *12/12/2023 08h00-10h00*
+    * *12/12/2023 10h00-12h00*
+    * *19/12/2023 14h00-16h00*
+
+<!--
 
 ## Final Projects
 
@@ -157,3 +159,4 @@ If you know what you're doing, feel free to implement any sound synthesis algori
 ### Project Idea 6: Cochlear Implant Simulation
 
 Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) simulator on the Teensy using the description provided in [this paper](cochlear.pdf).
+-->
