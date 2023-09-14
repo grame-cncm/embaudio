@@ -123,10 +123,6 @@
             
             <li class="nav-item" data-level="1"><a href="#lecture-1-course-introduction-and-programming-environment-setup" class="nav-link">Lecture 1: Course Introduction and Programming Environment Setup</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#course-outline" class="nav-link">Course Outline</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
             
@@ -147,7 +143,11 @@
             
             <li class="nav-item" data-level="1"><a href="#teensy-development-framework-teensyduino" class="nav-link">Teensy Development Framework: teensyduino</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#installing-teensyduino-on-your-computer" class="nav-link">Installing teensyduino on Your Computer</a>
+            <li class="nav-item" data-level="2"><a href="#cloning-aud-github-repository" class="nav-link">Cloning AUD github repository</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#installing-arduinoteensyduino-on-your-computer" class="nav-link">Installing Arduino/Teensyduino on Your Computer</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -172,8 +172,7 @@
 
 <h1 id="lecture-1-course-introduction-and-programming-environment-setup">Lecture 1: Course Introduction and Programming Environment Setup</h1>
 <p>This lecture is devoted to installing the software suite used in this course so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.</p>
-<h2 id="course-outline">Course Outline</h2>
-<p>All Lectures (2h on a computer) are labs using the Teensy board. The full course schedule can be found on <a href="../..#course-overview">the home page</a>.</p>
+<p>The slides for the first courses can be found <a href="img/cours0-intro.pdf">here</a></p>
 <h1 id="introduction-to-aud2020-and-teensy">Introduction to AUD2020 and Teensy</h1>
 <figure>
 <p>
@@ -249,8 +248,13 @@
 <li>Makefiles: type <code>make</code> in directory <code>$(arduino)/hardware/teensy/avr/cores/teensy4/</code>. </li>
 </ul>
 <p>in AUD we will use most popular  <a href="https://www.pjrc.com/teensy/td_download.html">Arduino's IDE with Teensyduino</a>. In general, programming the Teensy amounts to compile an application to an executable (<code>main.elf</code> usually) and then download the application on the teensy which is connected through its USB interface to your PC. The teensyduino software add the source file to arduino in order to compile code for the teensy and call the <code>teensy_loader</code> that flashes the <code>main.elf</code> in the connected Teensy.</p>
-<h2 id="installing-teensyduino-on-your-computer">Installing teensyduino on Your Computer</h2>
-<p>Teensyduino can be installed on Macintosh, Linux or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines.</p>
+<h2 id="cloning-aud-github-repository">Cloning AUD github repository</h2>
+<p>You will need to clone AUD github repository which is at <a href="https://github.com/grame-cncm/embaudio">https://github.com/grame-cncm/embaudio</a>. For that use the following command on Linux:</p>
+<p><code>git clone https://github.com/grame-cncm/embaudio.git AUD</code></p>
+<p>The file will now be available in the AUD directory on your computer, you will need in particulat to install the <code>mydsp</code> library in  arduino. This library will be found in <code>AUD/examples/teensy/libraries/mydsp/</code></p>
+<h2 id="installing-arduinoteensyduino-on-your-computer">Installing Arduino/Teensyduino on Your Computer</h2>
+<p>The toolchain can be installed on Macintosh, Linux or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines.</p>
+<p><b> The Arduino version to install shoudl be 1.8.19, more recent version may provide probles (on linux at least)</b></p>
 <p>The installation procedure is the following: </p>
 <ol>
 <li>
@@ -260,7 +264,7 @@
 <p>Install teensyduino following these instructions: <a href="https://www.pjrc.com/teensy/td_download.html">https://www.pjrc.com/teensy/td_download.html</a></p>
 </li>
 <li>
-<p>Clone embaudio github repository :
+<p>Clone embaudio github repository (if not done already):
 <a href="https://github.com/grame-cncm/embaudio">https://github.com/grame-cncm/embaudio</a></p>
 </li>
 <li>
