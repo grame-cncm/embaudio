@@ -12,11 +12,11 @@
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
 
         <script src="../../js/jquery-1.10.2.min.js" defer></script>
         <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -61,7 +61,23 @@
 </li>
                                     
 <li>
-    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
+    <a href="../lecture8/" class="dropdown-item"> 6: Embedded System Peripherals </a>
+</li>
+                                    
+<li>
+    <a href="../lecture10/" class="dropdown-item"> 7: Embedded OS, FreeRTOS, Embedded Linux Devices </a>
+</li>
+                                    
+<li>
+    <a href="../lecture6/" class="dropdown-item"> 8: Audio Processing Basics II </a>
+</li>
+                                    
+<li>
+    <a href="https://faustide.grame.fr/" class="dropdown-item"> 9: Faust tutorial </a>
+</li>
+                                    
+<li>
+    <a href="https://rtone.fr/" class="dropdown-item"> 10: Embbeded Systems at Rtone </a>
 </li>
                                     
 <li>
@@ -102,25 +118,13 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-level="1"><a href="#lecture-1-course-introduction-and-programming-environment-setup" class="nav-link">Lecture 1: Course Introduction and Programming Environment Setup</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#course-outline" class="nav-link">Course outline</a>
+            <li class="nav-item" data-level="2"><a href="#course-outline" class="nav-link">Course Outline</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="4"><a href="#part-1-board-introduction-and-audio-signal-processing-basics" class="nav-link">Part 1 : Board introduction and Audio Signal Processing Basics </a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="4"><a href="#part-2-embedded-audio-system-architecture" class="nav-link">Part 2: Embedded Audio System Architecture</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="4"><a href="#part-3-sessions-12-16-teensy-programming" class="nav-link">Part 3, Sessions 12-16: Teensy programming</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
               </ul>
@@ -131,25 +135,25 @@
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#teensy-40-and-audio-shield-from-pjrc-website" class="nav-link">Teensy 4.0 and Audio shield (from PJRC website).</a>
+            <li class="nav-item" data-level="1"><a href="#teensy-40-and-audio-shield-from-pjrc-website" class="nav-link">Teensy 4.0 and Audio Shield (from PJRC Website)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#teensy-40-processor-nxp-imx-rt1062" class="nav-link">Teensy 4.0 processor: NXP  i.MX RT1062</a>
+            <li class="nav-item" data-level="1"><a href="#teensy-40-processor-nxp-imx-rt1062" class="nav-link">Teensy 4.0 Processor: NXP  i.MX RT1062</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
-            <li class="nav-item" data-level="1"><a href="#teensy-developpement-framework-teensyduino" class="nav-link">Teensy  developpement framework: teensyduino</a>
+            <li class="nav-item" data-level="1"><a href="#teensy-development-framework-teensyduino" class="nav-link">Teensy Development Framework: teensyduino</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#installing-teensyduino-on-your-computer" class="nav-link">Installing teensyduino on your computer</a>
+            <li class="nav-item" data-level="2"><a href="#installing-teensyduino-on-your-computer" class="nav-link">Installing teensyduino on Your Computer</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#getting-started-on-tc-machines" class="nav-link">Getting Started on TC Machines</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#flashing-the-led-and-using-serial-terminal" class="nav-link">Flashing the LED and using serial terminal.</a>
+            <li class="nav-item" data-level="3"><a href="#flashing-the-led-and-using-serial-terminal" class="nav-link">Flashing the LED and Using Serial Terminal</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -167,34 +171,9 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="lecture-1-course-introduction-and-programming-environment-setup">Lecture 1: Course Introduction and Programming Environment Setup</h1>
-<p>This lecture is devoted to the software suite installion so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.</p>
-<h2 id="course-outline">Course outline</h2>
-<p>All Lectures (2h on a computer) are labs using Teensy boards.</p>
-<h4 id="part-1-board-introduction-and-audio-signal-processing-basics">Part 1 : Board introduction and Audio Signal Processing Basics </b></h4>
-<ul>
-<li><strong>Lecture 1: <a href="./">Course Introduction and Programming Environment Setup</a></strong> </li>
-<li><strong>Lecture 2: <a href="../lecture2/">Audio Signal Processing Fundamentals</a></strong> </li>
-<li><strong>Lecture 3: <a href="../lecture3/">Digital Audio Systems Architectures and Audio Callback</a></strong> </li>
-<li><strong>Lecture 4: <a href="../lecture4/">Hardware Control and Audio Codec Configuration</a></strong></li>
-<li><strong>Lecture 5: <a href="../lecture5/">Audio Processing Basics I</a></strong> </li>
-<li><strong>Lecture 6: <a href="../lecture6/">Audio Processing Basics II</a></strong></li>
-</ul>
-<h4 id="part-2-embedded-audio-system-architecture">Part 2: Embedded Audio System Architecture</h4>
-<ul>
-<li><strong>Lecture 7: RTone conference on embedded systems in industry <a href="https://rtone.fr/">https://rtone.fr/</a></strong></li>
-<li><strong>Lecture 8: Faust Tutorial <a href="https://faust.grame.fr/">https://faust.grame.fr/</a></strong> </li>
-<li><strong>Lecture 9: Embedded System Peripherals</strong> </li>
-<li><strong>Lecture 10: Embedded OS, FreeRTOS, Embedded Linux Devices</strong> </li>
-<li><strong>Lecture 11: <a href="../lecture11/">Faust on the Teensy and Advanced Control</a></strong> </li>
-</ul>
-<h4 id="part-3-sessions-12-16-teensy-programming">Part 3, Sessions 12-16: Teensy programming</h4>
-<ul>
-<li><strong>Lecture 12 </strong></li>
-<li><strong>Lecture 13 </strong></li>
-<li><strong>Lecture 14 </strong></li>
-<li><strong>Lecture 15 </strong></li>
-<li><strong>Lecture 16: Demos </strong></li>
-</ul>
+<p>This lecture is devoted to installing the software suite used in this course so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.</p>
+<h2 id="course-outline">Course Outline</h2>
+<p>All Lectures (2h on a computer) are labs using the Teensy board. The full course schedule can be found on <a href="../..#course-overview">the home page</a>.</p>
 <h1 id="introduction-to-aud2020-and-teensy">Introduction to AUD2020 and Teensy</h1>
 <figure>
 <p>
@@ -205,19 +184,19 @@
 </figure>
 
 <!-- TODORM: redundant -->
-<p>Most of the document on this course come from <a href="https://www.pjrc.com/store/teensy40.html">PRJC</a>. Actually most of the documentation on Teensy is from from <a href="https://www.pjrc.com/store/teensy40.html">PRJC</a>.</p>
-<p>The development in AUD are performed on <a href="https://www.pjrc.com/store/teensy40.html">teensy</a> which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using a custom/modified version of the arduino programming environnement (<a href="https://www.pjrc.com/teensy/teensyduino.html">teensyduino</a>).</p>
+<p>Most of the document on this course come from <a href="https://www.pjrc.com/store/teensy40.html">PJRC</a>. Actually most of the documentation on Teensy is from <a href="https://www.pjrc.com/store/teensy40.html">PJRC</a>.</p>
+<p>The development in AUD are performed on <a href="https://www.pjrc.com/store/teensy40.html">teensy</a> which is developped by PJRC. It is a microcontroller that offers many I/O pins and a USB interface. It is programmed using a custom/modified version of the arduino programming environment (<a href="https://www.pjrc.com/teensy/teensyduino.html">teensyduino</a>).</p>
 <p>Teensy is a brand of microcontroller development boards  designed by the co-owner of PJRC, <a href="https://github.com/PaulStoffregen">Paul Stoffregen</a>. The first 
- Teensy 2.0, Teensy++ 2.0 (and discontinued predecessors) use an 8-bit AVR microcontrollers. Teensy 3.0 (and up) have instead Freescale microcontrollers, running ARM Cortex-M CPUs. The technical characteritics of all Teensy can be compared <a href="https://www.pjrc.com/teensy/techspecs.html">here</a></p>
-<p>In AUD, we use <a href="https://www.pjrc.com/store/teensy40.html">Teensy 4.0</a> which contain an ARM Cortex-M7 at 600 MHz with a Floating point unit, hence it can handle non trivial audio treatment.</p>
-<h1 id="teensy-40-and-audio-shield-from-pjrc-website">Teensy 4.0 and Audio shield (from PJRC website).</h1>
+ Teensy 2.0, Teensy++ 2.0 (and discontinued predecessors) use an 8-bit AVR microcontrollers. Teensy 3.0 (and up) have instead Freescale microcontrollers, running ARM Cortex-M CPUs. The technical characteritics of all Teensy can be compared <a href="https://www.pjrc.com/teensy/techspecs.html">here</a>.</p>
+<p>In AUD, we use the <a href="https://www.pjrc.com/store/teensy40.html">Teensy 4.0</a> which contains an ARM Cortex-M7 at 600 MHz with a Floating point unit, hence it can handle non trivial audio treatment.</p>
+<h1 id="teensy-40-and-audio-shield-from-pjrc-website">Teensy 4.0 and Audio Shield (from PJRC Website)</h1>
 <p>Teensy 4.0 uses many powerful CPU features useful for true real-time microcontroller platform. The CPU is an ARM Cortex-M7 dual-issue superscaler clocked at at 600 MHz.  CPU performance is many times faster than typical 32 bit microcontrollers. The Floating Point Unit performs 32 bit float and 64 bit double precision math in hardware. DSP extension instructions accelerate signal processing, filters and Fourier transform. The Audio library automatically makes uses of these DSP instructions.</p>
 <p align="center">
  <img src="img/coremark_barchart_t40_small.png" /> <br>
  Teensy performance from Core Benchmarks
 </p>
 
-<p>This pinout reference card comes with Teensy 4.0  (<em >do not loose it! </em>). The pins are not 5V tolerant. Do not drive any digital pin higher than 3.3V.</p>
+<p>This pinout reference card comes with the Teensy 4.0  (<em>do not loose it!</em>). The pins are not 5V tolerant. Do not drive any digital pin higher than 3.3V.</p>
 <figure>
 <center>
 <img  src="img/teensy40_card10a_rev2.png" width="40%">&nbsp  &nbsp  &nbsp   <img  src="img/teensy40_card10b_rev2.png" width="40%">
@@ -227,7 +206,7 @@
 </center>
 </figure>
 
-<p>Teensy 4.0 has a total of 40 input/output signal pins. 24 are easily accessible when used with a solderless breadboard. The available pins include general purpose IO (GPIO, digital or analog, i.e. ADC), as well as integrated serial protocols (I2C, I2S, CAN,  SPI and UART protocols) that are used to connect to other devices. </p>
+<p>The Teensy 4.0 has a total of 40 input/output signal pins. 24 are easily accessible when used with a solderless breadboard. The available pins include general purpose IO (GPIO, digital or analog, i.e. ADC), as well as integrated serial protocols (I2C, I2S, CAN,  SPI and UART protocols) that are used to connect to other devices.</p>
 <p>In AUD, we use the <a href="https://www.pjrc.com/store/teensy3_audio.html">audio adaptor board</a> provided by PJRC that integrates a low power stereo codex (NXP Semiconductors SGTL5000 codec) and a SD card reader.</p>
 <figure>
 <center>
@@ -238,10 +217,10 @@
 </center>
 </figure>
 
-<p>The audio codec connects to Teensy using 7 signals (Yellow signal in pin map above) which are used by two protocol: I2C and I2S. This is a traditionnal configuration for audio codec: the I2C (or I²C: Inter-Integrated Circuit) protocol   is used to configure the codec (sample rate, input and output pins etc.) and the I2S (or I²S: Inter-IC Sound) is used to transfer samples bit by bit in both direction (i.e. from and to the teensy). The I2C pins SDA and SCL are used to control the chip and adjust parameters. Audio data uses I2S signals, TX (to headphones and/or line out) and RX (from line in or mic), and 3 clocks, LRCLK (44.1 kHz), BCLK (1.41 MHz) and MCLK (11.29 MHz). All 3 clocks are created by Teensy which means that the SGTL5000 operates in "slave mode".</p>
-<p>The schematics of the audio shield board, rev. D,  can bee seen <a href="https://www.pjrc.com/store/teensy3_audio.html">here</a> and the schématic of the Teensy 4.0 can be seen at the end of the page <a href="https://www.pjrc.com/store/teensy40.html">here</a>. Of course, as they are both made by PJRC, they are designed to be compatible. We (the teachers!) have soldered the connectors so that the audio shiel can be easily connected to the tennsy.</p>
-<p>The USB connector of the Teensy can support many serial communication from the host computer to the Teensy: (JTAG for flashing/programming, Serial UART, midi, mouse etc. see <code>Tools -&gt; USB Type</code> menu in arduino IDE). In AUD the USB connector is  used to program the device (i.e. download binary code into flash memory) and ascii communication between the host and the Teensy (i.e. using UART/Serial communicatino protocol). In linux machines, when the teensy USB cable is connected, the serial port will appear as <code>/dev/ttyACM0</code></p>
-<h1 id="teensy-40-processor-nxp-imx-rt1062">Teensy 4.0 processor: NXP  i.MX RT1062</h1>
+<p>The audio codec connects to Teensy using 7 signals (Yellow signal in pin map above) which are used by two protocol: I2C and I2S. This is a traditional configuration for audio codec: the I2C (or I²C: Inter-Integrated Circuit) protocol   is used to configure the codec (sample rate, input and output pins etc.) and the I2S (or I²S: Inter-IC Sound) is used to transfer samples bit by bit in both direction (i.e. from and to the teensy). The I2C pins SDA and SCL are used to control the chip and adjust parameters. Audio data uses I2S signals, TX (to headphones and/or line out) and RX (from line in or mic), and 3 clocks, LRCLK (44.1 kHz), BCLK (1.41 MHz) and MCLK (11.29 MHz). All 3 clocks are created by Teensy which means that the SGTL5000 operates in "slave mode".</p>
+<p>The schematics of the audio shield board, rev. D,  can bee seen <a href="https://www.pjrc.com/store/teensy3_audio.html">here</a> and the schematic of the Teensy 4.0 can be seen at the end of the page <a href="https://www.pjrc.com/store/teensy40.html">here</a>. Of course, as they are both made by PJRC, they are designed to be compatible. We (the teachers!) have soldered the connectors so that the audio shiel can be easily connected to the tennsy.</p>
+<p>The USB connector of the Teensy can support many serial communication from the host computer to the Teensy: (JTAG for flashing/programming, Serial UART, midi, mouse etc. see <code>Tools -&gt; USB Type</code> menu in arduino IDE). In AUD, the USB connector is  used to program the device (i.e., download binary code into flash memory) and ascii communication between the host and the Teensy (i.e. using UART/Serial communicatino protocol). In linux machines, when the teensy USB cable is connected, the serial port will appear as <code>/dev/ttyACM0</code></p>
+<h1 id="teensy-40-processor-nxp-imx-rt1062">Teensy 4.0 Processor: NXP  i.MX RT1062</h1>
 <p>The Teensy uses the i.MX RT1062 processor chip from NXP (a model of the serie i.MX RT1060). The main components of the chip can be seen on the image extracted from the <a href="img/datasheet_IMXRT1060RM_rev2.pdf">i.MX RT1060 datasheet</a>. The processor used in the chip is an ARM Cortex-M7 (<a href="img/ARM_Cortex_M7_technical_reference.pdf">technical reference manuel of Cortex-M7 here</a>). The ARM Cortex-M7 is the latest architecture that uses the ISA ARMv7 (<a href="img/ARM_v7m_ref_manual.pdf">ARM v7 reference manuel</a>)</p>
 <figure>
 <p>
@@ -250,7 +229,7 @@
 </p><figcaption><center>The i.MX RT1060 used in Teensy 4.0 and the associated perifpherals </center></figcaption>
 </figure>
 
-<p>Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. 1Mbyte  of memory is available for execution (i.e. for variables and data storing during execution). Half of this memory (RAM1) is accessed as tightly coupled memory for maximum performance. The other half (RAM2) is optimized for access by DMA. Normally large arrays &amp; data buffers are placed in RAM2, to save the ultra-fast RAM1 for normal variables. The mapping of variables to memories is indicated at the variables declaration by compiler directive (such as  <code>DMAMEM</code> for variable in RAM2 or <code>FASTRUN</code> for variable in RAM1, see <a href="https://www.pjrc.com/store/teensy40.html">here</a>. </p>
+<p>Teensy 4.0 has 2 Mbyte of flash memory intended for storing your code. 1Mbyte  of memory is available for execution (i.e., for variables and data storing during execution). Half of this memory (RAM1) is accessed as tightly coupled memory for maximum performance. The other half (RAM2) is optimized for access by DMA. Normally large arrays &amp; data buffers are placed in RAM2, to save the ultra-fast RAM1 for normal variables. The mapping of variables to memories is indicated at the variables declaration by compiler directive (such as  <code>DMAMEM</code> for variable in RAM2 or <code>FASTRUN</code> for variable in RAM1, see <a href="https://www.pjrc.com/store/teensy40.html">here</a>.</p>
 <p>The memory map is the following:</p>
 <figure>
 <center>
@@ -260,17 +239,18 @@
 <caption> Teensy 4.0 pin map (from  PJRC webite)</caption>
 </center>
 </figure>
-<h1 id="teensy-developpement-framework-teensyduino">Teensy  developpement framework: teensyduino</h1>
-<p>Teensy can be programmed in many ways:</p>
+
+<h1 id="teensy-development-framework-teensyduino">Teensy Development Framework: teensyduino</h1>
+<p>The Teensy can be programmed in many ways:</p>
 <ul>
 <li><a href="https://www.pjrc.com/teensy/td_download.html">Arduino's IDE</a> software with the Teensyduino add-on is the primary programming environment for Teensy. </li>
 <li><a href="https://www.visualmicro.com/">Visual Micro</a>, </li>
 <li><a href="https://platformio.org/platformio-ide">PlatformIO</a>  </li>
 <li>Makefiles: type <code>make</code> in directory <code>$(arduino)/hardware/teensy/avr/cores/teensy4/</code>. </li>
 </ul>
-<p>in AUD we will use most popular  <a href="https://www.pjrc.com/teensy/td_download.html">Arduino's IDE with Teensyduino</a>. In general programming the Teensy amounts to compile an application to an executable (<code>main.elf</code> usually) and then download the application on the teensy which is connected through its USB interface to your PC. The teensyduino software add the source file to arduino in order to compile code for the teensy and call the <code>teensy_loader</code> that flashes the <code>main.elf</code> in the connected Teensy.</p>
-<h2 id="installing-teensyduino-on-your-computer">Installing teensyduino on your computer</h2>
-<p>Teensyduino can be installed on Macintosh, Lunix or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines. </p>
+<p>in AUD we will use most popular  <a href="https://www.pjrc.com/teensy/td_download.html">Arduino's IDE with Teensyduino</a>. In general, programming the Teensy amounts to compile an application to an executable (<code>main.elf</code> usually) and then download the application on the teensy which is connected through its USB interface to your PC. The teensyduino software add the source file to arduino in order to compile code for the teensy and call the <code>teensy_loader</code> that flashes the <code>main.elf</code> in the connected Teensy.</p>
+<h2 id="installing-teensyduino-on-your-computer">Installing teensyduino on Your Computer</h2>
+<p>Teensyduino can be installed on Macintosh, Linux or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines.</p>
 <p>The installation procedure is the following: </p>
 <ol>
 <li>
@@ -280,25 +260,29 @@
 <p>Install teensyduino following these instructions: <a href="https://www.pjrc.com/teensy/td_download.html">https://www.pjrc.com/teensy/td_download.html</a></p>
 </li>
 <li>
-<p>In addition you will need some files written specifically for the AUD cours: the <code>mydsp</code>directory available <a href="where">here</a>. Copy the <code>mydsp</code>directory in the directory <code>$ARDUINOPATH/libraries</code></p>
+<p>Clone embaudio github repository :
+<a href="https://github.com/grame-cncm/embaudio">https://github.com/grame-cncm/embaudio</a></p>
+</li>
+<li>
+<p>You will need some files written specifically for the AUD cours: the <code>examples/teensy/libraries/mydsp</code>directory available in the github cloned . Copy the <code>mydsp</code>directory in the directory <code>$ARDUINOPATH/libraries</code></p>
 </li>
 </ol>
 <h2 id="getting-started-on-tc-machines">Getting Started on TC Machines</h2>
 <p>Arduino is installed in directory <code>/opt/arduino-1.8.19</code>. Launching arduino is done simply by typing the command <code>arduino</code> in a command line shell. However, the <code>mydsp</code> library must be made available to arduino. For that, you have to select a directory for additionnal arduino library, for instance <code>/home/mylogin/Arduino</code> and indicate it to arduino par writing the directory path in <code>file-&gt;preference-&gt;sketchbook location</code>. Then copy the <code>mydsp</code> directory in the  <code>/home/mylogin/Arduino</code>directory.</p>
-<h3 id="flashing-the-led-and-using-serial-terminal">Flashing the LED and using serial terminal.</h3>
+<h3 id="flashing-the-led-and-using-serial-terminal">Flashing the LED and Using Serial Terminal</h3>
 <p>For programming the teensy:</p>
 <ol>
 <li>Connect the teensy on your computer or on the TC machine</li>
 <li>Launch arduino: <code>&gt; arduino</code></li>
 <li>Make sure that the correct board is selected: select <code>Tools -&gt; Boards -&gt; Teensyduino -&gt; Teensy 4.0</code></li>
 <li>Make sure that the serial port is configured correctly: select <code>Tools -&gt; USB Type -&gt; Serial</code></li>
-<li>Select the flashing led example: select <code>File -&gt; Examples -&gt; Teensy -&gt; Tutorial1 -&gt; Blink</code>. A new arduino editor with the 'Blink' application code.</li>
+<li>Select the flashing led example: select <code>File -&gt; Examples -&gt; 01.Basic -&gt; Blink</code>. A new arduino editor with the 'Blink' application code.</li>
 <li>Compile and download the code by clickin in  'Upload' button in ardiuno (big arrow). This should launch the teensy_loader, and upload the code, then the led should be blinking.</li>
 <li>Select the serial communication example: select <code>File -&gt; Examples -&gt; Teensy -&gt; Serial  -&gt; EchoBoth</code>. A new arduino editor with the 'EchoBoth' application code.</li>
 <li>Compile and download the code. Launch the <code>serial monitor</code> window from arduino (magnifying glass on the upper right). This should launch a new window showing serial communcations. Type some characters in the windown and send them (i.e. type 'return'), what is happening? Try to understand the code of the <code>EchoBoth</code> application.</li>
 </ol>
 <h3 id="audio-applications-on-teensy">Audio applications on Teensy</h3>
-<p>The application prepared for the AUD course are available <a href="where">here</a>. Download the file and untar it in, this will create an <code>projects</code> directory. Open (<code>File -&gt; open...</code> in arduino) the <code>crazy-sine/crazy-sine.ino</code> project. Download it to teensy and ear the crazy sine. </p></div>
+<p>The application prepared for the AUD course are available <a href="img/crazy-sine.tar">here</a> or you can find them in the embaudio git repository (<code>examples/teensy/projects</code> directory). Download the file and untar it in, this will create an <code>projects</code> directory. Open (<code>File -&gt; open...</code> in arduino) the <code>crazy-sine/crazy-sine.ino</code> project. Download it to teensy and ear the crazy sine. </p></div>
             </div>
         </div>
 
@@ -322,13 +306,16 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+                <div id="mkdocs-search-results"></div>
             </div>
             <div class="modal-footer">
             </div>
