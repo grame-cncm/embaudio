@@ -12,9 +12,12 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body class="homepage">
@@ -58,19 +61,27 @@
 </li>
                                     
 <li>
-    <a href="lectures/lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
+    <a href="lectures/lecture8/" class="dropdown-item"> 6: Embedded System Peripherals </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture9/" class="dropdown-item"> 8: Embedded System Peripherals </a>
+    <a href="lectures/lecture10/" class="dropdown-item"> 7: Embedded OS, FreeRTOS, Embedded Linux Devices </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture10/" class="dropdown-item"> 10: Embedded OS, FreeRTOS, Embedded Linux Devices </a>
+    <a href="lectures/lecture6/" class="dropdown-item"> 8: Audio Processing Basics II </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture11/" class="dropdown-item"> 12: Faust on the Teensy and Advanced Control </a>
+    <a href="https://faustide.grame.fr/" class="dropdown-item"> 9: Faust tutorial </a>
+</li>
+                                    
+<li>
+    <a href="https://rtone.fr/" class="dropdown-item"> 10: Embbeded Systems at Rtone </a>
+</li>
+                                    
+<li>
+    <a href="lectures/lecture11/" class="dropdown-item"> 11: Faust on the Teensy and Advanced Control </a>
 </li>
                                 </ul>
                             </li>
@@ -107,7 +118,7 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-level="1"><a href="#embedded-audio-signal-processing" class="nav-link">Embedded Audio Signal Processing</a>
@@ -164,9 +175,9 @@
 <li><strong>Lecture 3: <a href="lectures/lecture3/">Digital Audio Systems Architectures and Audio Callback</a></strong> -- <em>03/10/2023 14h00-16h00</em></li>
 <li><strong>Lecture 4: <a href="lectures/lecture4/">Hardware Control and Audio Codec Configuration</a></strong> -- <em>09/10/2023 14h00-16h00</em></li>
 <li><strong>Lecture 5: <a href="lectures/lecture5/">Audio Processing Basics I</a></strong> -- <em>10/10/2023 14h00-16h00</em></li>
-<li><strong>Lecture 6: <a href="lectures/lecture6/">Embedded System Peripherals</a></strong> -- <em>06/11/2023 08h00-10h00</em></li>
-<li><strong>Lecture 7: <a href="lectures/lecture7/">Embedded OS, FreeRTOS, Embedded Linux Devices</a></strong> -- <em>06/11/2023 10h00-12h00</em></li>
-<li><strong>Lecture 8: <a href="lectures/lecture8/">Audio Processing Basics II</a></strong> -- <em>07/11/2023 14h00-16h00</em></li>
+<li><strong>Lecture 6: <a href="lectures/lecture8/">Embedded System Peripherals</a></strong> -- <em>06/11/2023 08h00-10h00</em></li>
+<li><strong>Lecture 7: <a href="lectures/lecture10/">Embedded OS, FreeRTOS, Embedded Linux Devices</a></strong> -- <em>06/11/2023 10h00-12h00</em></li>
+<li><strong>Lecture 8: <a href="lectures/lecture6/">Audio Processing Basics II</a></strong> -- <em>07/11/2023 14h00-16h00</em></li>
 <li><strong>Lecture 9: <a href="https://faust.grame.fr">Faust</a> Tutotial</strong> -- <em>08/11/2023 10h00-12h00</em></li>
 <li><strong>Lecture 10: Embedded systems at <a href="https://rtone.fr/">Rtone</a></strong> -- <em>14/11/2023 14h00-16h00</em></li>
 <li><strong>Lecture 11: <a href="lectures/lecture11/">Faust on the Teensy and Advanced Control</a></strong> -- <em>22/11/2023 10h00-12h00</em></li>
@@ -304,15 +315,13 @@ Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) s
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="js/jquery-3.6.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
         <script>
             var base_url = ".",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script src="search/main.js"></script>
+        <script src="js/base.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+        <script src="search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -322,13 +331,16 @@ Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) s
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+                <div id="mkdocs-search-results"></div>
             </div>
             <div class="modal-footer">
             </div>
@@ -379,6 +391,6 @@ Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) s
 </html>
 
 <!--
-MkDocs version : 1.5.2
-Build Date UTC : 2023-09-01 08:24:10.920280+00:00
+MkDocs version : 1.1.2
+Build Date UTC : 2023-09-14 14:40:50.549849+00:00
 -->

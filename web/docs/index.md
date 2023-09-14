@@ -34,9 +34,9 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 * **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](lectures/lecture3.md)** -- *03/10/2023 14h00-16h00*
 * **Lecture 4: [Hardware Control and Audio Codec Configuration](lectures/lecture4.md)** -- *09/10/2023 14h00-16h00*
 * **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *10/10/2023 14h00-16h00*
-* **Lecture 6: [Embedded System Peripherals](lectures/lecture6.md)** -- *06/11/2023 08h00-10h00*
-* **Lecture 7: [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/lecture7.md)** -- *06/11/2023 10h00-12h00*
-* **Lecture 8: [Audio Processing Basics II](lectures/lecture8.md)** -- *07/11/2023 14h00-16h00*
+* **Lecture 6: [Embedded System Peripherals](lectures/lecture8.md)** -- *06/11/2023 08h00-10h00*
+* **Lecture 7: [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/lecture10.md)** -- *06/11/2023 10h00-12h00*
+* **Lecture 8: [Audio Processing Basics II](lectures/lecture6.md)** -- *07/11/2023 14h00-16h00*
 * **Lecture 9: [Faust](https://faust.grame.fr) Tutotial** -- *08/11/2023 10h00-12h00*
 * **Lecture 10: Embedded systems at [Rtone](https://rtone.fr/)** -- *14/11/2023 14h00-16h00*
 * **Lecture 11: [Faust on the Teensy and Advanced Control](lectures/lecture11.md)** -- *22/11/2023 10h00-12h00*

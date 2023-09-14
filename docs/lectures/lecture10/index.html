@@ -8,13 +8,16 @@
         
         <link rel="canonical" href="https://embaudio.grame.fr/lectures/lecture10/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title> 10: Embedded OS, FreeRTOS, Embedded Linux Devices  - AUD @ INSA Lyon</title>
+        <title> 7: Embedded OS, FreeRTOS, Embedded Linux Devices  - AUD @ INSA Lyon</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
@@ -58,19 +61,27 @@
 </li>
                                     
 <li>
-    <a href="../lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
+    <a href="../lecture8/" class="dropdown-item"> 6: Embedded System Peripherals </a>
 </li>
                                     
 <li>
-    <a href="../lecture9/" class="dropdown-item"> 8: Embedded System Peripherals </a>
+    <a href="./" class="dropdown-item active"> 7: Embedded OS, FreeRTOS, Embedded Linux Devices </a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active"> 10: Embedded OS, FreeRTOS, Embedded Linux Devices </a>
+    <a href="../lecture6/" class="dropdown-item"> 8: Audio Processing Basics II </a>
 </li>
                                     
 <li>
-    <a href="../lecture11/" class="dropdown-item"> 12: Faust on the Teensy and Advanced Control </a>
+    <a href="https://faustide.grame.fr/" class="dropdown-item"> 9: Faust tutorial </a>
+</li>
+                                    
+<li>
+    <a href="https://rtone.fr/" class="dropdown-item"> 10: Embbeded Systems at Rtone </a>
+</li>
+                                    
+<li>
+    <a href="../lecture11/" class="dropdown-item"> 11: Faust on the Teensy and Advanced Control </a>
 </li>
                                 </ul>
                             </li>
@@ -83,12 +94,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../lecture9/" class="nav-link">
+                                <a rel="prev" href="../lecture8/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../lecture11/" class="nav-link">
+                                <a rel="next" href="../lecture6/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -107,10 +118,10 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lecture-10-embedded-operating-systems" class="nav-link">Lecture 10: Embedded Operating Systems</a>
+            <li class="nav-item" data-level="1"><a href="#embedded-operating-systems" class="nav-link">Embedded Operating Systems</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#slides" class="nav-link">Slides</a>
               <ul class="nav flex-column">
@@ -135,7 +146,7 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lecture-10-embedded-operating-systems">Lecture 10: Embedded Operating Systems</h1>
+<h1 id="embedded-operating-systems">Embedded Operating Systems</h1>
 <p>This course will present the important notions of embedded operating systems and show how a primitive operating system (protothreads) can be deployed on teensy.</p>
 <h2 id="slides">Slides</h2>
 <p>It is (temporarily) available through sildes <a href="img/cours_2_os.pdf">here</a></p>
@@ -173,15 +184,13 @@
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="../../js/jquery-3.6.0.min.js"></script>
-        <script src="../../js/bootstrap.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script src="../../search/main.js"></script>
+        <script src="../../js/base.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+        <script src="../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -191,13 +200,16 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+                <div id="mkdocs-search-results"></div>
             </div>
             <div class="modal-footer">
             </div>
