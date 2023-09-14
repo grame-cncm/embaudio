@@ -2,9 +2,7 @@
 
 This lecture is devoted to installing the software suite used in this course so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.
 
-## Course Outline
-
-All Lectures (2h on a computer) are labs using the Teensy board. The full course schedule can be found on [the home page](../index.md#course-overview).
+The slides for the first courses can be found [here](img/cours0-intro.pdf)
 
 # Introduction to AUD2020 and Teensy
 <figure>
@@ -104,11 +102,21 @@ The Teensy can be programmed in many ways:
 
  in AUD we will use most popular  [Arduino's IDE with Teensyduino](https://www.pjrc.com/teensy/td_download.html). In general, programming the Teensy amounts to compile an application to an executable (`main.elf` usually) and then download the application on the teensy which is connected through its USB interface to your PC. The teensyduino software add the source file to arduino in order to compile code for the teensy and call the `teensy_loader` that flashes the `main.elf` in the connected Teensy.
 
+## Cloning AUD github repository
+
+You will need to clone AUD github repository which is at [https://github.com/grame-cncm/embaudio](https://github.com/grame-cncm/embaudio). For that use the following command on Linux:
+
+``git clone https://github.com/grame-cncm/embaudio.git AUD``
+
+The file will now be available in the AUD directory on your computer, you will need in particulat to install the ``mydsp`` library in  arduino. This library will be found in ``AUD/examples/teensy/libraries/mydsp/``
 
 
-## Installing teensyduino on Your Computer
 
-Teensyduino can be installed on Macintosh, Linux or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines.
+## Installing Arduino/Teensyduino on Your Computer
+
+The toolchain can be installed on Macintosh, Linux or Windows platform, we recommend that you install it on your own machine, however it is also installed on TC machines.
+
+<b> The Arduino version to install shoudl be 1.8.19, more recent version may provide probles (on linux at least)</b>
 
 The installation procedure is the following: 
 
@@ -116,7 +124,7 @@ The installation procedure is the following:
 
 2. Install teensyduino following these instructions: [https://www.pjrc.com/teensy/td_download.html](https://www.pjrc.com/teensy/td_download.html)
 
-3. Clone embaudio github repository :
+3. Clone embaudio github repository (if not done already):
 [https://github.com/grame-cncm/embaudio](https://github.com/grame-cncm/embaudio
 )
 
