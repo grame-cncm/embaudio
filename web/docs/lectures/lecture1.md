@@ -2,7 +2,7 @@
 
 This lecture is devoted to installing the software suite used in this course so that everybody can follow the other lectures from Insa or from his home if it needs to be done in distant work.
 
-The slides for the first courses can be found [here](img/cours0-intro.pdf)
+The slides for the first courses can be found [here](lecture1/img/cours0-intro.pdf)
 
 # Introduction to AUD2020 and Teensy
 <figure>
