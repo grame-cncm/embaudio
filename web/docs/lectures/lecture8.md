@@ -1,6 +1,6 @@
-# Lecture 8: Embedded System Basics
+# Embedded System Basics
 
-This course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal ([Windows Subsystem for Linux](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl))  
+That course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal ([Windows Subsystem for Linux](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl))  
 
 
 ## First teensy-makefile project

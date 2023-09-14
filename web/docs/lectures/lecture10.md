@@ -1,4 +1,4 @@
-# Lecture 10: Embedded Operating Systems
+# Embedded Operating Systems
 
 This course will present the important notions of embedded operating systems and show how a primitive operating system (protothreads) can be deployed on teensy.
 
