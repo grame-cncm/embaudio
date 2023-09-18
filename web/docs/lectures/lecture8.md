@@ -1,11 +1,11 @@
-# Lecture 8: Embedded System Basics
+# Embedded System Basics
 
-This course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal ([Windows Subsystem for Linux](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl))  
+That course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal ([Windows Subsystem for Linux](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl))  
 
 
 ## First teensy-makefile project
 
- - Download the teensy_makefile project [here](lecture8/img/teensy_makefile.tar)
+ - Download the teensy_makefile project [here](lecture9/img/teensy_makefile.tar)
  - Untar the archive `tar xvf teensy_makefile.tar` somewhere (this will create `teensy_makefile` directory)
  - Go into the `teensy_makefile` directory and edit the `Makefile` to fill up the definition of   `$ARDUINOPATH` (your arduino installation) and `$MYDSPPATH` (location of the AUD MyDsp library on your computer).
  - Type `make` check that the compilation is going well. 
@@ -115,7 +115,7 @@ Create another project `teensy_serial` that prints, at each second, on the seria
 Posted after class...
  
 ##Exercice: LED, timer and Audio
-Download the [teensy_audio](lecture8/img/teensy_audio.tar) project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.
+Download the [teensy_audio](lecture9/img/teensy_audio.tar) project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.
 
 1. Check that the sound is correct.
 2. Add a 10ms delai in the `blinkLED` callback. What do you notice. 

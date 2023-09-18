@@ -152,7 +152,6 @@ Modify the [crazy-saw example](https://github.com/grame-cncm/embaudio/tree/maste
 
 Shall be posted here after class...
 
-<!--
 In `MyDsp.h`:
 
 ```
@@ -201,7 +200,6 @@ for (int i = 0; i < AUDIO_BLOCK_SAMPLES; i++) {
   sawtooth.setFrequency(freq*(1 + LFO.tick()*0.1));
   float currentSample = echo.tick(sawtooth.tick()*2 - 1)*0.5;
 ```
--->
 
 ### Towards the DX7
 
@@ -211,7 +209,6 @@ The DX7 carried out frequency modulation over a total of six oscillators that co
 
 Shall be posted after class...
 
-<!--
 (non-exhaustive)
 
 In `Fm.cpp`:
@@ -228,4 +225,3 @@ float Fm::tick(){
   return sineTable.tick(cIndex)*gain;
 }
 ```
--->

@@ -8,9 +8,11 @@ nav:
     - ' 3: Digital Audio Systems Architectures and Audio Callback ' : lectures/lecture3.md
     - ' 4: Hardware Control and Audio Codec Configuration ' : lectures/lecture4.md
     - ' 5: Audio Processing Basics I ' : lectures/lecture5.md
-    - ' 6: Audio Processing Basics II ' : lectures/lecture6.md
-    - ' 9: Embedded System Basics: peripherals ' : lectures/lecture9.md
-    - ' 10: Embedded System Basics: Embedded OS ' : lectures/lecture10.md
+    - ' 6: Embedded System Peripherals ' : lectures/lecture8.md
+    - ' 7: Embedded OS, FreeRTOS, Embedded Linux Devices ' : lectures/lecture10.md
+    - ' 8: Audio Processing Basics II ' : lectures/lecture6.md
+    - ' 9: Faust tutorial ' : lectures/lecture6.md
+    - ' 10: Embbeded Systems at Rtone ' : lectures/lecture6.md
     - ' 11: Faust on the Teensy and Advanced Control ' : lectures/lecture11.md
     
 theme: 

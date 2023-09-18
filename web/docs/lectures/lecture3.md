@@ -215,7 +215,7 @@ In `Sine.cpp`:
 ```
 float Sine::tick(){
   int index = phasor.tick()*SINE_TABLE_SIZE;
-  int index2 = phasor.tick()*1.5*SINE_TABLE_SIZE;
+  int index2 = (int) (index*1.5)%SINE_TABLE_SIZE;
   return (sineTable.tick(index)+sineTable.tick(index2))*gain*0.5;
 }
 ```

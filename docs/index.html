@@ -12,11 +12,11 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
 
         <script src="js/jquery-1.10.2.min.js" defer></script>
         <script src="js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
@@ -61,15 +61,23 @@
 </li>
                                     
 <li>
-    <a href="lectures/lecture6/" class="dropdown-item"> 6: Audio Processing Basics II </a>
+    <a href="lectures/lecture8/" class="dropdown-item"> 6: Embedded System Peripherals </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture9/" class="dropdown-item"> 9: Embedded System Basics: peripherals </a>
+    <a href="lectures/lecture10/" class="dropdown-item"> 7: Embedded OS, FreeRTOS, Embedded Linux Devices </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture10/" class="dropdown-item"> 10: Embedded System Basics: Embedded OS </a>
+    <a href="lectures/lecture6/" class="dropdown-item"> 8: Audio Processing Basics II </a>
+</li>
+                                    
+<li>
+    <a href="lectures/lecture6/" class="dropdown-item"> 9: Faust tutorial </a>
+</li>
+                                    
+<li>
+    <a href="lectures/lecture6/" class="dropdown-item"> 10: Embbeded Systems at Rtone </a>
 </li>
                                     
 <li>
@@ -110,7 +118,7 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-level="1"><a href="#embedded-audio-signal-processing" class="nav-link">Embedded Audio Signal Processing</a>
@@ -162,26 +170,144 @@
 </ul>
 <h2 id="course-overview">Course Overview</h2>
 <ul>
-<li><strong>Lecture 1: <a href="lectures/lecture1/">Course Introduction and Programming Environment Setup</a></strong> -- <em>15/11/2022 14h00-16h00</em></li>
-<li><strong>Lecture 2: <a href="lectures/lecture2/">Audio Signal Processing Fundamentals</a></strong> -- <em>16/11/2022 14h00-16h00</em></li>
-<li><strong>Lecture 3: <a href="lectures/lecture3/">Digital Audio Systems Architectures and Audio Callback</a></strong> -- <em>16/11/2022 16h00-18h00</em></li>
-<li><strong>Lecture 4: <a href="lectures/lecture4/">Hardware Control and Audio Codec Configuration</a></strong> -- <em>18/11/2022 8h00-10h00</em></li>
-<li><strong>Lecture 5: <a href="lectures/lecture5/">Audio Processing Basics I</a></strong> -- <em>18/11/2022 10h00-12h00</em></li>
-<li><strong>Lecture 6: <a href="lectures/lecture6/">Audio Processing Basics II</a></strong> -- <em>22/11/2022 14h00-16h00</em></li>
-<li><strong>Lecture 7: Faust Tutorial</strong> -- <em>29/11/2022 14h00-16h00</em></li>
-<li><strong>Lecture 9: <a href="lectures/lecture9/">Embedded System Peripherals</a></strong> -- <em>30/11/2022 14h00-16h00</em></li>
-<li><strong>Lecture 11: <a href="lectures/lecture9/">Embedded OS, FreeRTOS, Embedded Linux Devices</a></strong> -- <em>30/11/2022 16h00-18h00</em></li>
-<li><strong>Lecture 8: Embedded systems at <a href="https://rtone.fr/">Rtone</a></strong> -- <em>06/12/2022 14h00-16h00</em></li>
-<li><strong>Lecture 11: <a href="lectures/lecture11/">Faust on the Teensy and Advanced Control</a></strong> -- <em>07/12/2022 14h00-16h00</em></li>
+<li><strong>Lecture 1: <a href="lectures/lecture1/">Course Introduction and Programming Environment Setup</a></strong> -- <em>19/09/2023 14h00-16h00</em></li>
+<li><strong>Lecture 2: <a href="lectures/lecture2/">Audio Signal Processing Fundamentals</a></strong> -- <em>26/09/2023 14h00-16h00</em></li>
+<li><strong>Lecture 3: <a href="lectures/lecture3/">Digital Audio Systems Architectures and Audio Callback</a></strong> -- <em>03/10/2023 14h00-16h00</em></li>
+<li><strong>Lecture 4: <a href="lectures/lecture4/">Hardware Control and Audio Codec Configuration</a></strong> -- <em>09/10/2023 14h00-16h00</em></li>
+<li><strong>Lecture 5: <a href="lectures/lecture5/">Audio Processing Basics I</a></strong> -- <em>10/10/2023 14h00-16h00</em></li>
+<li><strong>Lecture 6: <a href="lectures/lecture8/">Embedded System Peripherals</a></strong> -- <em>06/11/2023 08h00-10h00</em></li>
+<li><strong>Lecture 7: <a href="lectures/lecture10/">Embedded OS, FreeRTOS, Embedded Linux Devices</a></strong> -- <em>06/11/2023 10h00-12h00</em></li>
+<li><strong>Lecture 8: <a href="lectures/lecture6/">Audio Processing Basics II</a></strong> -- <em>07/11/2023 14h00-16h00</em></li>
+<li><strong>Lecture 9: <a href="https://faust.grame.fr">Faust</a> Tutotial</strong> -- <em>08/11/2023 10h00-12h00</em></li>
+<li><strong>Lecture 10: Embedded systems at <a href="https://rtone.fr/">Rtone</a></strong> -- <em>14/11/2023 14h00-16h00</em></li>
+<li><strong>Lecture 11: <a href="lectures/lecture11/">Faust on the Teensy and Advanced Control</a></strong> -- <em>22/11/2023 10h00-12h00</em></li>
 <li><strong>Sessions 12-16: Mini-project</strong><ul>
-<li><em>07/12/2022 16h00-18h00</em></li>
-<li><em>12/12/2022 14h00-16h00</em></li>
-<li><em>12/12/2022 16h00-18h00</em></li>
-<li><em>14/12/2022 14h00-16h00</em></li>
-<li><em>14/12/2022 16h00-18h00</em></li>
+<li><em>29/11/2023 10h00-12h00</em></li>
+<li><em>06/12/2023 10h00-12h00</em></li>
+<li><em>12/12/2023 08h00-10h00</em></li>
+<li><em>12/12/2023 10h00-12h00</em></li>
+<li><em>19/12/2023 14h00-16h00</em></li>
 </ul>
 </li>
-</ul></div>
+</ul>
+<!--
+
+## Final Projects
+
+For your final project, we would like you to work in groups of 2. Pick any of the following projects up (they are ordered by level of complexity). Have fun!
+
+### Project Idea 1: Towards Resonant Filters
+
+The goal of this project is to implement a resonant filter that can be configured as a lowpass, bandpass, or highpass. For this, you will first need to implement a biquad filter: [https://en.wikipedia.org/wiki/Digital_biquad_filter](https://en.wikipedia.org/wiki/Digital_biquad_filter) (direct form 2 is preferred). You will then have to format the coefficients of that filter using the [bilinear transform](https://en.wikipedia.org/wiki/Bilinear_transform) such that:
+
+
+<pre><code>tf2s(b2,b1,b0,a1,a0,w1) = tf2(b0d,b1d,b2d,a1d,a2d)
+with {
+  c   = 1/tan(w1*0.5/SR);
+  csq = c*c;
+  d   = a0 + a1 * c + csq;
+  b0d = (b0 + b1 * c + b2 * csq)/d;
+  b1d = 2 * (b0 - b2 * csq)/d;
+  b2d = (b0 - b1 * c + b2 * csq)/d;
+  a1d = 2 * (a0 - csq)/d;
+  a2d = (a0 - a1*c + csq)/d;
+};
+</code></pre>
+
+
+where `tf2` is a direct form 2 biquad and SR the sampling rate.
+
+Finally, you'll have to format the coefficients of the `tf2s` filter such that:
+
+
+<pre><code>resonlp(fc,Q,gain) = tf2s(b2,b1,b0,a1,a0,wc)
+with {
+     wc = 2*PI*fc;
+     a1 = 1/Q;
+     a0 = 1;
+     b2 = 0;
+     b1 = 0;
+     b0 = gain;
+};
+</code></pre>
+
+
+(for the resonant lowpass)
+
+
+<pre><code>resonbp(fc,Q,gain) = tf2s(b2,b1,b0,a1,a0,wc)
+with {
+     wc = 2*PI*fc;
+     a1 = 1/Q;
+     a0 = 1;
+     b2 = 0;
+     b1 = gain;
+     b0 = 0;
+};
+</code></pre>
+
+
+(for the resonant bandpass)
+
+
+<pre><code>resonhp(fc,Q,gain,x) = gain*x-resonlp(fc,Q,gain,x);
+</code></pre>
+
+
+(for the resonant highpass).
+
+Please, note that Q controls the bandwidth of the filter such that: `Q = fc/BW`.
+
+Wrap this up by plugging a broadband signal generator (e.g., sawtooth oscillator or white noise generator) to the filter. Come up with some nice mapping controlled with hardware sensors (i.e., rotary pot, etc.).
+
+### Project Idea 2: Hearing Aids
+
+Basic hearing aids just implement a set of peak equalizing filters connected in sequence and taking the following form:
+
+
+<pre><code>peak_eq(Lfx,fx,B) = tf2s(1,b1s,1,a1s,1,wx) with {
+  T = 1.0/SR;
+  Bw = B*T/sin(wx*T); // prewarp s-bandwidth for more accuracy in z-plane
+  a1 = PI*Bw;
+  b1 = g*a1;
+  g = db2linear(abs(Lfx));
+  if(Lfx&gt;0) {
+    b1s = b1;
+    a1s = a1;
+  }
+  else {
+    b1s = a1;
+    a1s = b1;
+  }
+  wx = 2*PI*fx;
+};
+</code></pre>
+
+
+where the definition of `tf2s` (direct-form 2 biquadratic filter operating the bilinear transform) can be found in [Towards Resonant Filter](#towards-resonant-filters). `Lfx` controls the level of the filter in dB (0 for no filtering, negative value for band reduction, and positive value for band amplification). `fx` is the center frequency, `B` the bandwidth in Hz.
+
+Make an hearing aids allowing us to control at least five bands.
+
+### Project Idea 3: MIDI-Controlled Synthesizer
+
+(This project idea is more targeted towards musicians.)
+
+Implement a MIDI-controlled synthesizer based on the Teensy using the [Teensy USB MIDI Library](https://www.pjrc.com/teensy/td_midi.html). For that, you will need a midi keyboard (we can provide one if necessary). You'll also have to externally power your Teensy (we can help with that). Beyond implementing a cool-sounding synth, we encourage you to think about how polyphony could be implemented.
+
+In the end, you wanna have a MIDI keyboard connected to your Teensy and sound coming out of it...
+
+### Project Idea 4: Guitar Pedal Effect
+
+If you know what you're doing, feel free to implement any guitar pedal effect that you like and that hasn't been studied in class on the Teensy (e.g., distortion, chorus, phaser, etc.).
+
+### Project Idea 5: Sound Synthesis Module
+
+If you know what you're doing, feel free to implement any sound synthesis algorithm that you like and that hasn't been studied in class on the Teensy (e.g., granular synthesis, physical modeling, vocoder, etc.).
+
+### Project Idea 6: Cochlear Implant Simulation
+
+Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) simulator on the Teensy using the description provided in [this paper](cochlear.pdf).
+--></div>
             </div>
         </div>
 
@@ -205,13 +331,16 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+                <div id="mkdocs-search-results"></div>
             </div>
             <div class="modal-footer">
             </div>
@@ -262,6 +391,6 @@
 </html>
 
 <!--
-MkDocs version : 1.4.2
-Build Date UTC : 2022-11-28 16:51:16.101839+00:00
+MkDocs version : 1.1.2
+Build Date UTC : 2023-09-14 15:45:58.546367+00:00
 -->
