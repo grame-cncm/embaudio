@@ -3,17 +3,17 @@ site_description: Cours 5TC -- INSA Lyon -- Systèmes embarqués pour le traitem
 nav:
   - Syllabus: index.md
   - Lectures:
-    - ' 1: Course Introduction and Programming Environment Setup ' : lectures/lecture1.md
-    - ' 2: Audio Signal Processing Fundamentals ' : lectures/lecture2.md
-    - ' 3: Digital Audio Systems Architectures and Audio Callback ' : lectures/lecture3.md
-    - ' 4: Hardware Control and Audio Codec Configuration ' : lectures/lecture4.md
-    - ' 5: Audio Processing Basics I ' : lectures/lecture5.md
-    - ' 6: Embedded System Peripherals ' : lectures/lecture8.md
-    - ' 7: Embedded OS, FreeRTOS, Embedded Linux Devices ' : lectures/lecture10.md
-    - ' 8: Audio Processing Basics II ' : lectures/lecture6.md
-    - ' 9: Faust tutorial ' : lectures/lecture6.md
-    - ' 10: Embbeded Systems at Rtone ' : lectures/lecture6.md
-    - ' 11: Faust on the Teensy and Advanced Control ' : lectures/lecture11.md
+    - ' Course Introduction and Programming Environment Setup ' : lectures/intro.md
+    - ' Audio Signal Processing Fundamentals ' : lectures/digital-audio.md
+    - ' Digital Audio Systems Architectures and Audio Callback ' : lectures/architecture.md
+    - ' Hardware Control and Audio Codec Configuration ' : lectures/control.md
+    - ' Audio Processing Basics I ' : lectures/dsp1.md
+    - ' Embedded System Peripherals ' : lectures/embedded.md
+    - ' Embedded OS, FreeRTOS, Embedded Linux Devices ' : lectures/os.md
+    - ' Audio Processing Basics II ' : lectures/dsp2.md
+    - ' Faust tutorial ' : https://faust.grame.fr
+    - ' Embbeded Systems at Rtone ' : https://rtone.fr/
+    - ' Faust on the Teensy and Advanced Control ' : lectures/teensy-faust.md
     
 theme: 
   name: flatly

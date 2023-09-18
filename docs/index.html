@@ -12,12 +12,9 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
-
-        <script src="js/jquery-1.10.2.min.js" defer></script>
-        <script src="js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
     </head>
 
     <body class="homepage">
@@ -41,47 +38,47 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="lectures/lecture1/" class="dropdown-item"> 1: Course Introduction and Programming Environment Setup </a>
+    <a href="lectures/intro/" class="dropdown-item"> Course Introduction and Programming Environment Setup </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture2/" class="dropdown-item"> 2: Audio Signal Processing Fundamentals </a>
+    <a href="lectures/digital-audio/" class="dropdown-item"> Audio Signal Processing Fundamentals </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture3/" class="dropdown-item"> 3: Digital Audio Systems Architectures and Audio Callback </a>
+    <a href="lectures/architecture/" class="dropdown-item"> Digital Audio Systems Architectures and Audio Callback </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture4/" class="dropdown-item"> 4: Hardware Control and Audio Codec Configuration </a>
+    <a href="lectures/control/" class="dropdown-item"> Hardware Control and Audio Codec Configuration </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture5/" class="dropdown-item"> 5: Audio Processing Basics I </a>
+    <a href="lectures/dsp1/" class="dropdown-item"> Audio Processing Basics I </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture8/" class="dropdown-item"> 6: Embedded System Peripherals </a>
+    <a href="lectures/embedded/" class="dropdown-item"> Embedded System Peripherals </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture10/" class="dropdown-item"> 7: Embedded OS, FreeRTOS, Embedded Linux Devices </a>
+    <a href="lectures/os/" class="dropdown-item"> Embedded OS, FreeRTOS, Embedded Linux Devices </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture6/" class="dropdown-item"> 8: Audio Processing Basics II </a>
+    <a href="lectures/dsp2/" class="dropdown-item"> Audio Processing Basics II </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture6/" class="dropdown-item"> 9: Faust tutorial </a>
+    <a href="https://faust.grame.fr" class="dropdown-item"> Faust tutorial </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture6/" class="dropdown-item"> 10: Embbeded Systems at Rtone </a>
+    <a href="https://rtone.fr/" class="dropdown-item"> Embbeded Systems at Rtone </a>
 </li>
                                     
 <li>
-    <a href="lectures/lecture11/" class="dropdown-item"> 11: Faust on the Teensy and Advanced Control </a>
+    <a href="lectures/teensy-faust/" class="dropdown-item"> Faust on the Teensy and Advanced Control </a>
 </li>
                                 </ul>
                             </li>
@@ -99,7 +96,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="lectures/lecture1/" class="nav-link">
+                                <a rel="next" href="lectures/intro/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -118,7 +115,7 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-level="1"><a href="#embedded-audio-signal-processing" class="nav-link">Embedded Audio Signal Processing</a>
@@ -170,17 +167,17 @@
 </ul>
 <h2 id="course-overview">Course Overview</h2>
 <ul>
-<li><strong>Lecture 1: <a href="lectures/lecture1/">Course Introduction and Programming Environment Setup</a></strong> -- <em>19/09/2023 14h00-16h00</em></li>
-<li><strong>Lecture 2: <a href="lectures/lecture2/">Audio Signal Processing Fundamentals</a></strong> -- <em>26/09/2023 14h00-16h00</em></li>
-<li><strong>Lecture 3: <a href="lectures/lecture3/">Digital Audio Systems Architectures and Audio Callback</a></strong> -- <em>03/10/2023 14h00-16h00</em></li>
-<li><strong>Lecture 4: <a href="lectures/lecture4/">Hardware Control and Audio Codec Configuration</a></strong> -- <em>09/10/2023 14h00-16h00</em></li>
-<li><strong>Lecture 5: <a href="lectures/lecture5/">Audio Processing Basics I</a></strong> -- <em>10/10/2023 14h00-16h00</em></li>
-<li><strong>Lecture 6: <a href="lectures/lecture8/">Embedded System Peripherals</a></strong> -- <em>06/11/2023 08h00-10h00</em></li>
-<li><strong>Lecture 7: <a href="lectures/lecture10/">Embedded OS, FreeRTOS, Embedded Linux Devices</a></strong> -- <em>06/11/2023 10h00-12h00</em></li>
-<li><strong>Lecture 8: <a href="lectures/lecture6/">Audio Processing Basics II</a></strong> -- <em>07/11/2023 14h00-16h00</em></li>
-<li><strong>Lecture 9: <a href="https://faust.grame.fr">Faust</a> Tutotial</strong> -- <em>08/11/2023 10h00-12h00</em></li>
-<li><strong>Lecture 10: Embedded systems at <a href="https://rtone.fr/">Rtone</a></strong> -- <em>14/11/2023 14h00-16h00</em></li>
-<li><strong>Lecture 11: <a href="lectures/lecture11/">Faust on the Teensy and Advanced Control</a></strong> -- <em>22/11/2023 10h00-12h00</em></li>
+<li><strong>19/09/2023 -- 14h00-16h00:</strong> <a href="lectures/intro/">Course Introduction and Programming Environment Setup</a></li>
+<li><strong>26/09/2023 -- 14h00-16h00:</strong> <a href="lectures/digital-audio/">Audio Signal Processing Fundamentals</a></li>
+<li><strong>03/10/2023 -- 14h00-16h00:</strong> <a href="lectures/architecture/">Digital Audio Systems Architectures and Audio Callback</a></li>
+<li><strong>09/10/2023 -- 14h00-16h00:</strong> <a href="lectures/control/">Hardware Control and Audio Codec Configuration</a></li>
+<li><strong>10/10/2023 -- 14h00-16h00:</strong> <a href="lectures/dsp1/">Audio Processing Basics I</a></li>
+<li><strong>06/11/2023 -- 08h00-10h00:</strong> <a href="lectures/embedded/">Embedded System Peripherals</a></li>
+<li><strong>06/11/2023 -- 10h00-12h00:</strong> <a href="lectures/os/">Embedded OS, FreeRTOS, Embedded Linux Devices</a></li>
+<li><strong>07/11/2023 -- 14h00-16h00:</strong> <a href="lectures/dsp2/">Audio Processing Basics II</a></li>
+<li><strong>08/11/2023 -- 10h00-12h00:</strong> <a href="https://faust.grame.fr">Faust</a> Tutotial</li>
+<li><strong>14/11/2023 -- 14h00-16h00:</strong> Embedded systems at <a href="https://rtone.fr/">Rtone</a></li>
+<li><strong>22/11/2023 -- 10h00-12h00:</strong> <a href="lectures/teensy-faust/">Faust on the Teensy and Advanced Control</a></li>
 <li><strong>Sessions 12-16: Mini-project</strong><ul>
 <li><em>29/11/2023 10h00-12h00</em></li>
 <li><em>06/12/2023 10h00-12h00</em></li>
@@ -315,13 +312,15 @@ Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) s
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script>
             var base_url = ".",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
-        <script src="search/main.js" defer></script>
+        <script src="js/base.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -331,16 +330,13 @@ Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) s
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
+                <p>From here you can search these documents. Enter your search terms below.</p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results"></div>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
             </div>
             <div class="modal-footer">
             </div>
@@ -391,6 +387,6 @@ Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) s
 </html>
 
 <!--
-MkDocs version : 1.1.2
-Build Date UTC : 2023-09-18 08:06:56.189566+00:00
+MkDocs version : 1.5.2
+Build Date UTC : 2023-09-18 12:41:13.119087+00:00
 -->

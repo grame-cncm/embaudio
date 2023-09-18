@@ -29,17 +29,17 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 
 ## Course Overview
 
-* **Lecture 1: [Course Introduction and Programming Environment Setup](lectures/lecture1.md)** -- *19/09/2023 14h00-16h00*
-* **Lecture 2: [Audio Signal Processing Fundamentals](lectures/lecture2.md)** -- *26/09/2023 14h00-16h00*
-* **Lecture 3: [Digital Audio Systems Architectures and Audio Callback](lectures/lecture3.md)** -- *03/10/2023 14h00-16h00*
-* **Lecture 4: [Hardware Control and Audio Codec Configuration](lectures/lecture4.md)** -- *09/10/2023 14h00-16h00*
-* **Lecture 5: [Audio Processing Basics I](lectures/lecture5.md)** -- *10/10/2023 14h00-16h00*
-* **Lecture 6: [Embedded System Peripherals](lectures/lecture8.md)** -- *06/11/2023 08h00-10h00*
-* **Lecture 7: [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/lecture10.md)** -- *06/11/2023 10h00-12h00*
-* **Lecture 8: [Audio Processing Basics II](lectures/lecture6.md)** -- *07/11/2023 14h00-16h00*
-* **Lecture 9: [Faust](https://faust.grame.fr) Tutotial** -- *08/11/2023 10h00-12h00*
-* **Lecture 10: Embedded systems at [Rtone](https://rtone.fr/)** -- *14/11/2023 14h00-16h00*
-* **Lecture 11: [Faust on the Teensy and Advanced Control](lectures/lecture11.md)** -- *22/11/2023 10h00-12h00*
+* **19/09/2023 -- 14h00-16h00:** [Course Introduction and Programming Environment Setup](lectures/intro.md)
+* **26/09/2023 -- 14h00-16h00:** [Audio Signal Processing Fundamentals](lectures/digital-audio.md)
+* **03/10/2023 -- 14h00-16h00:** [Digital Audio Systems Architectures and Audio Callback](lectures/architecture.md)
+* **09/10/2023 -- 14h00-16h00:** [Hardware Control and Audio Codec Configuration](lectures/control.md)
+* **10/10/2023 -- 14h00-16h00:** [Audio Processing Basics I](lectures/dsp1.md)
+* **06/11/2023 -- 08h00-10h00:** [Embedded System Peripherals](lectures/embedded.md)
+* **06/11/2023 -- 10h00-12h00:** [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/os.md)
+* **07/11/2023 -- 14h00-16h00:** [Audio Processing Basics II](lectures/dsp2.md)
+* **08/11/2023 -- 10h00-12h00:** [Faust](https://faust.grame.fr) Tutotial
+* **14/11/2023 -- 14h00-16h00:** Embedded systems at [Rtone](https://rtone.fr/)
+* **22/11/2023 -- 10h00-12h00:** [Faust on the Teensy and Advanced Control](lectures/teensy-faust.md)
 * **Sessions 12-16: Mini-project**
     * *29/11/2023 10h00-12h00*
     * *06/12/2023 10h00-12h00*
