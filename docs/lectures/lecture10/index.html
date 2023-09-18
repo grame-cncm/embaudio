@@ -176,7 +176,158 @@
 <li>Typing 's' will switch off/on the sound (i.e. setting <code>`myDsp.setFreq(0)</code>) </li>
 <li>Typing 'o' will switch off/on the LED blinking.</li>
 </ul>
-<p>Hint: you can switch the value of a variable <code>var</code> between 0 and 1 using the Xor operator: <code>var = var ^ 1;</code></p></div>
+<p>Hint: you can switch the value of a variable <code>var</code> between 0 and 1 using the Xor operator: <code>var = var ^ 1;</code></p>
+<p><strong> Solution </strong></p>
+<pre><code>
+#include &lt;Arduino.h&gt;
+#include &lt;Audio.h&gt;
+
+#include &quot;MyDsp.h&quot;
+#include &quot;protothreads/pt.h&quot;
+
+static struct pt pt[3];
+
+
+// Teensy 3.x and 4.x  have the LED on pin 13
+const int ledPin = LED_BUILTIN;
+volatile int ledState = LOW;
+volatile unsigned int  TIMER_LED_RED_ON = 0;
+volatile unsigned int  TIMER_SINE_ON = 0;
+volatile unsigned int  SOUND_ON = 1;
+volatile unsigned int  LED_ON = 1;
+//blink count
+volatile unsigned long blink_count = 0; // use volatile for shared variables
+
+IntervalTimer TimerLed;
+IntervalTimer TimerSine;
+IntervalTimer TimerCount;
+
+MyDsp myDsp;
+AudioOutputI2S out;
+AudioControlSGTL5000 audioShield;
+AudioConnection patchCord0(myDsp,0,out,0);
+AudioConnection patchCord1(myDsp,0,out,1);
+
+
+static PT_THREAD(thread_led_red(struct pt *pt))
+{
+    PT_BEGIN(pt);
+
+    while(1)
+    {
+      if (ledState == HIGH)
+    ledState = LOW;
+      else 
+    if (LED_ON == 1)
+      ledState = HIGH;
+        else
+      ledState = LOW;
+      digitalWrite(ledPin, ledState);
+      TIMER_LED_RED_ON = 0;
+      PT_WAIT_UNTIL(pt, TIMER_LED_RED_ON == 1);
+    }
+
+    PT_END(pt);
+}
+
+static PT_THREAD(thread_sine(struct pt *pt))
+{
+    PT_BEGIN(pt);
+
+    while(1)
+    {
+      TIMER_SINE_ON = 0;
+      if (SOUND_ON == 1)
+    myDsp.setFreq(random(50,1000));
+      else
+    myDsp.setFreq(0);
+
+      PT_WAIT_UNTIL(pt, TIMER_SINE_ON == 1);
+    }
+    PT_END(pt);
+}
+
+static PT_THREAD(thread_receive(struct pt *pt))
+{
+    PT_BEGIN(pt);
+
+    while(1)
+    {
+
+      PT_WAIT_UNTIL(pt, Serial.available() &gt; 0);
+      while (Serial.available() &gt; 0) {
+        int incomingByte = Serial.read();
+          Serial.print(&quot;UART received: &quot;);
+          Serial.println(incomingByte, DEC);
+          if (incomingByte == 's')
+            {
+            SOUND_ON = SOUND_ON ^ 1;
+            Serial.print(&quot;SOUND_ON is now: &quot;);
+            Serial.println(SOUND_ON, DEC);
+            }
+          if (incomingByte == 'l') {
+            LED_ON = LED_ON ^ 1;
+            Serial.print(&quot;LED_ON is now: &quot;);
+            Serial.println(LED_ON, DEC);
+          }
+      }
+    }
+
+    PT_END(pt);
+}
+
+void timer_interrupt_led() {
+  TIMER_LED_RED_ON = 1;
+  //blink countxs
+  blink_count++;
+}
+
+//blink count
+void timer_interrupt_count() {
+  Serial.print(&quot;number of blink=&quot;);
+  Serial.println(blink_count);
+}
+
+void timer_interrupt_sine() {
+  TIMER_SINE_ON = 1;
+}
+
+
+
+void setup(void)
+{
+
+  pinMode(ledPin, OUTPUT);
+
+  //blink count
+  Serial.begin(9600);
+
+  AudioMemory(2);
+  audioShield.enable();
+  audioShield.volume(0.5);
+
+  TimerLed.begin(timer_interrupt_led, 500000);  // blinkLED to run every 0.5 seconds
+  TimerSine.begin(timer_interrupt_sine, 100000);  // Sine  to run every 0.1 seconds
+  TimerCount.begin(timer_interrupt_count, 2000000);  // Count blink every 2 seconds
+
+  PT_INIT(&amp;pt[0]);
+  PT_INIT(&amp;pt[1]);
+
+
+
+}
+
+
+void loop(void)
+{
+
+    thread_led_red(&amp;pt[0]);
+    thread_sine(&amp;pt[1]);
+    thread_receive(&amp;pt[2]);
+
+}
+
+</code></pre></div>
             </div>
         </div>
 
