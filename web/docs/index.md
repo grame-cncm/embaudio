@@ -12,6 +12,8 @@ In this course, students will learn about:
 * Audio sound synthesis and effects design 
 * The Faust programming language
 
+Course git repository: <https://github.com/grame-cncm/embaudio>
+
 ## Instructors
 
 * [Romain Michon](https://ccrma.stanford.edu/~rmichon) (INRIA)
