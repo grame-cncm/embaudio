@@ -101,8 +101,42 @@ For that,  `foo()` function must have type: `void foo()`
 
 **Solution:**
 
-Posted after class...
+```
+// See $ARDUINOPATH/hardware/teensy/avr/cos/teensy4/pins_arduino.h`
+const int ledPin = LED_BUILTIN;
 
+// Create an IntervalTimer object 
+IntervalTimer myTimer;
+  
+// The interrupt will blink the LED, and keep
+// track of how many times it has blinked.
+volatile int ledState = LOW; // use volatile for shared variables
+
+// functions called by IntervalTimer should be short, run as quickly as
+// possible, and should avoid calling other functions if possible.
+void blinkLED() {
+  if (ledState == LOW) {
+    ledState = HIGH;
+  } else {
+    ledState = LOW;
+  }
+  digitalWrite(ledPin, ledState);
+}
+
+void setup(void)
+{
+    //set led pin to output direction
+   pinMode(ledPin, OUTPUT);
+   // Initialize timer callback (called  every 0.15 seconds)
+   myTimer.begin(blinkLED, 150000);  
+
+}
+
+void loop(void) {
+//nothing to do here
+
+}
+```
 ##Exercice: LED, timer and UART (optionnal)
 Create another project `teensy_serial` that prints, at each second, on the serial port the number of LED switch occured from the beguinning. Note that you will have to use a global variable shared by the ISR (in function `toogle_LED()`) and the main code. It is recommended to disable interrupt when modifyng this variable in the main code, using `noInterrupts()` and `Interrupts()` functions.
  
