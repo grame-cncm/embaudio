@@ -117,7 +117,7 @@ Create another project `teensy_serial` that prints, at each second, on the seria
  
 **Solution:**
 
-Posted after class...  [solution here](embedded/img/timer_serial.tar) <!--  [solution here](embedded/img/timer_serial.tar) -->
+Posted after class...  <!--  [solution here](embedded/img/timer_serial.tar) -->
  
 ##Exercice: LED, timer and Audio
 Download the [teensy_audio](embedded/img/teensy_audio.tar) project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.
@@ -126,3 +126,8 @@ Download the [teensy_audio](embedded/img/teensy_audio.tar) project. (do not forg
 2. Add a 10ms delai in the `blinkLED` callback. What do you notice. 
 
 It is very important to spend a *very short time* in ISR, other wise your system can be blocked, miss interrupts or not respect real time constraints. 
+
+ 
+**Solution:**
+
+Posted after class... [solution here](embedded/img/audio_clip.tar) 
