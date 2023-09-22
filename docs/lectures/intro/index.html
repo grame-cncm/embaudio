@@ -261,6 +261,9 @@
 <p>Install teensyduino following these instructions: <a href="https://www.pjrc.com/teensy/td_download.html">https://www.pjrc.com/teensy/td_download.html</a></p>
 </li>
 <li>
+<p>If you are on Linux, make sure to install the udev rules, the udev rules file is available here:<a href="https://www.pjrc.com/teensy/00-teensy.rules">https://www.pjrc.com/teensy/00-teensy.rules</a>. execute the command:  <code>sudo cp 00-teensy.rules /etc/udev/rules.d</code></p>
+</li>
+<li>
 <p>Clone embaudio github repository (if not done already):
 <a href="https://github.com/grame-cncm/embaudio">https://github.com/grame-cncm/embaudio</a></p>
 </li>
@@ -283,7 +286,7 @@
 <li>Compile and download the code. Launch the <code>serial monitor</code> window from arduino (magnifying glass on the upper right). This should launch a new window showing serial communcations. Type some characters in the windown and send them (i.e. type 'return'), what is happening? Try to understand the code of the <code>EchoBoth</code> application.</li>
 </ol>
 <h3 id="audio-applications-on-teensy">Audio applications on Teensy</h3>
-<p>The application prepared for the AUD course are available <a href="img/crazy-sine.tar">here</a> or you can find them in the embaudio git repository (<code>examples/teensy/projects</code> directory). Download the file and untar it in, this will create an <code>projects</code> directory. Open (<code>File -&gt; open...</code> in arduino) the <code>crazy-sine/crazy-sine.ino</code> project. Download it to teensy and ear the crazy sine.</p></div>
+<p>The application prepared for the AUD course are available in the embaudio git repository (<code>examples/teensy/projects</code> directory). Open (<code>File -&gt; open...</code> in arduino) the <code>crazy-sine/crazy-sine.ino</code> project. Download it to teensy and ear the crazy sine.</p></div>
             </div>
         </div>
 
