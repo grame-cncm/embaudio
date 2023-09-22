@@ -1,50 +1,12 @@
 # Embedded System Basics
 
-That course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal ([Windows Subsystem for Linux](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl))  
+That course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling.
 
-
-## (Optionnal) Compiling teensy project with Makefile
-
-Sometimes it may be interesting to get rid of the arduino environment and provide Makefile that can be easier to tune to various sytems.
-
-Here is an example of a teensy program using a Makefile rather than the arduino environment for compilation: 
- - Download the teensy_makefile project [here](embedded/img/teensy_makefile.tar)
- - Untar the archive `tar xvf teensy_makefile.tar` somewhere (this will create `teensy_makefile` directory)
- - Go into the `teensy_makefile` directory and edit the `Makefile` to fill up the definition of   `$ARDUINOPATH` (your arduino installation) and `$MYDSPPATH` (location of the AUD MyDsp library on your computer).
- - Type `make` check that the compilation is going well. 
- 
- The object files are compiled in the build directory. The only file that are interesting for you are in the current directory: `main.cpp` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. The `main.cpp` is this one: 
-
-```
-
-#include <Audio.h>
-#include "MyDsp.h"
-
-int main(void)
-{
-  MyDsp myDsp;
-  AudioOutputI2S out;
-  AudioControlSGTL5000 audioShield;
-  AudioConnection patchCord0(myDsp,0,out,0);
-  AudioConnection patchCord1(myDsp,0,out,1);
-
-  AudioMemory(2);
-  audioShield.enable();
-  audioShield.volume(0.5);
-  while (1) {
-    myDsp.setFreq(random(50,1000));
-    delay(100);
-  }
-  
-
-}
-```
-
-As one can see, we do not have a `setup()` and `loop()` function, but just a `main()` function with an initialization (which corresponds to the `setup()` function) and an infinite loop (which correponds to the `loop()` function). This is allways the case for embedded programming: initialization and infinite loop. Here, we know exactly what executes on the ARM CPU, and it is very explicit that the ARM processor is 100% running the loop doing nothing (i.e. no operating system is present on the ARM), hence sound processing relies on interrupts. A very common programming model for embedded system is to rely only on interrupts. 
+At the end of the course is explained how to use simple makefiles to program the teensy, not the arduino IDE.
 
 
 ## INTERRUPTS
-The principle of interrupt is the same on every machine.
+The principle of interrupt fundamental in computers and it is the same on every machine.
 The processor running its program can receive interrupts (i.e. hardware interrupts no to mislead with software interrupts that are implemented by operating systems) at any time.
 An interrupt can be sent by a peripheral of the micro-controller (timer, radio chip, serial port, etc...), or received from the outside (via GPIOs) like the reset for example.
 
@@ -130,4 +92,44 @@ It is very important to spend a *very short time* in ISR, other wise your system
  
 **Solution:**
 
-Posted after class... [solution here](embedded/img/audio_clip.tar) 
+Posted after class... <!--- [solution here](embedded/img/audio_clip.tar) --->
+
+## (Optionnal) Compiling teensy project with Makefile
+
+Sometimes it may be interesting to get rid of the arduino environment and provide Makefile that can be easier to tune to various sytems.
+
+Here is an example of a teensy program using a Makefile rather than the arduino environment for compilation: 
+ - Download the teensy_makefile project [here](embedded/img/teensy_makefile.tar)
+ - Untar the archive `tar xvf teensy_makefile.tar` somewhere (this will create `teensy_makefile` directory)
+ - Go into the `teensy_makefile` directory and edit the `Makefile` to fill up the definition of   `$ARDUINOPATH` (your arduino installation) and `$MYDSPPATH` (location of the AUD MyDsp library on your computer).
+ - Type `make` check that the compilation is going well. 
+ 
+ The object files are compiled in the build directory. The only file that are interesting for you are in the current directory: `main.cpp` and `MyDsp.cpp`. The files `MyDsp.h` and `MyDsp.cpp` are the same as in the the AUD examples projects. The `main.cpp` is this one: 
+
+```
+
+#include <Audio.h>
+#include "MyDsp.h"
+
+int main(void)
+{
+  MyDsp myDsp;
+  AudioOutputI2S out;
+  AudioControlSGTL5000 audioShield;
+  AudioConnection patchCord0(myDsp,0,out,0);
+  AudioConnection patchCord1(myDsp,0,out,1);
+
+  AudioMemory(2);
+  audioShield.enable();
+  audioShield.volume(0.5);
+  while (1) {
+    myDsp.setFreq(random(50,1000));
+    delay(100);
+  }
+  
+
+}
+```
+
+As one can see, we do not have a `setup()` and `loop()` function, but just a `main()` function with an initialization (which corresponds to the `setup()` function) and an infinite loop (which correponds to the `loop()` function). This is allways the case for embedded programming: initialization and infinite loop. Here, we know exactly what executes on the ARM CPU, and it is very explicit that the ARM processor is 100% running the loop doing nothing (i.e. no operating system is present on the ARM), hence sound processing relies on interrupts. A very common programming model for embedded system is to rely only on interrupts. 
+

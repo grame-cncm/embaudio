@@ -33,6 +33,10 @@ copy this ``protothreads_blink`` directory to a new ``protothreads_count`` and m
  
 Use the command ``minicom -D /dev/ttyACM0`` to visualize what is send on serial port by the teensy. 
 
+For the moment we do not really need a new protothread, as we can assume that two calls to ``Serial.printf`` are fast enough not to perturbate audio.
+
+Imagine that we want to control our audio device using the keyboard. Receiving a caracter from the keyboard and performing the action necessary might be too long for an interrupt handle function. Hence we will add a protothread to do that. 
+
 ## Control LED and sound with keyboard
 copy this ``protothreads_count`` directory to a new ``protothreads_control``
 
@@ -46,7 +50,7 @@ Use that mecanism to control the sound and LED:
 Hint: you can switch the value of a variable `var` between 0 and 1 using the Xor operator: `var = var ^ 1;`
 
 ** Solution **
-
+<!---
 ```
 
 #include <Arduino.h>
@@ -198,3 +202,4 @@ void loop(void)
 }
 
 ```
+--->
