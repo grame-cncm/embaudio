@@ -120,7 +120,7 @@
             
             <li class="nav-item" data-level="1"><a href="#embedded-system-basics" class="nav-link">Embedded System Basics</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#first-teensy-makefile-project" class="nav-link">First teensy-makefile project</a>
+            <li class="nav-item" data-level="2"><a href="#optionnal-compiling-teensy-project-with-makefile" class="nav-link">(Optionnal) Compiling teensy project with Makefile</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -157,15 +157,16 @@
 
 <h1 id="embedded-system-basics">Embedded System Basics</h1>
 <p>That course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling. In this course and the following we will used simple makefile to program the teensy, not the arduino IDE. If you are using  Windows OS, use the WSL terminal (<a href="https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#2-install-wsl">Windows Subsystem for Linux</a>)  </p>
-<h2 id="first-teensy-makefile-project">First teensy-makefile project</h2>
-<ul>
-<li>Download the teensy_makefile project <a href="img/teensy_makefile.tar">here</a></li>
-<li>Untar the archive <code>tar xvf teensy_makefile.tar</code> somewhere (this will create <code>teensy_makefile</code> directory)</li>
-<li>Go into the <code>teensy_makefile</code> directory and edit the <code>Makefile</code> to fill up the definition of   <code>$ARDUINOPATH</code> (your arduino installation) and <code>$MYDSPPATH</code> (location of the AUD MyDsp library on your computer).</li>
-<li>Type <code>make</code> check that the compilation is going well. </li>
-</ul>
+<h2 id="optionnal-compiling-teensy-project-with-makefile">(Optionnal) Compiling teensy project with Makefile</h2>
+<p>Sometimes it may be interesting to get rid of the arduino environment and provide Makefile that can be easier to tune to various sytems.</p>
+<p>Here is an example of a teensy program using a Makefile rather than the arduino environment for compilation: 
+ - Download the teensy_makefile project <a href="img/teensy_makefile.tar">here</a>
+ - Untar the archive <code>tar xvf teensy_makefile.tar</code> somewhere (this will create <code>teensy_makefile</code> directory)
+ - Go into the <code>teensy_makefile</code> directory and edit the <code>Makefile</code> to fill up the definition of   <code>$ARDUINOPATH</code> (your arduino installation) and <code>$MYDSPPATH</code> (location of the AUD MyDsp library on your computer).
+ - Type <code>make</code> check that the compilation is going well. </p>
 <p>The object files are compiled in the build directory. The only file that are interesting for you are in the current directory: <code>main.cpp</code> and <code>MyDsp.cpp</code>. The files <code>MyDsp.h</code> and <code>MyDsp.cpp</code> are the same as in the the AUD examples projects. The <code>main.cpp</code> is this one: </p>
-<pre><code>#include &lt;Audio.h&gt;
+<pre><code>
+#include &lt;Audio.h&gt;
 #include &quot;MyDsp.h&quot;
 
 int main(void)
@@ -183,8 +184,9 @@ int main(void)
     myDsp.setFreq(random(50,1000));
     delay(100);
   }
-}
 
+
+}
 </code></pre>
 <p>As one can see, we do not have a <code>setup()</code> and <code>loop()</code> function, but just a <code>main()</code> function with an initialization (which corresponds to the <code>setup()</code> function) and an infinite loop (which correponds to the <code>loop()</code> function). This is allways the case for embedded programming: initialization and infinite loop. Here, we know exactly what executes on the ARM CPU, and it is very explicit that the ARM processor is 100% running the loop doing nothing (i.e. no operating system is present on the ARM), hence sound processing relies on interrupts. A very common programming model for embedded system is to rely only on interrupts. </p>
 <h2 id="interrupts">INTERRUPTS</h2>
@@ -222,26 +224,26 @@ myTimer.begin(foo, 150000);
 </code></pre>
 <p>For that,  <code>foo()</code> function must have type: <code>void foo()</code></p>
 <h2 id="exercice-led-blinking">Exercice: LED blinking</h2>
-<p>Copy the <code>teensy_example</code> directory to a new <code>teensy_led</code> directory. write a code that blinks the teensy LED every 100ms. For that:</p>
+<p>Create a new teensy project <code>teensy_led</code> which blinks the LED every 100ms using the <code>delay(int numMilliSeconds)</code> function:</p>
 <ol>
 <li>You have to know on which GPIO the LED has been soldered. You can look at the <a href="https://www.pjrc.com/teensy/schematic40.png">schematic of the Teensy 4.0</a> or a look at file <code>$ARDUINOPATH/hardware/teensy/avr/cos/teensy4/pins_arduino.h</code> and guess which macro can be used for the LED pin (let's call it <code>ledPin</code>).</li>
 <li>Then you just have to know that this pin has to be configured in output mode: <code>pinMode(ledPin, OUTPUT)</code> and that switching on and off the led can be done using <code>digitalWrite(ledPin, HIGH);</code> and <code>digitalWrite(ledPin, LOW);</code></li>
 <li>Using the built in function <code>delay(int numMilliSeconds)</code> write a program that blink the LED. </li>
 </ol>
 <p><strong>Solution:</strong></p>
-<p>Posted after class...</p>
+<p>Posted after class...  <!--- <a href="embedded/img/teensy_led.tar">solution here</a> ---></p>
 <h2 id="exercice-led-and-timer">Exercice: LED  and timer</h2>
 <ol>
 <li>Copy the <code>teensy_led</code> directory to a <code>teensy_timer</code> directory. write a function <code>void toggle_LED()</code> that uses a global variable <code>LEDstate</code> which correspond to the current status of the LED. (In general, it is very common in embedded system to have a <em>local copy</em> of the state of peripheral, just to know in which state we are). </li>
 <li>Instantiate an <code>IntervalTimer</code> and, as shown above, use <code>toggle_LED()</code> function as timer callback. Have the  LED   blinking every 0.15s</li>
-<li>What is the advantage of this approach (i.e. using timers instead of dealys)</li>
+<li>What is the advantage of this approach (i.e. using timers instead of delays)</li>
 </ol>
 <p><strong>Solution:</strong></p>
-<p>Posted after class...</p>
+<p>Posted after class...   <!---  <a href="embedded/img/timer_led.tar">solution here</a> ---></p>
 <h2 id="exercice-led-timer-and-uart">Exercice: LED, timer and UART</h2>
 <p>Create another project <code>teensy_serial</code> that prints, at each second, on the serial port the number of LED switch occured from the beguinning. Note that you will have to use a global variable shared by the ISR (in function <code>toogle_LED()</code>) and the main code. It is recommended to disable interrupt when modifyng this variable in the main code, using <code>noInterrupts()</code> and <code>Interrupts()</code> functions.</p>
 <p><strong>Solution:</strong></p>
-<p>Posted after class...</p>
+<p>Posted after class...  <a href="img/timer_serial.tar">solution here</a> <!--  <a href="embedded/img/timer_serial.tar">solution here</a> --></p>
 <h2 id="exercice-led-timer-and-audio">Exercice: LED, timer and Audio</h2>
 <p>Download the <a href="img/teensy_audio.tar">teensy_audio</a> project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.</p>
 <ol>
