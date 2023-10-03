@@ -208,7 +208,6 @@ but the problem with that option is that memory will be allocated twice for the 
 
 **Hint:** Beware of clipping! Adding two sine waves together even though they don't have the same frequency will likely produce a signal whose range exceeds {-1;1}: you should take that into account for your final product. 
 
-<!--
 **Solution:**
 
 In `Sine.cpp`:
@@ -220,7 +219,6 @@ float Sine::tick(){
   return (sineTable.tick(index)+sineTable.tick(index2))*gain*0.5;
 }
 ```
--->
 
 ### Stereo Echo
 

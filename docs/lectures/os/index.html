@@ -165,6 +165,8 @@
 <li>Print (using <code>Serial.print</code>) the value of <code>blink_count</code> in new timer callback.</li>
 </ul>
 <p>Use the command <code>minicom -D /dev/ttyACM0</code> to visualize what is send on serial port by the teensy. </p>
+<p>For the moment we do not really need a new protothread, as we can assume that two calls to <code>Serial.printf</code> are fast enough not to perturbate audio.</p>
+<p>Imagine that we want to control our audio device using the keyboard. Receiving a caracter from the keyboard and performing the action necessary might be too long for an interrupt handle function. Hence we will add a protothread to do that. </p>
 <h2 id="control-led-and-sound-with-keyboard">Control LED and sound with keyboard</h2>
 <p>copy this <code>protothreads_count</code> directory to a new <code>protothreads_control</code></p>
 <p>declare a new protothread <code>`static PT_THREAD(thread_receive(struct pt *pt))</code> that will receive characters on UART serial port for the host computer. the condition in the <code>PT_WAIT_UNTIL</code> will be <code>Serial.available()&gt;0</code> (indicating that the receiving buffer contains some characters, see <a href="https://www.pjrc.com/teensy/td_uart.html">UART teensy Documentation</a>). As soon as a character is typed, echo its ascii code. </p>
@@ -175,6 +177,8 @@
 </ul>
 <p>Hint: you can switch the value of a variable <code>var</code> between 0 and 1 using the Xor operator: <code>var = var ^ 1;</code></p>
 <p>** Solution **</p>
+<!---
+
 <pre><code>
 #include &lt;Arduino.h&gt;
 #include &lt;Audio.h&gt;
@@ -324,7 +328,9 @@ void loop(void)
 
 }
 
-</code></pre></div>
+</code></pre>
+
+---></div>
             </div>
         </div>
 
