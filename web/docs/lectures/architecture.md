@@ -158,7 +158,6 @@ Write a small tune/song looping through at least 5 notes and play it with the `c
 
 **Hint:** For that, you'll probably have to replace the `myDsp.setFreq(random(50,1000));` line of of `crazy-sine.ino` by something else.
 
-<!--
 **Solution:**
 
 In `crazy-sine.ino`:
@@ -192,7 +191,6 @@ void loop() {
   delay(500);
 }
 ```
--->
 
 ### Basic Additive Synthesis
 
