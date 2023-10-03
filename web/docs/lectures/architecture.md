@@ -232,7 +232,6 @@ float currentSampleR = echo1.tick(sineSample)*0.5;
 
 **Hint:** Beware of memory allocation again! Make sure that the maxim delay of your echo (on the 2 parameters of the class constructor) doesn't exceed 10000 for now for both instances of the echo. 
 
-<!--
 **Solution:**
 
 In `MyDsp.h`:
@@ -273,4 +272,3 @@ for (int i = 0; i < AUDIO_BLOCK_SAMPLES; i++) {
   ...
 }
 ```
--->
