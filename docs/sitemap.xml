@@ -2,62 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://embaudio.grame.fr/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/architecture/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/control/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/digital-audio/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/dsp1/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/dsp2/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/embedded/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/faust/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/intro/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/os/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/project/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embaudio.grame.fr/lectures/teensy-faust/</loc>
-         <lastmod>2023-10-09</lastmod>
+         <lastmod>2023-10-10</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

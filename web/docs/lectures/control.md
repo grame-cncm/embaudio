@@ -150,7 +150,6 @@ void loop() {
 
 Expand the "note looper" that you implemented as part of [this lecture](architecture.md/#looping-through-a-small-tune) so that new notes are triggered when a button is pressed (as opposed to be triggered automatically). Every time the button is pressed, a new note is produced. This means that you'll have to turn your push button into a switch using software techniques... Finally, make sure that gain is controllable using a rotary potentiometer.
 
-<!--
 **Solution:**
 
 In `crazy-sine.ino`:
@@ -201,7 +200,6 @@ void loop() {
   }
 }
 ```
--->
 
 ## Audio Codec Configuration
 
