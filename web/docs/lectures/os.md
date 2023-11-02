@@ -4,7 +4,7 @@ This course will present the important notions of embedded operating systems and
 
 ## Slides
 
-It is (temporarily) available through sildes [here](os/img/cours_2_os.pdf)
+Slides are available  [here](os/img/cours_2_os.pdf)
 
 ## A teensy program with protothreads 
 Download the [protothreads_blink.tar](os/img/protothreads_blink.tar) archive and uncompress it.
