@@ -6,7 +6,7 @@ At the end of the course is explained how to use simple makefiles to program the
 
 
 ## INTERRUPTS
-The principle of interrupt fundamental in computers and it is the same on every machine.
+The principle of interrupt is fundamental in computers and it is the same on every machine.
 The processor running its program can receive interrupts (i.e. hardware interrupts no to mislead with software interrupts that are implemented by operating systems) at any time.
 An interrupt can be sent by a peripheral of the micro-controller (timer, radio chip, serial port, etc...), or received from the outside (via GPIOs) like the reset for example.
 
@@ -73,7 +73,7 @@ Posted after class...  <!--- [solution here](embedded/img/teensy_led.tar) --->
 **Solution:**
 
 Posted after class...   <!---  [solution here](embedded/img/timer_led.tar) --->
-
+ 
 ##Exercice: LED, timer and UART
 Create another project `teensy_serial` that prints, at each second, on the serial port the number of LED switch occured from the beguinning. Note that you will have to use a global variable shared by the ISR (in function `toogle_LED()`) and the main code. It is recommended to disable interrupt when modifyng this variable in the main code, using `noInterrupts()` and `Interrupts()` functions.
  
@@ -133,3 +133,4 @@ int main(void)
 
 As one can see, we do not have a `setup()` and `loop()` function, but just a `main()` function with an initialization (which corresponds to the `setup()` function) and an infinite loop (which correponds to the `loop()` function). This is allways the case for embedded programming: initialization and infinite loop. Here, we know exactly what executes on the ARM CPU, and it is very explicit that the ARM processor is 100% running the loop doing nothing (i.e. no operating system is present on the ARM), hence sound processing relies on interrupts. A very common programming model for embedded system is to rely only on interrupts. 
 
+The generic ``Makefile`` that you can use for your project [is here](img/Makefile).
