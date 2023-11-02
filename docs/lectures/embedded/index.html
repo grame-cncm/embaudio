@@ -12,9 +12,12 @@
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/docco.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/docco.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body>
@@ -115,11 +118,15 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-level="1"><a href="#embedded-system-basics" class="nav-link">Embedded System Basics</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#slides" class="nav-link">Slides</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#interrupts" class="nav-link">INTERRUPTS</a>
               <ul class="nav flex-column">
               </ul>
@@ -158,8 +165,10 @@
 <h1 id="embedded-system-basics">Embedded System Basics</h1>
 <p>That course will explain in more details the principles of embedded programming,  peripheral programming, and interrupt handling.</p>
 <p>At the end of the course is explained how to use simple makefiles to program the teensy, not the arduino IDE.</p>
+<h2 id="slides">Slides</h2>
+<p>Slides courses are available <a href="img/cours1-embedded.pdf">here</a></p>
 <h2 id="interrupts">INTERRUPTS</h2>
-<p>The principle of interrupt fundamental in computers and it is the same on every machine.
+<p>The principle of interrupt is fundamental in computers and it is the same on every machine.
 The processor running its program can receive interrupts (i.e. hardware interrupts no to mislead with software interrupts that are implemented by operating systems) at any time.
 An interrupt can be sent by a peripheral of the micro-controller (timer, radio chip, serial port, etc...), or received from the outside (via GPIOs) like the reset for example.</p>
 <p>There is another way to communicate with peripherals which is called <em>polling</em>: regularly look a the state of the peripheral to see if something has changed. It is simpler than using interrupts but much more compute-intensive for the CPU.  </p>
@@ -214,7 +223,7 @@ myTimer.begin(foo, 150000);
 <p><strong>Solution:</strong></p>
 <p>Posted after class...  <!--  <a href="embedded/img/timer_serial.tar">solution here</a> --></p>
 <h2 id="exercice-led-timer-and-audio">Exercice: LED, timer and Audio</h2>
-<p>Download the <a href="img/teensy_audio.tar">teensy_audio</a> project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.</p>
+<p>Download the <a href="img/teensy_audio.tar">teensy_audio</a> project.. This project plays the crazy-sine sound while blinking the LED.</p>
 <ol>
 <li>Check that the sound is correct.</li>
 <li>Add a 10ms delai in the <code>blinkLED</code> callback. What do you notice. </li>
@@ -253,7 +262,8 @@ int main(void)
 
 }
 </code></pre>
-<p>As one can see, we do not have a <code>setup()</code> and <code>loop()</code> function, but just a <code>main()</code> function with an initialization (which corresponds to the <code>setup()</code> function) and an infinite loop (which correponds to the <code>loop()</code> function). This is allways the case for embedded programming: initialization and infinite loop. Here, we know exactly what executes on the ARM CPU, and it is very explicit that the ARM processor is 100% running the loop doing nothing (i.e. no operating system is present on the ARM), hence sound processing relies on interrupts. A very common programming model for embedded system is to rely only on interrupts. </p></div>
+<p>As one can see, we do not have a <code>setup()</code> and <code>loop()</code> function, but just a <code>main()</code> function with an initialization (which corresponds to the <code>setup()</code> function) and an infinite loop (which correponds to the <code>loop()</code> function). This is allways the case for embedded programming: initialization and infinite loop. Here, we know exactly what executes on the ARM CPU, and it is very explicit that the ARM processor is 100% running the loop doing nothing (i.e. no operating system is present on the ARM), hence sound processing relies on interrupts. A very common programming model for embedded system is to rely only on interrupts. </p>
+<p>The generic <code>Makefile</code> that you can use for your project <a href="img/Makefile">is here</a>.</p></div>
             </div>
         </div>
 
@@ -261,15 +271,13 @@ int main(void)
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="../../js/jquery-3.6.0.min.js"></script>
-        <script src="../../js/bootstrap.min.js"></script>
         <script>
             var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script src="../../search/main.js"></script>
+        <script src="../../js/base.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+        <script src="../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -279,13 +287,16 @@ int main(void)
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+                <div id="mkdocs-search-results"></div>
             </div>
             <div class="modal-footer">
             </div>

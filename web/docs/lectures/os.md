@@ -15,7 +15,7 @@ Can you understand how it works?
 
 This example, of course, is a bit trivial because the changes in the LED state and the sine tune could have been done in timer callbacks. But, first,  we try to avoid writing to much code in the call back and, second, one has to imagine other conditions for unlocking the threads such as internal variable states or input on UART... 
 
- What happens if one ``PT_WAIT_UNTIL`` is commented out? For instance in ``thread_led_ref``:
+ What happens if one ``PT_WAIT_UNTIL`` is commented out? For instance in ``thread_led_red``:
  
  ``//PT_WAIT_UNTIL(pt, TIMER_LED_RED_ON == 1);``
 
