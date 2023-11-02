@@ -4,6 +4,9 @@ That course will explain in more details the principles of embedded programming,
 
 At the end of the course is explained how to use simple makefiles to program the teensy, not the arduino IDE.
 
+## Slides
+
+Slides courses are available [here](embedded/img/cours1-embedded.pdf)
 
 ## INTERRUPTS
 The principle of interrupt is fundamental in computers and it is the same on every machine.
