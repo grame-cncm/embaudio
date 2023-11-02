@@ -85,7 +85,7 @@ Create another project `teensy_serial` that prints, at each second, on the seria
 Posted after class...  <!--  [solution here](embedded/img/timer_serial.tar) -->
  
 ##Exercice: LED, timer and Audio
-Download the [teensy_audio](embedded/img/teensy_audio.tar) project. (do not forget to indicate the ARDUINOPATH and MYDSPPATH again). This project plays the crazy-sine sound while blinking the LED.
+Download the [teensy_audio](embedded/img/teensy_audio.tar) project.. This project plays the crazy-sine sound while blinking the LED.
 
 1. Check that the sound is correct.
 2. Add a 10ms delai in the `blinkLED` callback. What do you notice. 
