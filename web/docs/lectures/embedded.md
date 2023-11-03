@@ -136,4 +136,4 @@ int main(void)
 
 As one can see, we do not have a `setup()` and `loop()` function, but just a `main()` function with an initialization (which corresponds to the `setup()` function) and an infinite loop (which correponds to the `loop()` function). This is allways the case for embedded programming: initialization and infinite loop. Here, we know exactly what executes on the ARM CPU, and it is very explicit that the ARM processor is 100% running the loop doing nothing (i.e. no operating system is present on the ARM), hence sound processing relies on interrupts. A very common programming model for embedded system is to rely only on interrupts. 
 
-The generic ``Makefile`` that you can use for your project [is here](img/Makefile).
+The generic ``Makefile`` that you can use for your project is here <!--[is here](embedded/img/Makefile)-->.
