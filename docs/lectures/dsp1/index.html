@@ -307,16 +307,10 @@ for (int i = 0; i &lt; AUDIO_BLOCK_SAMPLES; i++) {
 </code></pre>
 <h3 id="towards-the-dx7">Towards the DX7</h3>
 <p>The DX7 carried out frequency modulation over a total of six oscillators that could be patched in <a href="https://static.righto.com/images/dx7-alg/algorithms-w800.jpg">different ways</a>. So FM is not limited to two oscillators... Try to implement an FM synthesizer involving 3 oscillators instead of one. They should be connected in series: 3 -&gt; 2 -&gt; 1.</p>
-<!--
-**Solution:**
-
-Shall be posted after class...
-
-(non-exhaustive)
-
-In `Fm.cpp`:
-
-
+<p><strong>Solution:</strong></p>
+<p>Shall be posted after class...</p>
+<p>(non-exhaustive)</p>
+<p>In <code>Fm.cpp</code>:</p>
 <pre><code>float Fm::tick(){
   int m0Index = m0Phasor.tick()*SINE_TABLE_SIZE;
   float modulator0 = sineTable.tick(m0Index);
@@ -327,9 +321,7 @@ In `Fm.cpp`:
   int cIndex = cPhasor.tick()*SINE_TABLE_SIZE;
   return sineTable.tick(cIndex)*gain;
 }
-</code></pre>
-
---></div>
+</code></pre></div>
             </div>
         </div>
 
