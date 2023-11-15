@@ -40,7 +40,7 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 * **06/11/2023 -- 10h00-12h00:** [Embedded OS, FreeRTOS, Embedded Linux Devices](lectures/os.md)
 * **07/11/2023 -- 14h00-16h00:** [Audio Processing Basics II](lectures/dsp2.md)
 * **08/11/2023 -- 10h00-12h00:** [Faust](https://faust.grame.fr) Tutotial
-* **14/11/2023 -- 14h00-16h00:** Embedded systems at [Rtone](https://rtone.fr/)
+* **14/11/2023 -- 14h00-16h00:** Embedded systems at [Rtone](https://rtone.fr/), [slides of Alexis Duque](lectures/rtone/rtone-2023.pdf)
 * **22/11/2023 -- 10h00-12h00:** [Faust on the Teensy and Advanced Control](lectures/teensy-faust.md)
 * **Sessions 12-16: Mini-project**
     * *29/11/2023 10h00-12h00*
