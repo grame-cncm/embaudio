@@ -49,7 +49,6 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
     * *12/12/2023 10h00-12h00*
     * *19/12/2023 14h00-16h00*
 
-<!--
 
 ## Final Projects
 
@@ -161,4 +160,3 @@ If you know what you're doing, feel free to implement any sound synthesis algori
 ### Project Idea 6: Cochlear Implant Simulation
 
 Implement a [cochlear implant](https://en.wikipedia.org/wiki/Cochlear_implant) simulator on the Teensy using the description provided in [this paper](cochlear.pdf).
--->
