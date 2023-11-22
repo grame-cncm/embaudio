@@ -27,7 +27,7 @@ The course will consists of 32 hours (2 ECTS) divided into 16h TD (or CM, this i
 * 2x2h CM
 * 6x2h CM/TD
 * 8x2h TP
-* Evaluation on TP  projects
+* Evaluation on TPs
 
 ## Course Overview
 
